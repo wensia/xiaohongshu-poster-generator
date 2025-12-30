@@ -39,7 +39,7 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/xiaohongshu-poster-generator.git
+git clone https://github.com/wensia/xiaohongshu-poster-generator.git
 cd xiaohongshu-poster-generator
 ```
 
@@ -50,46 +50,56 @@ cd xiaohongshu-poster-generator
 cp config.py.example config.py
 cp .env.example .env
 
-# 编辑 config.py，填入飞书凭证
+# 编辑文件，填入飞书凭证
 ```
 
 ### 3. 配置飞书应用
 
 1. 访问 [飞书开放平台](https://open.feishu.cn/app) 创建应用
 2. 获取 App ID 和 App Secret
-3. 添加多维表格权限
-4. 填入 `config.py`
+3. 添加权限：`bitable:app` `drive:drive`
+4. 填入 `.env` 文件
 
 ### 4. 配置小红书 MCP
 
 ```bash
 cd xiaohongshu-mcp
 ./xiaohongshu-login-darwin-arm64  # macOS ARM
-# 扫码登录
+# 扫码登录后保持服务运行
 ```
 
-### 5. 配置 Claude Code MCP
+### 5. 配置 Claude Code MCP（推荐用户级）
 
-在 Claude Code 中添加 MCP 服务器：
+> 📌 **推荐将 MCP 配置放在用户级**（`~/.claude/settings.json`），避免敏感凭证进入 git。
+> 项目提供 `.mcp.json.example` 作为配置模板参考。
+
+编辑 `~/.claude/settings.json`，添加 `mcpServers`：
 
 ```json
 {
   "mcpServers": {
     "xiaohongshu-mcp": {
-      "command": "./xiaohongshu-mcp/xiaohongshu-login-darwin-arm64",
-      "args": ["mcp"]
+      "type": "sse",
+      "url": "http://localhost:18060/mcp"
     },
     "lark-mcp": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/lark-mcp@latest"]
+      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "<APP_ID>", "-s", "<APP_SECRET>"]
     },
     "playwright": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "@anthropic-ai/playwright-mcp@latest"]
     }
   }
 }
 ```
+
+**为什么用户级更好？**
+- xiaohongshu cookies 是个人账号，无法共享
+- lark-mcp 含敏感凭证，不宜进 git
+- 跨项目复用，无需重复配置
 
 ## 使用方法
 
