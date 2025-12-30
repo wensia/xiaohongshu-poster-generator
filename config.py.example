@@ -1,0 +1,70 @@
+"""
+项目配置示例文件
+
+使用方法：
+1. 复制此文件为 config.py
+2. 填入你的飞书应用凭证
+3. 配置你的多维表格信息
+"""
+from pathlib import Path
+
+# 项目根目录
+PROJECT_ROOT = Path(__file__).parent
+
+# ==================== 飞书配置 ====================
+# 从飞书开放平台获取: https://open.feishu.cn/app
+LARK_APP_ID = "cli_xxxxxxxxxx"
+LARK_APP_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxx"
+
+# ==================== 飞书多维表格配置 ====================
+# 支持配置多个 Base，每个 Base 可以有自己的名称和描述
+# app_token: 从多维表格 URL 获取 https://xxx.feishu.cn/base/<app_token>
+# table_id: 数据表 ID，运行 init_bitable_fields.py 后获取
+
+LARK_BITABLES = {
+    # 星座海报生成表
+    "星座海报生成": {
+        "app_token": "Qt6Qbzzy6axxxxxxxxxx",
+        "table_id": "tblyDtUqxxxxxxxx",
+    },
+    # 低粉爆文抓取表
+    "低粉爆文抓取": {
+        "app_token": "Qt6Qbzzy6axxxxxxxxxx",
+        "table_id": "tblsfs6oxxxxxxxx",
+    },
+}
+
+# 默认使用的表格名称（必须是 LARK_BITABLES 中的一个 key）
+DEFAULT_BITABLE = "星座海报生成"
+
+
+# ==================== 辅助函数 ====================
+def get_bitable(name: str = None) -> dict:
+    """获取指定名称的多维表格配置"""
+    name = name or DEFAULT_BITABLE
+    if name not in LARK_BITABLES:
+        raise ValueError(f"未找到名为 '{name}' 的表格配置，可用: {list(LARK_BITABLES.keys())}")
+    return LARK_BITABLES[name]
+
+
+def list_bitables() -> list:
+    """列出所有配置的多维表格"""
+    return [
+        {"name": name, **config}
+        for name, config in LARK_BITABLES.items()
+    ]
+
+
+# ==================== 目录配置 ====================
+OUTPUT_DIR = PROJECT_ROOT / "output"
+PREVIEW_DIR = PROJECT_ROOT / "skills" / "zodiac-poster" / "assets" / "previews"
+
+# 支持的图片格式
+SUPPORTED_FORMATS = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'}
+
+# 星座列表
+ZODIAC_LIST = [
+    '白羊座', '金牛座', '双子座', '巨蟹座',
+    '狮子座', '处女座', '天秤座', '天蝎座',
+    '射手座', '摩羯座', '水瓶座', '双鱼座'
+]

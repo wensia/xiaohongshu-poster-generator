@@ -1,0 +1,42 @@
+# ==================== 敏感配置 ====================
+config.py
+.env
+.mcp.json
+
+# ==================== 运行时生成 ====================
+output/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# ==================== MCP 运行时 ====================
+.playwright-mcp/
+xiaohongshu-mcp/cookies.json
+xiaohongshu-mcp/*.log
+
+# ==================== 临时文件 ====================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ==================== IDE ====================
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ==================== 日志 ====================
+*.log
+logs/
+
+# ==================== 测试文件 ====================
+x.html
+test*.html
+debug/
