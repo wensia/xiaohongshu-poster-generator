@@ -93,11 +93,37 @@ font-family: 'Noto Serif SC', serif;
 
 | 元素 | 字号 | 字重 | 字距 |
 |------|------|------|------|
+| **日期+星座** | **48-56px** | **600** | **4-6px** |
 | 主标题 | 72-84px | 500-600 | 2-4px |
 | 副标题/强调 | 32-42px | 400-500 | 3-4px |
 | 正文 | 28-32px | 400 | 2-3px |
 | 标签 | 20-24px | 400 | 6-8px |
 | 页码 | 24px | 400 | 4px |
+
+### 每日运势专用样式
+
+日期+星座是每日运势封面的**视觉焦点**，需要特别突出：
+
+```css
+.date-zodiac {
+  font-size: 52px;           /* 大字号，一眼可见 */
+  font-weight: 600;          /* 加粗强调 */
+  color: #2D2D2D;            /* 深色主文字 */
+  letter-spacing: 5px;       /* 舒适字距 */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 可选：添加装饰下划线 */
+.date-zodiac::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C15F3C, transparent);
+  margin: 16px auto 0;
+}
+```
 
 ---
 
