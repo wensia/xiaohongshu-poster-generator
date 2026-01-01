@@ -148,11 +148,28 @@ assets/templates/editorial-dynamic/examples/    # 动态编辑示例
 
 ## 生成流程
 
+### 步骤 0：读取飞书记录的模板字段（必须！）
+
+**⚠️ 在生成海报前，必须先确定使用哪种模板风格！**
+
+1. 从飞书记录中获取"模板"字段值
+2. 根据映射表确定模板 ID（参见"模板字段值映射"）
+3. 如果字段为空，默认使用 `editorial-warm`
+
+**映射示例**：
+- 字段值 `动态编辑风` → 模板 ID `editorial-dynamic`
+- 字段值 `编辑暖调` → 模板 ID `editorial-warm`
+- 字段值 `极简暖调` → 模板 ID `minimal-warm`
+
 ### 步骤 1：读取设计规范
 
+根据步骤 0 确定的模板 ID，读取对应的设计规范：
+
 ```
-读取 assets/templates/{模板ID}.md
+读取 assets/templates/{模板ID}/TEMPLATE.md
 ```
+
+**重要**：必须使用正确的模板规范！不同模板的设计差异显著。
 
 ### 步骤 2：AI 智能处理
 
@@ -264,6 +281,26 @@ mcp__playwright__browser_close
 | 用途 | 单选 | 封面/长文案 |
 | 已生成 | 复选框 | 状态标记 |
 | 已发布 | 复选框 | 发布状态 |
+
+### 模板字段值映射
+
+**⚠️ 生成海报前必须读取"模板"字段，使用对应模板风格！**
+
+| 字段值（中文） | 模板 ID | 模板规范文件 |
+|---------------|---------|-------------|
+| 编辑暖调 | `editorial-warm` | `assets/templates/editorial-warm/TEMPLATE.md` |
+| 动态编辑风 | `editorial-dynamic` | `assets/templates/editorial-dynamic/TEMPLATE.md` |
+| 极简暖调 | `minimal-warm` | `assets/templates/minimal-warm/TEMPLATE.md` |
+
+**模板风格差异对比：**
+
+| 对比项 | editorial-warm | editorial-dynamic |
+|--------|---------------|-------------------|
+| 布局 | 居中对称 | 非对称，视觉张力 |
+| 装饰 | 简约（仅线条） | 7 种装饰元素 |
+| 色块 | 无 | 色块标签、渐变色带 |
+| 变体 | 固定 | 4 种布局变体 (A/B/C/D) |
+| 背景装饰 | 无 | 大字号淡色背景（如 2026） |
 
 ---
 
