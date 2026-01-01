@@ -139,6 +139,7 @@ font-family: 'Noto Serif SC', serif;
 ```css
 .keyword-block {
   display: inline-block;
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
   color: #fff;
   font-size: 32px;
@@ -159,6 +160,7 @@ font-family: 'Noto Serif SC', serif;
 ```css
 .keyword-border {
   display: inline-block;
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   font-size: 32px;
   font-weight: 500;
   color: #C15F3C;
@@ -179,6 +181,7 @@ font-family: 'Noto Serif SC', serif;
 ```css
 .keyword-underline {
   display: inline-block;
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   font-size: 34px;
   font-weight: 600;
   color: #3D3D3D;
@@ -197,7 +200,8 @@ font-family: 'Noto Serif SC', serif;
 
 ```css
 .keyword-numbered {
-  display: flex;
+  display: inline-flex;            /* ⚠️ 改为 inline-flex 确保宽度自适应 */
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   align-items: center;
   gap: 16px;
   margin-bottom: 50px;
@@ -232,6 +236,7 @@ font-family: 'Noto Serif SC', serif;
 ```css
 .keyword-dual {
   display: inline-block;
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   font-size: 32px;
   font-weight: 500;
   color: #3D3D3D;
@@ -252,6 +257,7 @@ font-family: 'Noto Serif SC', serif;
 ```css
 .keyword-outline {
   display: inline-block;
+  width: fit-content;              /* ⚠️ 必须：宽度自适应文字内容 */
   font-size: 36px;
   font-weight: 700;
   color: transparent;
