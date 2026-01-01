@@ -344,9 +344,19 @@ font-family: 'Noto Serif SC', serif;
 
 1. **色块标签** — 关键词/分类标签背景
    ```css
-   background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
-   color: #fff;
+   .keyword {
+     display: inline-block;        /* 宽度自适应文字长度，不占满整行 */
+     width: fit-content;           /* 确保宽度跟随内容 */
+     background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
+     color: #fff;
+     font-size: 20-24px;
+     letter-spacing: 6-8px;
+     padding: 8px 20px;            /* 内边距提供呼吸空间 */
+     border-radius: 2px;
+     margin-bottom: 30-40px;
+   }
    ```
+   **⚠️ 重要**：色块宽度必须自适应文字长度，禁止使用 `width: 100%` 或 `display: block`
 
 2. **装饰线** — 分隔线、竖线装饰
    ```css
