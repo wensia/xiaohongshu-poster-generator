@@ -175,12 +175,57 @@
   width: fit-content;
   background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
   color: #fff;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 500;
   letter-spacing: 8px;
-  padding: 12px 28px;
+  padding: 14px 32px;
   border-radius: 2px;
   margin-bottom: 50px;
+}
+
+/* 封面星座醒目标识区（封面专用） */
+.zodiac-header {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+.zodiac-icon-large svg {
+  width: 80px;
+  height: 80px;
+  stroke: #C15F3C;
+  stroke-width: 2;
+  fill: none;
+  margin-bottom: 20px;
+}
+.zodiac-name {
+  font-size: 72px;
+  font-weight: 700;
+  color: #C15F3C;
+  letter-spacing: 16px;
+  margin-bottom: 10px;
+}
+.zodiac-year {
+  font-size: 28px;
+  font-weight: 400;
+  color: #9A958A;
+  letter-spacing: 8px;
+}
+
+/* 星座背景大字（封面专用） */
+.zodiac-bg {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 180px;
+  font-weight: 700;
+  color: rgba(193, 95, 60, 0.08);
+  letter-spacing: 20px;
+  z-index: 0;
+  white-space: nowrap;
 }
 
 /* 装饰：大字号背景 */
@@ -227,10 +272,10 @@
 
 /* 封面主标题 */
 .main-title {
-  font-size: 68px;
+  font-size: 80px;
   font-weight: 600;
   color: #2D2D2D;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   line-height: 1.4;
   margin-bottom: 40px;
 }
@@ -278,27 +323,47 @@
   <style>
     /* 插入通用基础样式 */
     /* 插入经典强调风格CSS */
+
+    /* 封面专用：主内容区下移，为星座标识留空间 */
+    .main {
+      top: 520px;
+      transform: none;
+    }
   </style>
 </head>
 <body>
   <div class="poster">
-    <!-- 装饰：大字号背景 -->
-    <div class="year-bg">2026</div>
+    <!-- 星座背景大字 -->
+    <div class="zodiac-bg">双子座</div>
 
     <!-- 装饰：圆形 -->
-    <div class="circle-deco" style="top: 200px; right: 100px;">
-      <div class="circle-inner"></div>
+    <div class="circle-deco" style="top: 140px; right: 80px; width: 100px; height: 100px;">
+      <div class="circle-inner" style="width: 50px; height: 50px;"></div>
     </div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">2026 年度运势</span>
+      <span class="tag">GEMINI</span>
+    </div>
+
+    <!-- 醒目的星座标识（封面核心元素） -->
+    <div class="zodiac-header">
+      <div class="zodiac-icon-large">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- 替换为对应星座SVG -->
+          <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
+          <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
+          <line x1="35" y1="15" x2="35" y2="85" stroke-linecap="round"/>
+          <line x1="65" y1="15" x2="65" y2="85" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="zodiac-name">双子座</div>
+      <div class="zodiac-year">2026</div>
     </div>
 
     <div class="main">
       <div class="keyword">关键词</div>
-      <h1 class="main-title">主标题<span class="accent">强调词</span></h1>
-      <p class="sub-title">2026 · GEMINI</p>
+      <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
       <p class="quote">「 引用金句 」</p>
     </div>
 
@@ -392,14 +457,59 @@
 .keyword {
   display: inline-block;
   width: fit-content;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 500;
   color: #C15F3C;
-  letter-spacing: 6px;
-  padding: 10px 24px;
+  letter-spacing: 8px;
+  padding: 12px 28px;
   border: 2px solid #C15F3C;
   border-radius: 2px;
   margin-bottom: 50px;
+}
+
+/* 封面星座醒目标识区（封面专用） */
+.zodiac-header {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+.zodiac-icon-large svg {
+  width: 80px;
+  height: 80px;
+  stroke: #C15F3C;
+  stroke-width: 2;
+  fill: none;
+  margin-bottom: 20px;
+}
+.zodiac-name {
+  font-size: 72px;
+  font-weight: 700;
+  color: #C15F3C;
+  letter-spacing: 16px;
+  margin-bottom: 10px;
+}
+.zodiac-year {
+  font-size: 28px;
+  font-weight: 400;
+  color: #9A958A;
+  letter-spacing: 8px;
+}
+
+/* 星座背景大字（封面专用） */
+.zodiac-bg {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 180px;
+  font-weight: 700;
+  color: rgba(193, 95, 60, 0.08);
+  letter-spacing: 20px;
+  z-index: 0;
+  white-space: nowrap;
 }
 
 /* 装饰：角标 */
@@ -462,10 +572,10 @@
 
 /* 封面主标题 */
 .main-title {
-  font-size: 64px;
+  font-size: 80px;
   font-weight: 600;
   color: #2D2D2D;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   line-height: 1.4;
   margin-bottom: 40px;
 }
@@ -513,23 +623,45 @@
   <style>
     /* 插入通用基础样式 */
     /* 插入简约边框风格CSS */
+
+    /* 封面专用：主内容区下移 */
+    .main {
+      top: 520px;
+      transform: none;
+    }
   </style>
 </head>
 <body>
   <div class="poster">
+    <!-- 星座背景大字 -->
+    <div class="zodiac-bg">双子座</div>
+
     <!-- 装饰：角标 -->
     <div class="corner-bracket top-left"></div>
     <div class="corner-bracket bottom-right"></div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">2026 年度运势</span>
+      <span class="tag">GEMINI</span>
+    </div>
+
+    <!-- 醒目的星座标识 -->
+    <div class="zodiac-header">
+      <div class="zodiac-icon-large">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
+          <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
+          <line x1="35" y1="15" x2="35" y2="85" stroke-linecap="round"/>
+          <line x1="65" y1="15" x2="65" y2="85" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="zodiac-name">双子座</div>
+      <div class="zodiac-year">2026</div>
     </div>
 
     <div class="main">
       <div class="keyword">关键词</div>
-      <h1 class="main-title">主标题<span class="accent">强调词</span></h1>
-      <p class="sub-title">2026 · GEMINI</p>
+      <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
       <p class="quote">「 引用金句 」</p>
     </div>
 
@@ -624,14 +756,59 @@
 .keyword {
   display: inline-block;
   width: fit-content;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: 500;
   color: #3D3D3D;
-  letter-spacing: 6px;
-  padding: 10px 0;
+  letter-spacing: 8px;
+  padding: 12px 0;
   border-top: 1px solid rgba(193, 95, 60, 0.4);
   border-bottom: 1px solid rgba(193, 95, 60, 0.4);
   margin-bottom: 50px;
+}
+
+/* 封面星座醒目标识区（封面专用） */
+.zodiac-header {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+.zodiac-icon-large svg {
+  width: 80px;
+  height: 80px;
+  stroke: #C15F3C;
+  stroke-width: 2;
+  fill: none;
+  margin-bottom: 20px;
+}
+.zodiac-name {
+  font-size: 72px;
+  font-weight: 700;
+  color: #C15F3C;
+  letter-spacing: 16px;
+  margin-bottom: 10px;
+}
+.zodiac-year {
+  font-size: 28px;
+  font-weight: 400;
+  color: #9A958A;
+  letter-spacing: 8px;
+}
+
+/* 星座背景大字（封面专用） */
+.zodiac-bg {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 180px;
+  font-weight: 700;
+  color: rgba(193, 95, 60, 0.08);
+  letter-spacing: 20px;
+  z-index: 0;
+  white-space: nowrap;
 }
 
 /* 装饰：双线边框 */
@@ -706,10 +883,10 @@
 
 /* 封面主标题 */
 .main-title {
-  font-size: 68px;
+  font-size: 80px;
   font-weight: 600;
   color: #2D2D2D;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   line-height: 1.4;
   margin-bottom: 40px;
 }
@@ -757,10 +934,19 @@
   <style>
     /* 插入通用基础样式 */
     /* 插入杂志双线风格CSS */
+
+    /* 封面专用：主内容区下移 */
+    .main {
+      top: 520px;
+      transform: none;
+    }
   </style>
 </head>
 <body>
   <div class="poster">
+    <!-- 星座背景大字 -->
+    <div class="zodiac-bg">双子座</div>
+
     <!-- 装饰：双线边框 -->
     <div class="double-border"></div>
 
@@ -774,14 +960,27 @@
     </div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">2026 年度运势</span>
+      <span class="tag">GEMINI</span>
+    </div>
+
+    <!-- 醒目的星座标识 -->
+    <div class="zodiac-header">
+      <div class="zodiac-icon-large">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
+          <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
+          <line x1="35" y1="15" x2="35" y2="85" stroke-linecap="round"/>
+          <line x1="65" y1="15" x2="65" y2="85" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="zodiac-name">双子座</div>
+      <div class="zodiac-year">2026</div>
     </div>
 
     <div class="main">
       <div class="keyword">关键词</div>
-      <h1 class="main-title">主标题<span class="accent">强调词</span></h1>
-      <p class="sub-title">2026 · GEMINI</p>
+      <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
       <p class="quote">「 引用金句 」</p>
     </div>
 
@@ -892,6 +1091,51 @@
   margin-bottom: 50px;
 }
 
+/* 封面星座醒目标识区（封面专用） */
+.zodiac-header {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+.zodiac-icon-large svg {
+  width: 80px;
+  height: 80px;
+  stroke: #C15F3C;
+  stroke-width: 2;
+  fill: none;
+  margin-bottom: 20px;
+}
+.zodiac-name {
+  font-size: 72px;
+  font-weight: 700;
+  color: #C15F3C;
+  letter-spacing: 16px;
+  margin-bottom: 10px;
+}
+.zodiac-year {
+  font-size: 28px;
+  font-weight: 400;
+  color: #9A958A;
+  letter-spacing: 8px;
+}
+
+/* 星座背景大字（封面专用） */
+.zodiac-bg {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 180px;
+  font-weight: 700;
+  color: rgba(193, 95, 60, 0.08);
+  letter-spacing: 20px;
+  z-index: 0;
+  white-space: nowrap;
+}
+
 /* 装饰：大引号 */
 .quote-mark {
   position: absolute;
@@ -998,10 +1242,19 @@
   <style>
     /* 插入通用基础样式 */
     /* 插入艺术镂空风格CSS */
+
+    /* 封面专用：主内容区下移 */
+    .main {
+      top: 520px;
+      transform: none;
+    }
   </style>
 </head>
 <body>
   <div class="poster">
+    <!-- 星座背景大字 -->
+    <div class="zodiac-bg">双子座</div>
+
     <!-- 装饰：大引号 -->
     <div class="quote-mark open">"</div>
     <div class="quote-mark close">"</div>
@@ -1014,14 +1267,27 @@
     </div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">2026 年度运势</span>
+      <span class="tag">GEMINI</span>
+    </div>
+
+    <!-- 醒目的星座标识 -->
+    <div class="zodiac-header">
+      <div class="zodiac-icon-large">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
+          <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
+          <line x1="35" y1="15" x2="35" y2="85" stroke-linecap="round"/>
+          <line x1="65" y1="15" x2="65" y2="85" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="zodiac-name">双子座</div>
+      <div class="zodiac-year">2026</div>
     </div>
 
     <div class="main">
       <div class="keyword">关键词</div>
-      <h1 class="main-title">主标题<span class="accent">强调词</span></h1>
-      <p class="sub-title">2026 · GEMINI</p>
+      <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
       <p class="quote">「 引用金句 」</p>
     </div>
 
