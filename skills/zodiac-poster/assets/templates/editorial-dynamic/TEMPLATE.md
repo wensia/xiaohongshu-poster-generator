@@ -378,10 +378,14 @@
 </html>
 ```
 
-## 内容页模板
+## 内容页布局变体
+
+> **重要规则**：每页内容应随机选择一种布局变体，增加视觉多样性。同一套图中可以混用不同布局变体（只要使用相同的风格包CSS）。
+
+### 变体 A：色块标题居中式
 
 ```html
-<!-- [STYLE LOCK: 经典强调] -->
+<!-- [STYLE LOCK: 经典强调] [LAYOUT: A] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -393,17 +397,20 @@
     /* 插入通用基础样式 */
     /* 插入经典强调风格CSS */
 
-    /* 内容页布局调整 */
     .main {
-      top: 280px;
-      transform: none;
-      text-align: left;
+      position: absolute;
+      top: 50%;
+      left: 80px;
+      right: 80px;
+      transform: translateY(-50%);
+      z-index: 10;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="poster">
-    <!-- 装饰：圆形（位置可变化） -->
+    <div class="year-bg">2026</div>
     <div class="circle-deco" style="top: 180px; right: 80px; width: 120px; height: 120px;">
       <div class="circle-inner" style="width: 60px; height: 60px;"></div>
     </div>
@@ -427,6 +434,374 @@
     <div class="footer">
       <span class="footer-text">2026 双子座运势</span>
       <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+
+```html
+<!-- [STYLE LOCK: 经典强调] [LAYOUT: B] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入经典强调风格CSS */
+
+    /* 变体B专用样式 */
+    .part-label {
+      font-size: 22px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 8px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #2D2D2D;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 80px;
+    }
+    .main-b {
+      position: absolute;
+      top: 160px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .content-b {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+    .quote-line {
+      display: flex;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .quote-bar {
+      width: 4px;
+      background: #C15F3C;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+    .quote-text {
+      font-size: 28px;
+      font-weight: 400;
+      color: #9A958A;
+      line-height: 1.8;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="header">
+      <span class="tag">射手座 · 2026运势</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-b">
+      <div class="part-label">PART 01</div>
+      <h2 class="section-title">好运终于来了</h2>
+      <p class="content-b">
+        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
+        过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
+      </p>
+      <div class="quote-line">
+        <div class="quote-bar"></div>
+        <p class="quote-text">"保持行动感，运气自然来"</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 射手座运势</span>
+      <span class="page-num">02</span>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 C：数字序号引导式
+
+```html
+<!-- [STYLE LOCK: 经典强调] [LAYOUT: C] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入经典强调风格CSS */
+
+    /* 变体C专用样式 */
+    .number-lead {
+      position: absolute;
+      top: 180px;
+      left: 80px;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(193, 95, 60, 0.12);
+      line-height: 1;
+    }
+    .main-c {
+      position: absolute;
+      top: 280px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .section-keyword {
+      font-size: 42px;
+      font-weight: 600;
+      color: #C15F3C;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
+    }
+    .content-c {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="number-lead">02</div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-c">
+      <h2 class="section-keyword">感情运势</h2>
+      <p class="content-c">
+        单身的双子座今年桃花运旺盛，<br/>
+        特别是<span class="accent">下半年</span>会有不错的机会。<br/><br/>
+        有伴的双子座则要注意沟通，<br/>
+        <span class="highlight">真诚比技巧更重要</span>。
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 D：引用突出式（大引号开头）
+
+```html
+<!-- [STYLE LOCK: 经典强调] [LAYOUT: D] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入经典强调风格CSS */
+
+    /* 变体D专用样式 */
+    .big-quote {
+      position: absolute;
+      top: 140px;
+      left: 60px;
+      font-size: 200px;
+      font-family: Georgia, serif;
+      color: rgba(193, 95, 60, 0.1);
+      line-height: 1;
+    }
+    .main-d {
+      position: absolute;
+      top: 300px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .lead-text {
+      font-size: 40px;
+      font-weight: 500;
+      color: #3D3D3D;
+      line-height: 1.8;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
+    }
+    .content-d {
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+    }
+    .end-mark {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #C15F3C;
+      border-radius: 50%;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="big-quote">"</div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-d">
+      <p class="lead-text">
+        不再为不值得的人消耗情绪，<br/>
+        不再为无意义的事浪费时间。
+      </p>
+      <p class="content-d">
+        你来，我<span class="accent">热情相迎</span>；<br/>
+        你走，我<span class="accent">安然独处</span>。<br/><br/>
+        这一年的双子，<br/>
+        会更懂<span class="highlight">"不勉强"的智慧</span>。<span class="end-mark"></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">03</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 E：分栏对比式
+
+```html
+<!-- [STYLE LOCK: 经典强调] [LAYOUT: E] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入经典强调风格CSS */
+
+    /* 变体E专用样式 */
+    .main-e {
+      position: absolute;
+      top: 200px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+    }
+    .topic-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    .topic-label {
+      width: 140px;
+      flex-shrink: 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 4px;
+      padding-top: 8px;
+      border-top: 2px solid #C15F3C;
+    }
+    .topic-content {
+      flex: 1;
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+      padding-left: 40px;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(193, 95, 60, 0.15);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-e">
+      <div class="topic-row">
+        <div class="topic-label">事业</div>
+        <p class="topic-content">
+          事业上会有<span class="accent">惊喜</span>。<br/>
+          那些看似随意的连接，<br/>
+          可能带来意想不到的机会。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">财运</div>
+        <p class="topic-content">
+          财运稳中有升，<br/>
+          <span class="highlight">下半年尤为明显</span>。<br/>
+          适合稳健投资，不宜冒进。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">健康</div>
+        <p class="topic-content">
+          注意作息规律，<br/>
+          给大脑足够的<span class="accent">休息时间</span>。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">04</span>
     </div>
 
     <div class="gradient-band"></div>
@@ -676,10 +1051,14 @@
 </html>
 ```
 
-## 内容页模板
+## 内容页布局变体
+
+> **重要规则**：每页内容应随机选择一种布局变体，增加视觉多样性。同一套图中可以混用不同布局变体（只要使用相同的风格包CSS）。
+
+### 变体 A：色块标题居中式
 
 ```html
-<!-- [STYLE LOCK: 简约边框] -->
+<!-- [STYLE LOCK: 简约边框] [LAYOUT: A] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -726,6 +1105,392 @@
     <div class="footer">
       <span class="footer-text">2026 双子座运势</span>
       <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+
+```html
+<!-- [STYLE LOCK: 简约边框] [LAYOUT: B] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入简约边框风格CSS */
+
+    /* 变体B专用样式 */
+    .part-label {
+      font-size: 22px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 8px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #2D2D2D;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 80px;
+    }
+    .main-b {
+      position: absolute;
+      top: 160px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .content-b {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+    .quote-line {
+      display: flex;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .quote-bar {
+      width: 4px;
+      background: #C15F3C;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+    .quote-text {
+      font-size: 28px;
+      font-weight: 400;
+      color: #9A958A;
+      line-height: 1.8;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：角标 -->
+    <div class="corner-bracket top-right"></div>
+    <div class="corner-bracket bottom-left"></div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026运势</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-b">
+      <div class="part-label">PART 01</div>
+      <h2 class="section-title">好运终于来了</h2>
+      <p class="content-b">
+        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
+        过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
+      </p>
+      <div class="quote-line">
+        <div class="quote-bar"></div>
+        <p class="quote-text">"保持行动感，运气自然来"</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 C：数字序号引导式
+
+```html
+<!-- [STYLE LOCK: 简约边框] [LAYOUT: C] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入简约边框风格CSS */
+
+    /* 变体C专用样式 */
+    .number-lead {
+      position: absolute;
+      top: 180px;
+      left: 80px;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(193, 95, 60, 0.12);
+      line-height: 1;
+    }
+    .main-c {
+      position: absolute;
+      top: 280px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .section-keyword {
+      font-size: 42px;
+      font-weight: 600;
+      color: #C15F3C;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
+    }
+    .content-c {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="number-lead">02</div>
+
+    <!-- 装饰：角标 -->
+    <div class="corner-bracket top-right"></div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-c">
+      <h2 class="section-keyword">感情运势</h2>
+      <p class="content-c">
+        单身的双子座今年桃花运旺盛，<br/>
+        特别是<span class="accent">下半年</span>会有不错的机会。<br/><br/>
+        有伴的双子座则要注意沟通，<br/>
+        <span class="highlight">真诚比技巧更重要</span>。
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 D：引用突出式（大引号开头）
+
+```html
+<!-- [STYLE LOCK: 简约边框] [LAYOUT: D] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入简约边框风格CSS */
+
+    /* 变体D专用样式 */
+    .big-quote {
+      position: absolute;
+      top: 140px;
+      left: 60px;
+      font-size: 200px;
+      font-family: Georgia, serif;
+      color: rgba(193, 95, 60, 0.1);
+      line-height: 1;
+    }
+    .main-d {
+      position: absolute;
+      top: 300px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .lead-text {
+      font-size: 40px;
+      font-weight: 500;
+      color: #3D3D3D;
+      line-height: 1.8;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
+    }
+    .content-d {
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+    }
+    .end-mark {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #C15F3C;
+      border-radius: 50%;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="big-quote">"</div>
+
+    <!-- 装饰：竖线组 -->
+    <div class="side-lines" style="top: 800px;">
+      <div class="side-line"></div>
+      <div class="side-line"></div>
+      <div class="side-line"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-d">
+      <p class="lead-text">
+        不再为不值得的人消耗情绪，<br/>
+        不再为无意义的事浪费时间。
+      </p>
+      <p class="content-d">
+        你来，我<span class="accent">热情相迎</span>；<br/>
+        你走，我<span class="accent">安然独处</span>。<br/><br/>
+        这一年的双子，<br/>
+        会更懂<span class="highlight">"不勉强"的智慧</span>。<span class="end-mark"></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">03</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 E：分栏对比式
+
+```html
+<!-- [STYLE LOCK: 简约边框] [LAYOUT: E] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入简约边框风格CSS */
+
+    /* 变体E专用样式 */
+    .main-e {
+      position: absolute;
+      top: 200px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+    }
+    .topic-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    .topic-label {
+      width: 140px;
+      flex-shrink: 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 4px;
+      padding-top: 8px;
+      border-top: 2px solid #C15F3C;
+    }
+    .topic-content {
+      flex: 1;
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+      padding-left: 40px;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(193, 95, 60, 0.15);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：角标 -->
+    <div class="corner-bracket top-left"></div>
+    <div class="corner-bracket bottom-right"></div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-e">
+      <div class="topic-row">
+        <div class="topic-label">事业</div>
+        <p class="topic-content">
+          事业上会有<span class="accent">惊喜</span>。<br/>
+          那些看似随意的连接，<br/>
+          可能带来意想不到的机会。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">财运</div>
+        <p class="topic-content">
+          财运稳中有升，<br/>
+          <span class="highlight">下半年尤为明显</span>。<br/>
+          适合稳健投资，不宜冒进。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">健康</div>
+        <p class="topic-content">
+          注意作息规律，<br/>
+          给大脑足够的<span class="accent">休息时间</span>。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">04</span>
     </div>
 
     <div class="gradient-band"></div>
@@ -995,10 +1760,14 @@
 </html>
 ```
 
-## 内容页模板
+## 内容页布局变体
+
+> **重要规则**：每页内容应随机选择一种布局变体，增加视觉多样性。同一套图中可以混用不同布局变体（只要使用相同的风格包CSS）。
+
+### 变体 A：色块标题居中式
 
 ```html
-<!-- [STYLE LOCK: 杂志双线] -->
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT: A] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1053,6 +1822,412 @@
     <div class="footer">
       <span class="footer-text">2026 双子座运势</span>
       <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+
+```html
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT: B] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入杂志双线风格CSS */
+
+    /* 变体B专用样式 */
+    .part-label {
+      font-size: 22px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 8px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #2D2D2D;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 80px;
+    }
+    .main-b {
+      position: absolute;
+      top: 160px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .content-b {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+    .quote-line {
+      display: flex;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .quote-bar {
+      width: 4px;
+      background: #C15F3C;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+    .quote-text {
+      font-size: 28px;
+      font-weight: 400;
+      color: #9A958A;
+      line-height: 1.8;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：双线边框 -->
+    <div class="double-border"></div>
+
+    <!-- 装饰：星星散布 -->
+    <div class="stars-scatter" style="top: 120px; right: 100px;">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026运势</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-b">
+      <div class="part-label">PART 01</div>
+      <h2 class="section-title">好运终于来了</h2>
+      <p class="content-b">
+        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
+        过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
+      </p>
+      <div class="quote-line">
+        <div class="quote-bar"></div>
+        <p class="quote-text">"保持行动感，运气自然来"</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 C：数字序号引导式
+
+```html
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT: C] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入杂志双线风格CSS */
+
+    /* 变体C专用样式 */
+    .number-lead {
+      position: absolute;
+      top: 180px;
+      left: 80px;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(193, 95, 60, 0.12);
+      line-height: 1;
+    }
+    .main-c {
+      position: absolute;
+      top: 280px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .section-keyword {
+      font-size: 42px;
+      font-weight: 600;
+      color: #C15F3C;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
+    }
+    .content-c {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="number-lead">02</div>
+
+    <!-- 装饰：双线边框角落变体 -->
+    <div class="double-border-corners">
+      <div class="corner top-left"></div>
+      <div class="corner bottom-right"></div>
+    </div>
+
+    <!-- 装饰：星星散布 -->
+    <div class="stars-scatter" style="bottom: 200px; right: 100px; width: 120px; height: 120px;">
+      <div class="star" style="top: 10px; left: 20px; opacity: 0.4;"></div>
+      <div class="star" style="top: 50px; left: 80px; opacity: 0.3; transform: scale(0.8);"></div>
+      <div class="star" style="top: 80px; left: 40px; opacity: 0.25;"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-c">
+      <h2 class="section-keyword">感情运势</h2>
+      <p class="content-c">
+        单身的双子座今年桃花运旺盛，<br/>
+        特别是<span class="accent">下半年</span>会有不错的机会。<br/><br/>
+        有伴的双子座则要注意沟通，<br/>
+        <span class="highlight">真诚比技巧更重要</span>。
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 D：引用突出式（大引号开头）
+
+```html
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT: D] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入杂志双线风格CSS */
+
+    /* 变体D专用样式 */
+    .big-quote {
+      position: absolute;
+      top: 140px;
+      left: 60px;
+      font-size: 200px;
+      font-family: Georgia, serif;
+      color: rgba(193, 95, 60, 0.1);
+      line-height: 1;
+    }
+    .main-d {
+      position: absolute;
+      top: 300px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .lead-text {
+      font-size: 40px;
+      font-weight: 500;
+      color: #3D3D3D;
+      line-height: 1.8;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
+    }
+    .content-d {
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+    }
+    .end-mark {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #C15F3C;
+      border-radius: 50%;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="big-quote">"</div>
+
+    <!-- 装饰：星星散布 -->
+    <div class="stars-scatter" style="top: 180px; right: 80px; width: 100px; height: 100px;">
+      <div class="star" style="top: 15px; left: 25px; opacity: 0.35;"></div>
+      <div class="star" style="top: 55px; left: 70px; opacity: 0.25; transform: scale(0.7);"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-d">
+      <p class="lead-text">
+        不再为不值得的人消耗情绪，<br/>
+        不再为无意义的事浪费时间。
+      </p>
+      <p class="content-d">
+        你来，我<span class="accent">热情相迎</span>；<br/>
+        你走，我<span class="accent">安然独处</span>。<br/><br/>
+        这一年的双子，<br/>
+        会更懂<span class="highlight">"不勉强"的智慧</span>。<span class="end-mark"></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">03</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 E：分栏对比式
+
+```html
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT: E] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入杂志双线风格CSS */
+
+    /* 变体E专用样式 */
+    .main-e {
+      position: absolute;
+      top: 200px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+    }
+    .topic-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    .topic-label {
+      width: 140px;
+      flex-shrink: 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 4px;
+      padding-top: 8px;
+      border-top: 2px solid #C15F3C;
+    }
+    .topic-content {
+      flex: 1;
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+      padding-left: 40px;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(193, 95, 60, 0.15);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：双线边框 -->
+    <div class="double-border"></div>
+
+    <!-- 装饰：星星散布 -->
+    <div class="stars-scatter" style="top: 140px; right: 100px; width: 100px; height: 100px;">
+      <div class="star" style="top: 10px; left: 30px; opacity: 0.3;"></div>
+      <div class="star" style="top: 45px; left: 65px; opacity: 0.4; transform: scale(0.6);"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-e">
+      <div class="topic-row">
+        <div class="topic-label">事业</div>
+        <p class="topic-content">
+          事业上会有<span class="accent">惊喜</span>。<br/>
+          那些看似随意的连接，<br/>
+          可能带来意想不到的机会。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">财运</div>
+        <p class="topic-content">
+          财运稳中有升，<br/>
+          <span class="highlight">下半年尤为明显</span>。<br/>
+          适合稳健投资，不宜冒进。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">健康</div>
+        <p class="topic-content">
+          注意作息规律，<br/>
+          给大脑足够的<span class="accent">休息时间</span>。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">04</span>
     </div>
 
     <div class="gradient-band"></div>
@@ -1302,10 +2477,14 @@
 </html>
 ```
 
-## 内容页模板
+## 内容页布局变体
+
+> **重要规则**：每页内容应随机选择一种布局变体，增加视觉多样性。同一套图中可以混用不同布局变体（只要使用相同的风格包CSS）。
+
+### 变体 A：色块标题居中式
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] -->
+<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: A] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1357,38 +2536,481 @@
 </html>
 ```
 
+### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+
+```html
+<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: B] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入艺术镂空风格CSS */
+
+    /* 变体B专用样式 */
+    .part-label {
+      font-size: 22px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 8px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #2D2D2D;
+      letter-spacing: 4px;
+      line-height: 1.3;
+      margin-bottom: 80px;
+    }
+    .main-b {
+      position: absolute;
+      top: 160px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .content-b {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+    .quote-line {
+      display: flex;
+      align-items: stretch;
+      margin-top: 60px;
+    }
+    .quote-bar {
+      width: 4px;
+      background: #C15F3C;
+      margin-right: 24px;
+      flex-shrink: 0;
+    }
+    .quote-text {
+      font-size: 28px;
+      font-weight: 400;
+      color: #9A958A;
+      line-height: 1.8;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：大引号 -->
+    <div class="quote-mark open" style="font-size: 140px; top: 100px; right: 100px;">"</div>
+
+    <!-- 装饰：书法笔触 -->
+    <div class="brush-stroke" style="bottom: 200px; left: 60px;">
+      <svg viewBox="0 0 120 20">
+        <path d="M5,15 Q20,5 40,12 T80,8 T115,14"/>
+      </svg>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026运势</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-b">
+      <div class="part-label">PART 01</div>
+      <h2 class="section-title">好运终于来了</h2>
+      <p class="content-b">
+        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
+        过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
+      </p>
+      <div class="quote-line">
+        <div class="quote-bar"></div>
+        <p class="quote-text">"保持行动感，运气自然来"</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 C：数字序号引导式
+
+```html
+<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: C] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入艺术镂空风格CSS */
+
+    /* 变体C专用样式 */
+    .number-lead {
+      position: absolute;
+      top: 180px;
+      left: 80px;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(193, 95, 60, 0.12);
+      line-height: 1;
+    }
+    .main-c {
+      position: absolute;
+      top: 280px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .section-keyword {
+      font-size: 42px;
+      font-weight: 600;
+      color: #C15F3C;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
+    }
+    .content-c {
+      font-size: 32px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="number-lead">02</div>
+
+    <!-- 装饰：书法笔触 -->
+    <div class="brush-stroke" style="top: 140px; right: 80px;">
+      <svg viewBox="0 0 120 20">
+        <path d="M5,10 Q30,18 60,8 T115,12"/>
+      </svg>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-c">
+      <h2 class="section-keyword">感情运势</h2>
+      <p class="content-c">
+        单身的双子座今年桃花运旺盛，<br/>
+        特别是<span class="accent">下半年</span>会有不错的机会。<br/><br/>
+        有伴的双子座则要注意沟通，<br/>
+        <span class="highlight">真诚比技巧更重要</span>。
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">02</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 D：引用突出式（大引号开头）
+
+```html
+<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: D] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入艺术镂空风格CSS */
+
+    /* 变体D专用样式 */
+    .big-quote {
+      position: absolute;
+      top: 140px;
+      left: 60px;
+      font-size: 200px;
+      font-family: Georgia, serif;
+      color: rgba(193, 95, 60, 0.1);
+      line-height: 1;
+    }
+    .main-d {
+      position: absolute;
+      top: 300px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+      text-align: left;
+    }
+    .lead-text {
+      font-size: 40px;
+      font-weight: 500;
+      color: #3D3D3D;
+      line-height: 1.8;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
+    }
+    .content-d {
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+    }
+    .end-mark {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #C15F3C;
+      border-radius: 50%;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="big-quote">"</div>
+
+    <!-- 装饰：书法笔触 -->
+    <div class="brush-stroke" style="bottom: 240px; right: 80px;">
+      <svg viewBox="0 0 120 20">
+        <path d="M5,12 Q25,5 50,14 T95,8 T115,15"/>
+      </svg>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-d">
+      <p class="lead-text">
+        不再为不值得的人消耗情绪，<br/>
+        不再为无意义的事浪费时间。
+      </p>
+      <p class="content-d">
+        你来，我<span class="accent">热情相迎</span>；<br/>
+        你走，我<span class="accent">安然独处</span>。<br/><br/>
+        这一年的双子，<br/>
+        会更懂<span class="highlight">"不勉强"的智慧</span>。<span class="end-mark"></span>
+      </p>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">03</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 E：分栏对比式
+
+```html
+<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: E] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page XX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入艺术镂空风格CSS */
+
+    /* 变体E专用样式 */
+    .main-e {
+      position: absolute;
+      top: 200px;
+      left: 80px;
+      right: 80px;
+      z-index: 10;
+    }
+    .topic-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    .topic-label {
+      width: 140px;
+      flex-shrink: 0;
+      font-size: 24px;
+      font-weight: 500;
+      color: #C15F3C;
+      letter-spacing: 4px;
+      padding-top: 8px;
+      border-top: 2px solid #C15F3C;
+    }
+    .topic-content {
+      flex: 1;
+      font-size: 30px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2;
+      letter-spacing: 2px;
+      padding-left: 40px;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(193, 95, 60, 0.15);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 装饰：大引号 -->
+    <div class="quote-mark open" style="font-size: 120px; top: 120px; right: 100px; opacity: 0.06;">"</div>
+
+    <!-- 装饰：书法笔触 -->
+    <div class="brush-stroke" style="bottom: 180px; left: 60px;">
+      <svg viewBox="0 0 120 20">
+        <path d="M5,15 Q20,5 40,12 T80,8 T115,14"/>
+      </svg>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 2026</span>
+      <div class="zodiac-icon"><!-- SVG --></div>
+    </div>
+
+    <div class="main-e">
+      <div class="topic-row">
+        <div class="topic-label">事业</div>
+        <p class="topic-content">
+          事业上会有<span class="accent">惊喜</span>。<br/>
+          那些看似随意的连接，<br/>
+          可能带来意想不到的机会。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">财运</div>
+        <p class="topic-content">
+          财运稳中有升，<br/>
+          <span class="highlight">下半年尤为明显</span>。<br/>
+          适合稳健投资，不宜冒进。
+        </p>
+      </div>
+      <div class="divider"></div>
+      <div class="topic-row">
+        <div class="topic-label">健康</div>
+        <p class="topic-content">
+          注意作息规律，<br/>
+          给大脑足够的<span class="accent">休息时间</span>。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">2026 双子座运势</span>
+      <span class="page-num">04</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
 ---
 
 # 生成检查清单
+
+## ⚠️ 核心规则：布局变体必须随机化
+
+**绝对禁止**：所有内容页都使用变体A（色块标题居中式）！
+
+生成内容页时，**必须**从5种布局变体中随机选择，确保视觉多样性：
+- 变体A：色块标题居中式（标题在色块内）
+- 变体B：杂志章节式（PART标签 + 大标题左对齐，**无色块**）
+- 变体C：数字序号引导式（大数字背景 + 红色关键词，**无色块**）
+- 变体D：引用突出式（大引号装饰 + 金句左对齐，**无色块**）
+- 变体E：分栏对比式（左侧标签栏 + 右侧内容，**无色块**）
+
+**每种变体在一套图中最多出现1-2次**，确保视觉变化。
+
+---
 
 ## 生成套图前（必须完成）
 
 - [ ] 从 4 个风格包中随机选择 1 个
 - [ ] 记录选择的风格包名称
+- [ ] **预先规划每页使用哪个布局变体**（参考下方示例）
 
-## 生成每页时（必须完成）
+## 生成封面时
 
 - [ ] 在 HTML 开头添加 `<!-- [STYLE LOCK: 风格包名称] -->` 注释
-- [ ] 使用该风格包的完整 CSS（直接复制，不要混用其他风格包）
-- [ ] 使用该风格包定义的装饰元素
-- [ ] 关键词样式使用该风格包的 `.keyword` 样式
+- [ ] 使用该风格包的封面模板
 
-## 装饰元素变化规则
+## 生成内容页时（⚠️ 必须随机选择布局变体）
 
-同一风格包内，不同页面可以通过以下方式增加变化（而非更换风格）：
+- [ ] 在 HTML 开头添加 `<!-- [STYLE LOCK: 风格包名称] [LAYOUT: X] -->` 注释
+- [ ] **必须按照预先规划选择布局变体**，不能全部使用变体A
+- [ ] 同一套图中**必须混用至少3种不同布局变体**
+- [ ] 使用该风格包的基础 CSS + 所选变体的专用样式
 
-1. **位置变化**：同样的装饰元素放在不同位置
-2. **大小变化**：调整 width/height 值
-3. **数量变化**：增减装饰元素数量
-4. **透明度变化**：微调 opacity 值
-5. **简化/完整版**：如双线边框可以只用角落版
+### 布局变体快速参考
+
+| 变体 | 名称 | 核心特征 | 标题形式 | 适合内容 |
+|------|------|----------|----------|----------|
+| A | 色块标题居中式 | 关键词色块 + 居中排版 | 色块内 | 主题明确的段落 |
+| B | 杂志章节式 | PART XX + 大标题 + 竖线引用 | **无色块，左对齐** | 重要观点、开篇 |
+| C | 数字序号引导式 | 大数字背景 + 左对齐 | **无色块，红色文字** | 分点阐述 |
+| D | 引用突出式 | 大引号 + 金句突出 | **无色块，左对齐** | 金句、感悟类 |
+| E | 分栏对比式 | 左侧标签 + 右侧内容 | **无色块，标签式** | 多主题概览 |
+
+### 推荐的变体分配（5页内容页）
+
+```
+Page 02: 变体 B（杂志章节式）- 作为开篇，PART 01
+Page 03: 变体 D（引用突出式）- 金句段落
+Page 04: 变体 C（数字序号式）- 具体运势
+Page 05: 变体 A（色块居中式）- 主题段落
+Page 06: 变体 E（分栏对比式）- 多方面概览或总结
+```
+
+### 变体随机公式
+
+生成每页前，使用以下方法确定变体：
+```
+变体 = ['A', 'B', 'C', 'D', 'E'][页码 % 5]
+```
+或根据内容特点选择最适合的变体。
+
+---
 
 ## 禁止事项
 
-- **禁止**在同一套图中混用不同风格包
-- **禁止**在内容页使用与封面不同的关键词样式类型
-- **禁止**混用不同风格包的装饰元素
-- **禁止**每页随机选择不同风格
+- ❌ **禁止**在同一套图中混用不同风格包（风格包 ≠ 布局变体）
+- ❌ **禁止**所有内容页都使用变体A（这是最常见的错误！）
+- ❌ **禁止**连续两页使用相同布局变体
+- ❌ **禁止**混用不同风格包的配色和装饰元素
 
 ---
 
