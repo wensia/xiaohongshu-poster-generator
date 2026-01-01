@@ -97,7 +97,8 @@ font-family: 'Noto Serif SC', serif;
 | 主标题 | 72-84px | 500-600 | 2-4px |
 | 副标题/强调 | 32-42px | 400-500 | 3-4px |
 | 正文 | 28-32px | 400 | 2-3px |
-| 标签 | 20-24px | 400 | 6-8px |
+| **内容页标题/关键词** | **28-36px** | **500** | **6-8px** |
+| 标签文字 | 20-24px | 400 | 6-8px |
 | 页码 | 24px | 400 | 4px |
 
 ### 每日运势专用样式
@@ -124,6 +125,187 @@ font-family: 'Noto Serif SC', serif;
   margin: 16px auto 0;
 }
 ```
+
+---
+
+## 内容页标题样式变体
+
+内容页的关键词/标题不应只使用单一的色块样式，以下提供 6 种样式变体，生成套图时应随机组合使用。
+
+### 样式 A：色块填充（Block）
+
+经典样式，适合强调核心关键词。
+
+```css
+.keyword-block {
+  display: inline-block;
+  background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 8px;
+  padding: 12px 28px;
+  border-radius: 2px;
+  margin-bottom: 50px;
+}
+```
+
+**适用**：强调型关键词、核心概念、重要提示
+
+### 样式 B：边框线条（Border）
+
+简约风格，线条勾勒。
+
+```css
+.keyword-border {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 500;
+  color: #C15F3C;
+  letter-spacing: 6px;
+  padding: 10px 24px;
+  border: 2px solid #C15F3C;
+  border-radius: 2px;
+  margin-bottom: 50px;
+}
+```
+
+**适用**：简约内容、分类标签、轻量提示
+
+### 样式 C：底部下划线（Underline）
+
+文字突出，底部装饰线强调。
+
+```css
+.keyword-underline {
+  display: inline-block;
+  font-size: 34px;
+  font-weight: 600;
+  color: #3D3D3D;
+  letter-spacing: 4px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #C15F3C;
+  margin-bottom: 50px;
+}
+```
+
+**适用**：标题型关键词、章节引导、主题点明
+
+### 样式 D：编号序列（Numbered）
+
+带序号装饰，适合列表类内容。
+
+```css
+.keyword-numbered {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+.keyword-numbered .num {
+  font-size: 48px;
+  font-weight: 700;
+  color: rgba(193, 95, 60, 0.2);
+  font-family: 'Georgia', serif;
+}
+.keyword-numbered .text {
+  font-size: 30px;
+  font-weight: 500;
+  color: #C15F3C;
+  letter-spacing: 4px;
+}
+```
+
+```html
+<div class="keyword-numbered">
+  <span class="num">01</span>
+  <span class="text">关键词</span>
+</div>
+```
+
+**适用**：序列内容、步骤说明、清单项目
+
+### 样式 E：双线装饰（Dual）
+
+上下双线框定，杂志感。
+
+```css
+.keyword-dual {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 500;
+  color: #3D3D3D;
+  letter-spacing: 6px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(193, 95, 60, 0.4);
+  border-bottom: 1px solid rgba(193, 95, 60, 0.4);
+  margin-bottom: 50px;
+}
+```
+
+**适用**：精致内容、专题引导、高级感呈现
+
+### 样式 F：轮廓镂空（Outline）
+
+镂空文字效果，视觉独特。
+
+```css
+.keyword-outline {
+  display: inline-block;
+  font-size: 36px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #C15F3C;
+  letter-spacing: 8px;
+  margin-bottom: 50px;
+}
+```
+
+**适用**：艺术感内容、创意标题、视觉突破
+
+---
+
+## 内容页标题样式选择策略
+
+### 样式分类
+
+| 类型 | 样式 | 特点 |
+|------|------|------|
+| **强调型** | 色块填充(A)、轮廓镂空(F) | 视觉冲击强，适合首页和尾页 |
+| **简约型** | 边框线条(B)、底部下划线(C)、双线装饰(E) | 清爽干净，适合中间页面 |
+| **序列型** | 编号序列(D) | 带序号，适合列表和步骤类 |
+
+### 选择规则
+
+1. **同一套图中的内容页应使用 2-3 种不同样式**，避免单一重复
+2. **封面后的第一张内容页**推荐使用强调型（A 或 F）
+3. **中间页面**使用简约型（B、C、E）轮换
+4. **最后一页**可使用强调型或序列型收尾
+
+### 随机选择权重
+
+```python
+import random
+
+# 样式定义
+styles = ['block', 'border', 'underline', 'numbered', 'dual', 'outline']
+
+# 权重分配（总和为1）
+weights = [0.25, 0.15, 0.20, 0.10, 0.15, 0.15]
+
+# 随机选择
+selected = random.choices(styles, weights=weights, k=1)[0]
+```
+
+### 套图样式分配示例
+
+| 页面 | 推荐样式 | 原因 |
+|------|---------|------|
+| page-01 | 色块填充(A) 或 轮廓镂空(F) | 开篇强调 |
+| page-02 | 底部下划线(C) 或 边框线条(B) | 简约过渡 |
+| page-03 | 双线装饰(E) 或 边框线条(B) | 保持变化 |
+| page-04 | 编号序列(D) 或 底部下划线(C) | 收尾或序列 |
+| page-05 | 色块填充(A) 或 轮廓镂空(F) | 强调收尾 |
 
 ---
 
@@ -1064,11 +1246,12 @@ font-family: 'Noto Serif SC', serif;
      width: fit-content;           /* 确保宽度跟随内容 */
      background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
      color: #fff;
-     font-size: 20-24px;
+     font-size: 28-36px;           /* 增大字号，确保可读性 */
+     font-weight: 500;
      letter-spacing: 6-8px;
-     padding: 8px 20px;            /* 内边距提供呼吸空间 */
+     padding: 10px 24px;           /* 内边距提供呼吸空间 */
      border-radius: 2px;
-     margin-bottom: 30-40px;
+     margin-bottom: 40-50px;
    }
    ```
    **⚠️ 重要**：色块宽度必须自适应文字长度，禁止使用 `width: 100%` 或 `display: block`
