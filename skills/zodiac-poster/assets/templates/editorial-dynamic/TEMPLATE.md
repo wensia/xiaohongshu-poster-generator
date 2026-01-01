@@ -28,6 +28,12 @@
 ### 通用基础样式（所有风格包共用）
 
 ```css
+/* 强制浅色模式，防止系统深色模式影响背景颜色 */
+:root, html, body {
+  color-scheme: light only;
+  background: #FAF6F1;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 .poster {

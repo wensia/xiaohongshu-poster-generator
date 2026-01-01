@@ -303,6 +303,16 @@ mcp__playwright__browser_close
 - **必须**设置 `scale: 'css'` 避免 Retina 屏幕导致 2x 放大
 - **禁止**使用 `browser_take_screenshot`，会导致尺寸错误
 
+**⚠️ 防止深色模式影响（必须遵守）：**
+生成的 HTML **必须**在 CSS 开头包含以下样式，强制使用浅色模式：
+```css
+:root, html, body {
+  color-scheme: light only;
+  background: #FAF6F1;
+}
+```
+如果不添加此样式，系统深色模式会导致背景变成深灰色而非暖杏色。
+
 ---
 
 ## AI 智能处理指南

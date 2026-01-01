@@ -214,6 +214,16 @@ Claude 执行:
         });
       }
 
+   ⚠️ 【必须】防止深色模式：
+   生成的 HTML 必须在 CSS 开头包含以下样式：
+   ```css
+   :root, html, body {
+     color-scheme: light only;
+     background: #FAF6F1;
+   }
+   ```
+   否则系统深色模式会导致背景变成深灰色！
+
    ⚠️ 【必须】回传飞书:
    h. 上传所有图片到飞书存储，获取 file_token
    i. 更新记录:
