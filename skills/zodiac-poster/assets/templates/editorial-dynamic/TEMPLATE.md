@@ -1864,6 +1864,8 @@
 ## 内容页布局变体
 
 > **⚠️ 核心规则**：同一套图的所有内容页必须使用相同的布局变体！生成套图前先确定一个布局变体（A/B/C/D/E），然后所有内容页都使用这个布局。禁止在同一套图中混用不同布局变体。
+>
+> **🎯 总结页例外**：套图的**最后一页**必须使用 **Layout S（总结收尾式）**，内容居中呈现，与前面的布局变体无关。
 
 ### 变体 A：色块标题居中式
 
@@ -2329,6 +2331,152 @@
     <div class="footer">
       <span class="footer-text">2026 双子座运势</span>
       <span class="page-num">04</span>
+    </div>
+
+    <div class="gradient-band"></div>
+  </div>
+</body>
+</html>
+```
+
+### 变体 S：总结收尾式（最后一页专用）
+
+> **🎯 重要**：Layout S 专门用于套图的最后一页！无论前面使用哪种布局变体 (A/B/C/D/E)，最后一页都应使用 Layout S 来收尾。
+
+**特征**：
+- 内容水平居中
+- 大引号装饰（淡色背景）
+- 标题带渐变下划线
+- 结束星星装饰符
+
+```html
+<!-- [STYLE LOCK: 杂志双线] [LAYOUT LOCK: S] -->
+<!-- 套图最后一页：总结页 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Summary Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 插入通用基础样式 */
+    /* 插入杂志双线风格CSS */
+
+    /* 变体S专用样式：总结收尾式 */
+
+    /* 大引号装饰 */
+    .summary-quote {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 160px;
+      font-family: Georgia, serif;
+      color: rgba(193, 95, 60, 0.08);
+      line-height: 1;
+    }
+
+    /* 主容器 - 居中 */
+    .main-summary {
+      position: absolute;
+      top: 50%;
+      left: 80px;
+      right: 80px;
+      transform: translateY(-50%);
+      z-index: 10;
+      text-align: center;
+    }
+
+    /* 标题 - 带下划线 */
+    .summary-title {
+      font-size: 48px;
+      font-weight: 600;
+      color: #C15F3C;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .summary-title::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #C15F3C, transparent);
+      margin: 16px auto 0;
+    }
+
+    /* 正文 - 居中 */
+    .summary-content {
+      font-size: 34px;
+      font-weight: 400;
+      color: #5A5A5A;
+      line-height: 2.2;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    /* 结束装饰符 */
+    .summary-end {
+      margin-top: 60px;
+    }
+
+    .summary-end .end-star {
+      width: 16px;
+      height: 16px;
+      background: #C15F3C;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- 大引号装饰 -->
+    <div class="summary-quote">❝</div>
+
+    <!-- 装饰：双线边框角落 -->
+    <div class="double-border-corners">
+      <div class="corner top-left"></div>
+      <div class="corner bottom-right"></div>
+    </div>
+
+    <!-- 装饰：星星散布 -->
+    <div class="stars-scatter" style="top: 180px; right: 120px; width: 100px; height: 100px;">
+      <div class="star" style="top: 10px; left: 30px; opacity: 0.3;"></div>
+      <div class="star" style="top: 45px; left: 65px; opacity: 0.4; transform: scale(0.6);"></div>
+    </div>
+
+    <div class="header">
+      <span class="tag">双子座 · 生理性喜欢</span>
+      <div class="zodiac-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="25" y1="20" x2="75" y2="20" stroke-linecap="round"/>
+          <line x1="25" y1="80" x2="75" y2="80" stroke-linecap="round"/>
+          <line x1="35" y1="20" x2="35" y2="80" stroke-linecap="round"/>
+          <line x1="65" y1="20" x2="65" y2="80" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 主内容 - 居中 -->
+    <div class="main-summary">
+      <h2 class="summary-title">这就是双子</h2>
+      <p class="summary-content">
+        来的都是<span class="accent">缘分</span>，<br/>
+        留下的才是真心。<br/><br/>
+        这就是双子座。
+      </p>
+      <div class="summary-end">
+        <span class="end-star"></span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">双子座亲密关系真相</span>
+      <span class="page-num">06</span>
     </div>
 
     <div class="gradient-band"></div>
@@ -3084,6 +3232,7 @@
 | C | 数字序号引导式 | 大数字背景 + 左对齐 | **无色块，红色文字** | 分点阐述 |
 | D | 引用突出式 | 大引号 + 金句突出 | **无色块，左对齐** | 金句、感悟类 |
 | E | 分栏对比式 | 左侧标签 + 右侧内容 | **无色块，标签式** | 多主题概览 |
+| **S** | **总结收尾式** | **居中 + 收尾装饰** | **居中标题 + 下划线** | **套图最后一页** |
 
 ### 如何选择布局变体
 
@@ -3096,6 +3245,9 @@
 | 情感/鸡汤类 | D | 金句突出效果好 |
 | 性格分析/指南 | B 或 C | 结构清晰 |
 | 多维度分析 | E | 分栏对比清晰 |
+| **套图最后一页** | **S** | **总结收尾，居中呈现** |
+
+> **🎯 总结页规则**：无论套图使用哪种布局变体 (A/B/C/D/E)，**最后一页必须使用 Layout S**！这是套图的收尾页，内容居中、有独立的收尾风格。
 
 ---
 

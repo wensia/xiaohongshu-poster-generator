@@ -174,6 +174,44 @@ curl -s "https://open.feishu.cn/open-apis/bitable/v1/apps/$LARK_BITABLE_APP_TOKE
 - [ ] 副标题或主标题第二行是否有另一个 `<span class="accent">词</span>`？
 - [ ] 两个重点色词是否形成呼应（对比/递进/因果）？
 
+### 🎯 总结页规则（最后一页使用 Layout S）
+
+> **套图的最后一页必须使用「总结收尾式」布局 (Layout S)！**
+
+**总结页特征：**
+- 布局标记：`[LAYOUT LOCK: S]`（最后一页专用）
+- 内容水平居中
+- 独立的视觉风格：大引号装饰 + 标题下划线 + 结束星星
+
+**生成最后一页时：**
+1. 使用 `.main-summary` 作为主容器
+2. 使用 `.summary-title` 作为标题
+3. 使用 `.summary-content` 作为正文
+4. 添加 `.summary-end` 结束装饰
+
+**HTML 结构：**
+```html
+<!-- 最后一页使用 Layout S -->
+<div class="summary-quote">❝</div>
+<div class="main-summary">
+  <h2 class="summary-title">这就是双子</h2>
+  <p class="summary-content">
+    来的都是<span class="accent">缘分</span>，<br/>
+    留下的才是真心。<br/><br/>
+    这就是双子座。
+  </p>
+  <div class="summary-end">
+    <span class="end-star"></span>
+  </div>
+</div>
+```
+
+**🚨 生成总结页检查清单：**
+- [ ] 最后一页是否使用了 `[LAYOUT LOCK: S]` 标记？
+- [ ] 是否使用了 `.main-summary` 容器？
+- [ ] 内容是否水平居中？
+- [ ] 是否有结束装饰符 `.summary-end`？
+
 ### 功能 3: 回传飞书（⚠️ 必须执行）
 
 **方式一：使用工具脚本（推荐）**
