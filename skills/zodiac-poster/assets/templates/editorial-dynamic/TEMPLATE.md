@@ -457,6 +457,50 @@
 </html>
 ```
 
+### 封面关键词样式变体
+
+#### 样式1：色块背景（默认）
+```css
+.keyword {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #C15F3C;
+  color: #FFFFFF;
+  font-size: 22px;
+  letter-spacing: 6px;
+  margin-bottom: 36px;
+}
+```
+
+#### 样式2：双线夹文字（推荐，配合变体B使用）
+```css
+.keyword {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.keyword-line {
+  width: 48px;
+  height: 1px;
+  background: #C15F3C;
+}
+.keyword-text {
+  font-size: 28px;
+  color: #C15F3C;
+  letter-spacing: 8px;
+}
+```
+HTML结构：
+```html
+<div class="keyword">
+  <div class="keyword-line"></div>
+  <div class="keyword-text">年度预测</div>
+  <div class="keyword-line"></div>
+</div>
+```
+
 ### 🔴 封面重点色词规则（必须遵守！）
 
 | 检查项 | 要求 |
@@ -543,7 +587,9 @@
 </html>
 ```
 
-### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+### 变体 B：杂志章节式（PART XX + 大标题 + 分隔线）
+
+> **⭐ 推荐使用** - 此布局在小红书数据表现优秀，适合长文案套图
 
 ```html
 <!-- [STYLE LOCK: 经典强调] [LAYOUT: B] -->
@@ -558,55 +604,60 @@
     /* 插入通用基础样式 */
     /* 插入经典强调风格CSS */
 
-    /* 变体B专用样式 */
+    /* 变体B专用样式（数据优化版） */
+    .poster {
+      display: flex;
+      flex-direction: column;
+      padding: 110px 100px;
+    }
+    .header {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      margin-bottom: 60px;
+    }
     .part-label {
-      font-size: 22px;
-      font-weight: 500;
+      font-size: 28px;
+      font-weight: 400;
       color: #C15F3C;
       letter-spacing: 8px;
-      margin-bottom: 16px;
     }
     .section-title {
-      font-size: 56px;
-      font-weight: 700;
+      font-size: 64px;
+      font-weight: 400;
       color: #2D2D2D;
       letter-spacing: 4px;
       line-height: 1.3;
-      margin-bottom: 80px;
+      margin-bottom: 24px;
+    }
+    .divider {
+      width: 120px;
+      height: 2px;
+      background: #C15F3C;
+      margin-bottom: 60px;
     }
     .main-b {
-      position: absolute;
-      top: 160px;
-      left: 80px;
-      right: 80px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       z-index: 10;
-      text-align: left;
     }
     .content-b {
-      font-size: 32px;
+      font-size: 40px;
       font-weight: 400;
-      color: #5A5A5A;
-      line-height: 2.2;
+      color: #3D3D3D;
+      line-height: 2.0;
       letter-spacing: 2px;
-      text-align: left;
     }
-    .quote-line {
-      display: flex;
-      align-items: stretch;
-      margin-top: 60px;
-    }
-    .quote-bar {
-      width: 4px;
-      background: #C15F3C;
-      margin-right: 24px;
-      flex-shrink: 0;
-    }
-    .quote-text {
-      font-size: 28px;
-      font-weight: 400;
-      color: #9A958A;
-      line-height: 1.8;
-      letter-spacing: 2px;
+    .footer {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      justify-content: flex-end;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -617,21 +668,19 @@
       <div class="zodiac-icon"><!-- SVG --></div>
     </div>
 
+    <div class="section-title">好运终于来了</div>
+    <div class="divider"></div>
+
     <div class="main-b">
       <div class="part-label">PART 01</div>
-      <h2 class="section-title">好运终于来了</h2>
       <p class="content-b">
-        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
+        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。
+        <br><br>
         过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
       </p>
-      <div class="quote-line">
-        <div class="quote-bar"></div>
-        <p class="quote-text">"保持行动感，运气自然来"</p>
-      </div>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 射手座运势</span>
       <span class="page-num">02</span>
     </div>
   </div>
