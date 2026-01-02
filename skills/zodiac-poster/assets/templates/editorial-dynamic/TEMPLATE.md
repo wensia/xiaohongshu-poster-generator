@@ -2487,118 +2487,97 @@
 
 ---
 
-# 风格包 4：艺术镂空
+# 风格包 4：优雅留白
 
-**特征**：轮廓镂空关键词 + 大引号装饰 + 书法笔触
-**适用**：金句类、艺术主题、创意内容
+**特征**：细边框实心文字 + 小圆点装饰 + 大量留白
+**适用**：所有类型内容，特别适合金句、情感、日常更新
 
 ## 风格锁定标记
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] -->
+<!-- [STYLE LOCK: 优雅留白] -->
 ```
 
 ## 完整CSS
 
 ```css
-/* === 艺术镂空风格 === */
+/* === 优雅留白风格 === */
 
-/* 关键词：轮廓镂空（优化版：增粗描边+微透明填充增强可读性） */
+/* 关键词：细边框实心文字（简约易读） */
 .keyword {
   display: inline-block;
-  width: fit-content;
-  font-size: 36px;
-  font-weight: 700;
-  color: rgba(193, 95, 60, 0.08);  /* 微透明填充增强可读性 */
-  -webkit-text-stroke: 2.5px #C15F3C;  /* 从1.5px增粗到2.5px */
-  letter-spacing: 8px;
+  font-size: 28px;
+  font-weight: 500;
+  color: #C15F3C;
+  letter-spacing: 6px;
+  padding: 14px 32px;
+  border: 1px solid rgba(193, 95, 60, 0.4);
+  background: transparent;
   margin-bottom: 50px;
-  text-shadow: 0 0 1px rgba(193, 95, 60, 0.3);  /* 轻微光晕增强对比度 */
 }
 
-/* 封面星座醒目标识区（封面专用） */
+/* 装饰：角落小圆点 */
+.corner-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(193, 95, 60, 0.5);
+  border-radius: 50%;
+}
+
+/* 装饰：细线条 */
+.line-deco {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(193, 95, 60, 0.3), transparent);
+}
+
+/* 装饰：小圆点 */
+.dot-deco {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #C15F3C;
+  border-radius: 50%;
+}
+
+/* 封面星座标识区（封面专用） */
 .zodiac-header {
   position: absolute;
-  top: 180px;
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   z-index: 10;
 }
-.zodiac-icon-large svg {
-  width: 80px;
-  height: 80px;
+.zodiac-icon svg {
+  width: 64px;
+  height: 64px;
   stroke: #C15F3C;
-  stroke-width: 2;
+  stroke-width: 1.5;
   fill: none;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .zodiac-name {
-  font-size: 72px;
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 600;
   color: #C15F3C;
-  letter-spacing: 16px;
-  margin-bottom: 10px;
+  letter-spacing: 12px;
 }
-.zodiac-year {
-  font-size: 28px;
+.zodiac-sub {
+  font-size: 22px;
   font-weight: 400;
   color: #9A958A;
-  letter-spacing: 8px;
-}
-
-/* 星座背景大字（封面专用） */
-.zodiac-bg {
-  position: absolute;
-  top: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 180px;
-  font-weight: 700;
-  color: rgba(193, 95, 60, 0.08);
-  letter-spacing: 20px;
-  z-index: 0;
-  white-space: nowrap;
-}
-
-/* 装饰：大引号 */
-.quote-mark {
-  position: absolute;
-  font-size: 200px;
-  font-family: Georgia, serif;
-  color: rgba(193, 95, 60, 0.08);
-  line-height: 1;
-}
-.quote-mark.open {
-  top: 180px;
-  left: 60px;
-}
-.quote-mark.close {
-  bottom: 200px;
-  right: 60px;
-}
-
-/* 装饰：书法笔触 */
-.brush-stroke {
-  position: absolute;
-  width: 120px;
-  height: 20px;
-}
-.brush-stroke svg {
-  width: 100%;
-  height: 100%;
-  stroke: rgba(193, 95, 60, 0.2);
-  stroke-width: 4;
-  stroke-linecap: round;
-  fill: none;
+  letter-spacing: 6px;
+  margin-top: 12px;
 }
 
 /* 主内容区 */
 .main {
   position: absolute;
   top: 50%;
-  left: 80px;
-  right: 80px;
+  left: 100px;
+  right: 100px;
   transform: translateY(-50%);
   z-index: 10;
   text-align: center;
@@ -2606,57 +2585,85 @@
 
 /* 封面主标题 */
 .main-title {
-  font-size: 64px;
+  font-size: 56px;
   font-weight: 600;
   color: #2D2D2D;
-  letter-spacing: 4px;
-  line-height: 1.5;
+  letter-spacing: 3px;
+  line-height: 1.6;
   margin-bottom: 40px;
 }
 
 /* 副标题 */
 .sub-title {
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 400;
-  color: #5A5A5A;
-  letter-spacing: 4px;
-  margin-bottom: 50px;
+  color: #6A6A6A;
+  letter-spacing: 2px;
 }
 
 /* 引用语 */
 .quote {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 400;
   color: #9A958A;
-  letter-spacing: 3px;
-  font-style: italic;
+  letter-spacing: 2px;
+  margin-top: 50px;
 }
 
 /* 内容页正文 */
 .content {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 400;
   color: #5A5A5A;
-  line-height: 2;
+  line-height: 2.2;
   letter-spacing: 2px;
   text-align: center;
 }
 
-/* 内容页引用居中 */
-.content-quote {
-  font-size: 28px;
+/* 强调文字 */
+.accent {
+  color: #C15F3C;
+  font-weight: 500;
+}
+
+/* 页脚 */
+.footer {
+  position: absolute;
+  bottom: 80px;
+  left: 100px;
+  right: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+.footer-text {
+  font-size: 18px;
+  color: #B1ADA1;
+  letter-spacing: 3px;
+}
+.page-num {
+  font-size: 20px;
   font-weight: 400;
   color: #9A958A;
   letter-spacing: 3px;
-  font-style: italic;
-  margin-top: 40px;
+}
+
+/* 底部渐变色带 */
+.gradient-band {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #C15F3C 0%, #D4765A 50%, #E8A88C 100%);
 }
 ```
 
 ## 封面模板
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] -->
+<!-- [STYLE LOCK: 优雅留白] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2666,39 +2673,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
+    /* 插入优雅留白风格CSS */
 
     /* 封面专用：主内容区下移 */
     .main {
-      top: 520px;
+      top: 540px;
       transform: none;
     }
   </style>
 </head>
 <body>
   <div class="poster">
-    <!-- 星座背景大字 -->
-    <div class="zodiac-bg">双子座</div>
+    <!-- 极简装饰：角落小圆点 -->
+    <div class="corner-dot" style="top: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="top: 60px; right: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; right: 60px;"></div>
 
-    <!-- 装饰：大引号 -->
-    <div class="quote-mark open">"</div>
-    <div class="quote-mark close">"</div>
-
-    <!-- 装饰：书法笔触 -->
-    <div class="brush-stroke" style="top: 350px; left: 50px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,15 Q20,5 40,12 T80,8 T115,14"/>
-      </svg>
-    </div>
+    <!-- 装饰细线 -->
+    <div class="line-deco" style="top: 160px; left: 100px; right: 100px;"></div>
 
     <div class="header">
       <span class="tag">2026 年度运势</span>
       <span class="tag">GEMINI</span>
     </div>
 
-    <!-- 醒目的星座标识 -->
+    <!-- 星座标识区 -->
     <div class="zodiac-header">
-      <div class="zodiac-icon-large">
+      <div class="zodiac-icon">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
           <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
@@ -2707,17 +2709,17 @@
         </svg>
       </div>
       <div class="zodiac-name">双子座</div>
-      <div class="zodiac-year">2026</div>
+      <div class="zodiac-sub">2026 年度宣言</div>
     </div>
 
     <div class="main">
       <div class="keyword">关键词</div>
       <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
-      <p class="quote">「 引用金句 」</p>
+      <p class="sub-title">副标题说明文字</p>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
+      <span class="footer-text">双子座 · 2026</span>
       <span class="page-num">01</span>
     </div>
 
@@ -2729,12 +2731,14 @@
 
 ## 内容页布局变体
 
-> **⚠️ 核心规则**：同一套图的所有内容页必须使用相同的布局变体！生成套图前先确定一个布局变体（A/B/C/D/E），然后所有内容页都使用这个布局。禁止在同一套图中混用不同布局变体。
+> **⚠️ 核心规则**：同一套图的所有内容页必须使用相同的布局变体！生成套图前先确定一个布局变体（A/B/S），然后所有内容页都使用这个布局。禁止在同一套图中混用不同布局变体。
 
-### 变体 A：色块标题居中式
+### 变体 A：居中式（默认）
+
+适用：通用内容，金句展示
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: A] -->
+<!-- [STYLE LOCK: 优雅留白] [LAYOUT LOCK: A] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2744,24 +2748,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
+    /* 插入优雅留白风格CSS */
   </style>
 </head>
 <body>
   <div class="poster">
-    <!-- 装饰：大引号（简化版，只用一个） -->
-    <div class="quote-mark open" style="font-size: 160px; top: 160px; left: 80px;">"</div>
+    <!-- 极简装饰：角落小圆点 -->
+    <div class="corner-dot" style="top: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="top: 60px; right: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; right: 60px;"></div>
 
-    <!-- 装饰：书法笔触（位置变化） -->
-    <div class="brush-stroke" style="bottom: 280px; right: 60px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,10 Q30,18 60,8 T115,12"/>
-      </svg>
-    </div>
+    <!-- 装饰：小圆点 -->
+    <div class="dot-deco" style="top: 180px; left: 100px;"></div>
+    <div class="dot-deco" style="bottom: 180px; right: 100px;"></div>
 
     <div class="header">
       <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">GEMINI</span>
     </div>
 
     <div class="main">
@@ -2769,14 +2773,12 @@
       <p class="content">
         正文内容第一段，<br/>
         采用居中排版。<br/><br/>
-        正文内容包含<span class="accent">强调词</span>，<br/>
-        以及<span class="highlight">高亮文字</span>。
+        正文内容包含<span class="accent">强调词</span>。
       </p>
-      <p class="content-quote">「 页面引用语 」</p>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
+      <span class="footer-text">双子座 · 情感独白</span>
       <span class="page-num">02</span>
     </div>
 
@@ -2786,10 +2788,12 @@
 </html>
 ```
 
-### 变体 B：杂志章节式（PART XX + 大标题左对齐）
+### 变体 B：章节式
+
+适用：分段叙述，条理清晰
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: B] -->
+<!-- [STYLE LOCK: 优雅留白] [LAYOUT LOCK: B] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -2799,31 +2803,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
+    /* 插入优雅留白风格CSS */
 
     /* 变体B专用样式 */
     .part-label {
-      font-size: 22px;
-      font-weight: 500;
+      font-size: 20px;
+      font-weight: 400;
       color: #C15F3C;
-      letter-spacing: 8px;
-      margin-bottom: 16px;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
     }
     .section-title {
-      font-size: 56px;
-      font-weight: 700;
+      font-size: 42px;
+      font-weight: 600;
       color: #2D2D2D;
-      letter-spacing: 4px;
-      line-height: 1.3;
-      margin-bottom: 80px;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
     }
     .main-b {
       position: absolute;
-      top: 160px;
-      left: 80px;
-      right: 80px;
+      top: 50%;
+      left: 100px;
+      right: 100px;
+      transform: translateY(-50%);
       z-index: 10;
-      text-align: left;
+      text-align: center;
     }
     .content-b {
       font-size: 32px;
@@ -2831,109 +2835,88 @@
       color: #5A5A5A;
       line-height: 2.2;
       letter-spacing: 2px;
-      text-align: left;
-    }
-    .quote-line {
-      display: flex;
-      align-items: stretch;
-      margin-top: 60px;
-    }
-    .quote-bar {
-      width: 4px;
-      background: #C15F3C;
-      margin-right: 24px;
-      flex-shrink: 0;
-    }
-    .quote-text {
-      font-size: 28px;
-      font-weight: 400;
-      color: #9A958A;
-      line-height: 1.8;
-      letter-spacing: 2px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="poster">
-    <!-- 装饰：大引号 -->
-    <div class="quote-mark open" style="font-size: 140px; top: 100px; right: 100px;">"</div>
+    <!-- 极简装饰：角落小圆点 -->
+    <div class="corner-dot" style="top: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="top: 60px; right: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; right: 60px;"></div>
 
-    <!-- 装饰：书法笔触 -->
-    <div class="brush-stroke" style="bottom: 200px; left: 60px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,15 Q20,5 40,12 T80,8 T115,14"/>
-      </svg>
-    </div>
+    <!-- 装饰细线 -->
+    <div class="line-deco" style="top: 180px; left: 100px; right: 100px;"></div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026运势</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">双子座 · 2026</span>
+      <span class="tag">GEMINI</span>
     </div>
 
     <div class="main-b">
-      <div class="part-label">PART 01</div>
-      <h2 class="section-title">好运终于来了</h2>
+      <div class="part-label">· 01 ·</div>
+      <h2 class="section-title">小节标题</h2>
       <p class="content-b">
-        2026年，木星进入射手的福位，属于你的<span class="accent">好运终于来了</span>。<br/><br/>
-        过去那些被压着的、憋着的、等着的——都要开始<span class="accent">兑现了</span>。
+        正文内容第一段，<br/>
+        采用居中排版。<br/><br/>
+        正文内容包含<span class="accent">强调词</span>。
       </p>
-      <div class="quote-line">
-        <div class="quote-bar"></div>
-        <p class="quote-text">"保持行动感，运气自然来"</p>
-      </div>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
+      <span class="footer-text">双子座 · 情感独白</span>
       <span class="page-num">02</span>
     </div>
+
+    <div class="gradient-band"></div>
   </div>
 </body>
 </html>
 ```
 
-### 变体 C：数字序号引导式
+### 变体 S：总结页
+
+适用：套图最后一页，总结升华
 
 ```html
-<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: C] -->
+<!-- [STYLE LOCK: 优雅留白] [LAYOUT LOCK: S] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1080, height=1440">
-  <title>Page XX</title>
+  <title>Page XX - Summary</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
+    /* 插入优雅留白风格CSS */
 
-    /* 变体C专用样式 */
-    .number-lead {
+    /* 变体S专用样式 */
+    .summary-main {
       position: absolute;
-      top: 180px;
-      left: 80px;
-      font-size: 180px;
-      font-weight: 700;
-      color: rgba(193, 95, 60, 0.12);
-      line-height: 1;
-    }
-    .main-c {
-      position: absolute;
-      top: 280px;
-      left: 80px;
-      right: 80px;
+      top: 50%;
+      left: 100px;
+      right: 100px;
+      transform: translateY(-50%);
       z-index: 10;
-      text-align: left;
+      text-align: center;
     }
-    .section-keyword {
-      font-size: 42px;
+    .summary-icon {
+      font-size: 40px;
+      color: #C15F3C;
+      margin-bottom: 40px;
+    }
+    .summary-title {
+      font-size: 44px;
       font-weight: 600;
       color: #C15F3C;
       letter-spacing: 6px;
       margin-bottom: 50px;
     }
-    .content-c {
-      font-size: 32px;
+    .summary-content {
+      font-size: 34px;
       font-weight: 400;
       color: #5A5A5A;
       line-height: 2.2;
@@ -2943,243 +2926,34 @@
 </head>
 <body>
   <div class="poster">
-    <div class="number-lead">02</div>
+    <!-- 极简装饰：角落小圆点 -->
+    <div class="corner-dot" style="top: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="top: 60px; right: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; left: 60px;"></div>
+    <div class="corner-dot" style="bottom: 60px; right: 60px;"></div>
 
-    <!-- 装饰：书法笔触 -->
-    <div class="brush-stroke" style="top: 140px; right: 80px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,10 Q30,18 60,8 T115,12"/>
-      </svg>
-    </div>
+    <!-- 装饰细线 -->
+    <div class="line-deco" style="top: 180px; left: 100px; right: 100px;"></div>
+    <div class="line-deco" style="bottom: 180px; left: 100px; right: 100px;"></div>
 
     <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
+      <span class="tag">双子座</span>
+      <span class="tag">GEMINI</span>
     </div>
 
-    <div class="main-c">
-      <h2 class="section-keyword">感情运势</h2>
-      <p class="content-c">
-        单身的双子座今年桃花运旺盛，<br/>
-        特别是<span class="accent">下半年</span>会有不错的机会。<br/><br/>
-        有伴的双子座则要注意沟通，<br/>
-        <span class="highlight">真诚比技巧更重要</span>。
+    <div class="summary-main">
+      <div class="summary-icon">✦</div>
+      <h2 class="summary-title">总结标题</h2>
+      <p class="summary-content">
+        总结文字第一段<br/><br/>
+        总结文字包含<span class="accent">强调词</span><br/><br/>
+        升华收尾
       </p>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
-      <span class="page-num">02</span>
-    </div>
-
-    <div class="gradient-band"></div>
-  </div>
-</body>
-</html>
-```
-
-### 变体 D：引用突出式（大引号开头）
-
-```html
-<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: D] -->
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1080, height=1440">
-  <title>Page XX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
-
-    /* 变体D专用样式 */
-    .big-quote {
-      position: absolute;
-      top: 140px;
-      left: 60px;
-      font-size: 200px;
-      font-family: Georgia, serif;
-      color: rgba(193, 95, 60, 0.1);
-      line-height: 1;
-    }
-    .main-d {
-      position: absolute;
-      top: 300px;
-      left: 80px;
-      right: 80px;
-      z-index: 10;
-      text-align: left;
-    }
-    .lead-text {
-      font-size: 40px;
-      font-weight: 500;
-      color: #3D3D3D;
-      line-height: 1.8;
-      letter-spacing: 3px;
-      margin-bottom: 50px;
-    }
-    .content-d {
-      font-size: 30px;
-      font-weight: 400;
-      color: #5A5A5A;
-      line-height: 2;
-      letter-spacing: 2px;
-    }
-    .end-mark {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background: #C15F3C;
-      border-radius: 50%;
-      margin-left: 12px;
-      vertical-align: middle;
-    }
-  </style>
-</head>
-<body>
-  <div class="poster">
-    <div class="big-quote">"</div>
-
-    <!-- 装饰：书法笔触 -->
-    <div class="brush-stroke" style="bottom: 240px; right: 80px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,12 Q25,5 50,14 T95,8 T115,15"/>
-      </svg>
-    </div>
-
-    <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
-    </div>
-
-    <div class="main-d">
-      <p class="lead-text">
-        不再为不值得的人消耗情绪，<br/>
-        不再为无意义的事浪费时间。
-      </p>
-      <p class="content-d">
-        你来，我<span class="accent">热情相迎</span>；<br/>
-        你走，我<span class="accent">安然独处</span>。<br/><br/>
-        这一年的双子，<br/>
-        会更懂<span class="highlight">"不勉强"的智慧</span>。<span class="end-mark"></span>
-      </p>
-    </div>
-
-    <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
-      <span class="page-num">03</span>
-    </div>
-
-    <div class="gradient-band"></div>
-  </div>
-</body>
-</html>
-```
-
-### 变体 E：分栏对比式
-
-```html
-<!-- [STYLE LOCK: 艺术镂空] [LAYOUT: E] -->
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1080, height=1440">
-  <title>Page XX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* 插入通用基础样式 */
-    /* 插入艺术镂空风格CSS */
-
-    /* 变体E专用样式 */
-    .main-e {
-      position: absolute;
-      top: 200px;
-      left: 80px;
-      right: 80px;
-      z-index: 10;
-    }
-    .topic-row {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 60px;
-    }
-    .topic-label {
-      width: 140px;
-      flex-shrink: 0;
-      font-size: 24px;
-      font-weight: 500;
-      color: #C15F3C;
-      letter-spacing: 4px;
-      padding-top: 8px;
-      border-top: 2px solid #C15F3C;
-    }
-    .topic-content {
-      flex: 1;
-      font-size: 30px;
-      font-weight: 400;
-      color: #5A5A5A;
-      line-height: 2;
-      letter-spacing: 2px;
-      padding-left: 40px;
-    }
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: rgba(193, 95, 60, 0.15);
-      margin: 40px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="poster">
-    <!-- 装饰：大引号 -->
-    <div class="quote-mark open" style="font-size: 120px; top: 120px; right: 100px; opacity: 0.06;">"</div>
-
-    <!-- 装饰：书法笔触 -->
-    <div class="brush-stroke" style="bottom: 180px; left: 60px;">
-      <svg viewBox="0 0 120 20">
-        <path d="M5,15 Q20,5 40,12 T80,8 T115,14"/>
-      </svg>
-    </div>
-
-    <div class="header">
-      <span class="tag">双子座 · 2026</span>
-      <div class="zodiac-icon"><!-- SVG --></div>
-    </div>
-
-    <div class="main-e">
-      <div class="topic-row">
-        <div class="topic-label">事业</div>
-        <p class="topic-content">
-          事业上会有<span class="accent">惊喜</span>。<br/>
-          那些看似随意的连接，<br/>
-          可能带来意想不到的机会。
-        </p>
-      </div>
-      <div class="divider"></div>
-      <div class="topic-row">
-        <div class="topic-label">财运</div>
-        <p class="topic-content">
-          财运稳中有升，<br/>
-          <span class="highlight">下半年尤为明显</span>。<br/>
-          适合稳健投资，不宜冒进。
-        </p>
-      </div>
-      <div class="divider"></div>
-      <div class="topic-row">
-        <div class="topic-label">健康</div>
-        <p class="topic-content">
-          注意作息规律，<br/>
-          给大脑足够的<span class="accent">休息时间</span>。
-        </p>
-      </div>
-    </div>
-
-    <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
-      <span class="page-num">04</span>
+      <span class="footer-text">双子座 · 情感独白</span>
+      <span class="page-num">06</span>
     </div>
 
     <div class="gradient-band"></div>
@@ -3192,18 +2966,16 @@
 
 # 生成检查清单
 
-## ⚠️ 核心规则：布局变体必须随机化
+## ⚠️ 核心规则：布局变体保持一致
 
-**绝对禁止**：所有内容页都使用变体A（色块标题居中式）！
+**重要**：同一套图的所有内容页必须使用相同的布局变体！
 
-生成内容页时，**必须**从5种布局变体中随机选择，确保视觉多样性：
-- 变体A：色块标题居中式（标题在色块内）
-- 变体B：杂志章节式（PART标签 + 大标题左对齐，**无色块**）
-- 变体C：数字序号引导式（大数字背景 + 红色关键词，**无色块**）
-- 变体D：引用突出式（大引号装饰 + 金句左对齐，**无色块**）
-- 变体E：分栏对比式（左侧标签栏 + 右侧内容，**无色块**）
+**风格包 1-3**（经典强调、简约边框、杂志双线）支持5种布局变体（A/B/C/D/E）
 
-**每种变体在一套图中最多出现1-2次**，确保视觉变化。
+**风格包 4**（优雅留白）支持3种布局变体：
+- 变体A：居中式（关键词 + 居中正文）
+- 变体B：章节式（章节标号 + 小节标题 + 居中正文）
+- 变体S：总结页（用于套图最后一页）
 
 ---
 
@@ -3211,7 +2983,7 @@
 
 - [ ] 从 4 个风格包中随机选择 1 个
 - [ ] 记录选择的风格包名称
-- [ ] **预先规划每页使用哪个布局变体**（参考下方示例）
+- [ ] **预先规划使用哪个布局变体**
 
 ## 生成封面时
 
@@ -3221,34 +2993,39 @@
 ## 生成内容页时（⚠️ 必须使用统一布局变体）
 
 - [ ] 在 HTML 开头添加 `<!-- [STYLE LOCK: 风格包名称] [LAYOUT LOCK: X] -->` 注释
-- [ ] **所有内容页必须使用相同的布局变体**（与封面保持一致）
+- [ ] **所有内容页必须使用相同的布局变体**
 - [ ] 使用该风格包的基础 CSS + 所选变体的专用样式
 
 ### 布局变体快速参考
 
-| 变体 | 名称 | 核心特征 | 标题形式 | 适合内容 |
-|------|------|----------|----------|----------|
-| A | 色块标题居中式 | 关键词色块 + 居中排版 | 色块内 | 主题明确的段落 |
-| B | 杂志章节式 | PART XX + 大标题 + 竖线引用 | **无色块，左对齐** | 重要观点、开篇 |
-| C | 数字序号引导式 | 大数字背景 + 左对齐 | **无色块，红色文字** | 分点阐述 |
-| D | 引用突出式 | 大引号 + 金句突出 | **无色块，左对齐** | 金句、感悟类 |
-| E | 分栏对比式 | 左侧标签 + 右侧内容 | **无色块，标签式** | 多主题概览 |
-| **S** | **总结收尾式** | **居中 + 收尾装饰** | **居中标题 + 下划线** | **套图最后一页** |
+**风格包 1-3 布局变体**：
+| 变体 | 名称 | 核心特征 | 适合内容 |
+|------|------|----------|----------|
+| A | 色块标题居中式 | 关键词色块 + 居中排版 | 主题明确的段落 |
+| B | 杂志章节式 | PART XX + 大标题 + 竖线引用 | 重要观点、开篇 |
+| C | 数字序号引导式 | 大数字背景 + 左对齐 | 分点阐述 |
+| D | 引用突出式 | 大引号 + 金句突出 | 金句、感悟类 |
+| E | 分栏对比式 | 左侧标签 + 右侧内容 | 多主题概览 |
+| **S** | **总结收尾式** | **居中 + 收尾装饰** | **套图最后一页** |
+
+**风格包 4（优雅留白）布局变体**：
+| 变体 | 名称 | 核心特征 | 适合内容 |
+|------|------|----------|----------|
+| A | 居中式 | 关键词边框 + 居中正文 + 小圆点装饰 | 通用，金句展示 |
+| B | 章节式 | 章节标号 + 小节标题 + 居中正文 | 分段叙述 |
+| **S** | **总结页** | **✦图标 + 总结标题 + 升华文字** | **套图最后一页** |
 
 ### 如何选择布局变体
-
-生成套图前，根据内容类型选择**一个**最适合的布局变体，整套图都使用这个变体：
 
 | 内容类型 | 推荐变体 | 原因 |
 |----------|----------|------|
 | 年运势/月运势 | A 或 B | 正式、有仪式感 |
-| 每日运势 | A 或 C | 简洁明了 |
-| 情感/鸡汤类 | D | 金句突出效果好 |
-| 性格分析/指南 | B 或 C | 结构清晰 |
-| 多维度分析 | E | 分栏对比清晰 |
-| **套图最后一页** | **S** | **总结收尾，居中呈现** |
+| 每日运势 | A | 简洁明了 |
+| 情感/金句类 | A | 居中突出金句 |
+| 性格分析/指南 | B | 结构清晰 |
+| **套图最后一页** | **S** | **总结收尾，升华主题** |
 
-> **🎯 总结页规则**：无论套图使用哪种布局变体 (A/B/C/D/E)，**最后一页必须使用 Layout S**！这是套图的收尾页，内容居中、有独立的收尾风格。
+> **🎯 总结页规则**：无论套图使用哪种布局变体 (A/B)，**最后一页必须使用 Layout S**！这是套图的收尾页，有独立的总结风格。
 
 ---
 
