@@ -385,6 +385,8 @@
 
 ## 封面模板
 
+> **🔴 封面必须包含至少 2 个重点色词（accent），形成视觉呼应！这是最常见的错误！**
+
 ```html
 <!-- [STYLE LOCK: 经典强调] -->
 <!DOCTYPE html>
@@ -408,7 +410,7 @@
 <body>
   <div class="poster">
     <!-- 星座背景大字 -->
-    <div class="zodiac-bg">双子座</div>
+    <div class="zodiac-bg">射手座</div>
 
     <!-- 装饰：圆形 -->
     <div class="circle-deco" style="top: 140px; right: 80px; width: 100px; height: 100px;">
@@ -416,33 +418,36 @@
     </div>
 
     <div class="header">
-      <span class="tag">2026 年度运势</span>
-      <span class="tag">GEMINI</span>
+      <span class="tag">2026 新年愿望</span>
+      <span class="tag">SAGITTARIUS</span>
     </div>
 
     <!-- 醒目的星座标识（封面核心元素） -->
     <div class="zodiac-header">
       <div class="zodiac-icon-large">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- 替换为对应星座SVG -->
-          <line x1="20" y1="15" x2="80" y2="15" stroke-linecap="round"/>
-          <line x1="20" y1="85" x2="80" y2="85" stroke-linecap="round"/>
-          <line x1="35" y1="15" x2="35" y2="85" stroke-linecap="round"/>
-          <line x1="65" y1="15" x2="65" y2="85" stroke-linecap="round"/>
+          <!-- 射手座SVG -->
+          <line x1="20" y1="80" x2="80" y2="20" stroke-linecap="round"/>
+          <line x1="80" y1="20" x2="55" y2="20" stroke-linecap="round"/>
+          <line x1="80" y1="20" x2="80" y2="45" stroke-linecap="round"/>
+          <line x1="25" y1="45" x2="55" y2="75" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="zodiac-name">双子座</div>
+      <div class="zodiac-name">射手座</div>
       <div class="zodiac-year">2026</div>
     </div>
 
+    <!-- 🔴 主内容区：必须包含至少2个accent词！ -->
     <div class="main">
-      <div class="keyword">关键词</div>
-      <h1 class="main-title">主标题<br/><span class="accent">强调词</span></h1>
-      <p class="quote">「 引用金句 」</p>
+      <div class="keyword">新年愿望</div>
+      <!-- ✅ 正确：主标题包含2个accent词，形成对比呼应 -->
+      <h1 class="main-title">少一点<span class="accent">期待</span><br/>多一点<span class="accent">随缘</span></h1>
+      <p class="sub-title">射手座的2026新年愿望</p>
+      <p class="quote">「 期望越少，惊喜越多 」</p>
     </div>
 
     <div class="footer">
-      <span class="footer-text">2026 双子座运势</span>
+      <span class="footer-text">射手座2026新年愿望</span>
       <span class="page-num">01</span>
     </div>
 
@@ -450,6 +455,28 @@
   </div>
 </body>
 </html>
+```
+
+### 🔴 封面重点色词规则（必须遵守！）
+
+| 检查项 | 要求 |
+|--------|------|
+| accent词数量 | **至少2个** |
+| 分布位置 | 主标题1-2个 + 副标题0-1个 |
+| 词语选择 | 核心情感词、对比词（非虚词） |
+| 视觉效果 | 形成上下呼应 |
+
+**常见正确模式：**
+```html
+<!-- 模式1：主标题两行各1个 -->
+<h1>少一点<span class="accent">期待</span><br/>多一点<span class="accent">随缘</span></h1>
+
+<!-- 模式2：主标题1个 + 副标题1个 -->
+<h1>不是<span class="accent">孤独</span></h1>
+<p class="sub-title">是事事都要报备的<span class="accent">窒息感</span></p>
+
+<!-- 模式3：主标题2个对比词 -->
+<h1>来的都<span class="accent">欢迎</span><br/>走的不<span class="accent">强留</span></h1>
 ```
 
 ## 内容页布局变体

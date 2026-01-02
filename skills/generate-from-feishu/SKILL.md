@@ -124,31 +124,55 @@ curl -s "https://open.feishu.cn/open-apis/bitable/v1/apps/$LARK_BITABLE_APP_TOKE
 - 同一套图内封面和内容页必须使用相同风格包
 - 在 HTML 开头添加 `<!-- [STYLE LOCK: 风格包名称] [LAYOUT LOCK: 布局] -->` 标记
 
-### ⚠️ 封面重点色词规则（重要！）
+### 🔴 封面重点色词规则（最重要！必须遵守！）
 
-**封面必须包含至少 2 个重点色词（`<span class="accent">词</span>`），形成视觉呼应：**
+> **⚠️ 这是最常见的错误！生成封面前务必检查！**
 
-| 位置 | 说明 | 示例 |
-|------|------|------|
-| 主标题 | 在 h1 标题中标记 1-2 个关键词 | `不是<span class="accent">孤独</span>` |
-| 副标题 | 在副标题中也标记 1 个关键词 | `是事事都要报备的<span class="accent">窒息感</span>` |
+**封面必须包含至少 2 个重点色词（`<span class="accent">词</span>`），形成视觉呼应！**
 
-**重点色词选择原则：**
-1. 选择文案中的**核心情感词**或**对比词**
-2. 主标题和副标题各至少 1 个，形成**上下呼应**
-3. 避免标记虚词（的、是、不）
-4. 重点色词应该是**名词或形容词**
+| 位置 | 要求 | 正确示例 |
+|------|------|----------|
+| 主标题 (h1) | **必须**包含 1-2 个 | `少一点<span class="accent">期待</span>` |
+| 副标题 (sub-title) | **必须**包含 1 个 | `多一点<span class="accent">随缘</span>` |
 
-**示例：**
+**🎯 重点色词选择策略：**
+
+| 文案类型 | 选择策略 | 示例 |
+|----------|----------|------|
+| 对比句 | 标记对比的两个核心词 | `<span class="accent">期待</span>` vs `<span class="accent">随缘</span>` |
+| 情感句 | 标记情感词 + 结果词 | `<span class="accent">欢迎</span>` + `<span class="accent">强留</span>` |
+| 描述句 | 标记形容词 + 名词 | `<span class="accent">热情</span>` + `<span class="accent">无情</span>` |
+
+**❌ 错误示例（0个重点色词）：**
 ```html
-<!-- 错误：只有1个重点色词 -->
-<h1>射手座最怕的<br/>不是<span class="accent">孤独</span></h1>
-<p class="sub-title">是事事都要报备的窒息感</p>
-
-<!-- 正确：2个重点色词形成呼应 -->
-<h1>射手座最怕的<br/>不是<span class="accent">孤独</span></h1>
-<p class="sub-title">是事事都要报备的<span class="accent">窒息感</span></p>
+<h1 class="main-title">少一点期待<br/>多一点随缘</h1>
+<p class="sub-title">射手座的2026新年愿望</p>
+<!-- 问题：全是黑/灰文字，没有任何重点色！ -->
 ```
+
+**✅ 正确示例（2个重点色词）：**
+```html
+<h1 class="main-title">少一点<span class="accent">期待</span><br/>多一点<span class="accent">随缘</span></h1>
+<p class="sub-title">射手座的2026新年愿望</p>
+<!-- 或者：副标题也加重点色 -->
+<p class="sub-title">射手座的<span class="accent">2026</span>新年愿望</p>
+```
+
+**✅ 更多正确示例：**
+```html
+<!-- 年度总结 -->
+<h1 class="main-title">来的都<span class="accent">欢迎</span><br/>走的不<span class="accent">强留</span></h1>
+<p class="sub-title">射手座的2025年度总结</p>
+
+<!-- 情感类 -->
+<h1 class="main-title">不是<span class="accent">无情</span><br/>是<span class="accent">热情</span>用完了</h1>
+<p class="sub-title">懒得再装了</p>
+```
+
+**🚨 生成封面检查清单：**
+- [ ] 主标题中是否有至少1个 `<span class="accent">词</span>`？
+- [ ] 副标题或主标题第二行是否有另一个 `<span class="accent">词</span>`？
+- [ ] 两个重点色词是否形成呼应（对比/递进/因果）？
 
 ### 功能 3: 回传飞书（⚠️ 必须执行）
 
