@@ -2506,11 +2506,11 @@
 /* 关键词：纯文字+下划线（极简） */
 .keyword {
   display: inline-block;
-  font-size: 26px;
+  font-size: 34px;
   font-weight: 500;
   color: #C15F3C;
   letter-spacing: 8px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(193, 95, 60, 0.4);
   margin-bottom: 50px;
 }
