@@ -1,20 +1,6 @@
 ---
-name: publish-to-xiaohongshu
-description: |
-  从飞书多维表格拉取指定记录，自动生成文案并发布到小红书。
-
-  触发关键词：
-  - "发布到小红书" / "发小红书" / "发帖小红书"
-  - "飞书发布" / "从飞书发布" / "拉取发布"
-  - "发布指定记录" / "发布这条" / "发布ID"
-  - "同步到小红书" / "推送小红书"
-
-  当用户需要：
-  (1) 从飞书表格拉取指定标题/ID的记录发布到小红书
-  (2) 自动生成符合小红书风格的文案（100-200字）
-  (3) 批量发布飞书表格中已生成图片的记录
-  (4) 检查小红书登录状态
-invocation: user
+name: publishing-to-xiaohongshu
+description: Publishes content from Feishu Bitable records to Xiaohongshu (Little Red Book) with auto-generated copywriting. Use when the user wants to publish posters to Xiaohongshu, generate platform-specific captions (100-200 chars), batch publish records with generated images, or check Xiaohongshu login status.
 ---
 
 # 小红书自动发布器

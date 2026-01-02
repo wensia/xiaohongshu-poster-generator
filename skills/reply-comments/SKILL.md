@@ -1,19 +1,6 @@
 ---
-name: reply-comments
-description: |
-  小红书评论回复助手。获取笔记评论，生成温暖简短的回复。
-
-  触发关键词：
-  - "回复评论" / "评论回复"
-  - "处理评论" / "管理评论"
-  - "查看所有评论" / "检查新评论"
-  - "有没有新评论"
-
-  当用户需要：
-  (1) 查看所有笔记的评论汇总
-  (2) 查看单篇笔记评论并回复
-  (3) 为评论生成温暖专业的回复
-invocation: user
+name: replying-to-comments
+description: Manages Xiaohongshu comment replies by fetching comments and generating warm, concise responses. Use when the user wants to view all comments across notes, check for new comments, generate professional reply suggestions, or batch manage comment interactions.
 ---
 
 # 小红书评论回复助手

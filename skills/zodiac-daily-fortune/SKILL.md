@@ -1,19 +1,6 @@
 ---
-name: zodiac-daily-fortune
-description: |
-  生成星座每日运势分析文案，用于小红书发布。
-
-  触发关键词：
-  - "每日运势" / "今日运势" / "运势分析"
-  - "星座运势" / "射手座运势" / "XX座今日"
-  - "四元素运势" / "元素流动"
-
-  当用户需要：
-  (1) 为某星座生成当日运势分析
-  (2) 撰写带有四元素（火/水/风/土）+ 行星象征的运势内容
-  (3) 生成适合小红书风格的运势短文（5段，共300-500字）
-  (4) 创建具有觉醒感、不焦虑的运势文案
-invocation: user
+name: generating-daily-horoscope
+description: Generates daily horoscope content for Xiaohongshu using a four-element and planetary symbolism framework. Use when the user wants to create zodiac daily fortune analysis, write horoscope posts with fire/water/air/earth elements, or generate calming, awareness-focused fortune content (300-500 chars).
 ---
 
 # 星座每日运势生成器

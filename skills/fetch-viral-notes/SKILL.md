@@ -1,20 +1,6 @@
 ---
-name: fetch-viral-notes
-description: |
-  使用小红书 MCP 抓取低粉爆文，保存到飞书多维表格进行分析。
-
-  触发关键词：
-  - "抓取爆文" / "爆文抓取" / "低粉爆文"
-  - "小红书爆文" / "搜索爆文"
-  - "抓取笔记" / "批量抓取"
-
-  当用户需要：
-  (1) 搜索特定关键词的小红书内容
-  (2) 筛选低粉丝高互动的笔记
-  (3) 保存爆文数据到飞书进行分析
-  (4) 批量收集竞品内容
-
-invocation: user
+name: fetching-viral-notes
+description: Fetches viral Xiaohongshu notes with low followers but high engagement using MCP and saves them to Feishu Bitable. Use when the user wants to search for specific keywords, filter high-engagement low-follower content, collect competitor content, or batch scrape trending notes.
 ---
 
 ## ⚠️ 上下文优化指南（重要）

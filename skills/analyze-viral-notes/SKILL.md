@@ -1,13 +1,6 @@
 ---
-name: analyze-viral-notes
-description: |
-  从飞书多维表格拉取低粉爆文记录，使用小红书 MCP 获取笔记详情，AI 分析爆款元素，并将结果回写到飞书。
-
-  触发关键词：
-  - "/analyze-viral-notes"
-  - "分析爆文" / "爆文分析" / "分析笔记"
-
-invocation: user
+name: analyzing-viral-notes
+description: Analyzes viral Xiaohongshu notes stored in Feishu Bitable by fetching full content via MCP and identifying viral elements. Use when the user wants to analyze why certain notes went viral, extract successful content patterns, or write analysis results back to Feishu.
 ---
 
 # 低粉爆文分析器

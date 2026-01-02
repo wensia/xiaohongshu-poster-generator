@@ -1,14 +1,6 @@
 ---
-name: generate-from-viral
-description: |
-  从飞书"低粉爆文抓取"表获取爆文记录，结合小红书MCP获取完整内容，AI生成新的星座海报内容，写入"星座海报生成"表。
-
-  触发关键词：
-  - "/generate-from-viral"
-  - "从爆文生成" / "爆文生成内容" / "爆文转海报"
-  - "参考爆文生成" / "学习爆文"
-
-invocation: user
+name: generating-content-from-viral
+description: Generates new zodiac poster content by learning from analyzed viral notes in Feishu Bitable. Use when the user wants to create content inspired by successful viral patterns, transform viral note structures into new zodiac content, or batch generate poster ideas from viral references.
 ---
 
 # 从爆文生成星座海报内容

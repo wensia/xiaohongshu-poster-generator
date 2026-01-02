@@ -1,20 +1,6 @@
 ---
-name: generate-from-feishu
-description: |
-  从飞书多维表格获取待生成的内容，自动生成星座海报图片，上传回飞书并标记完成。
-
-  触发关键词：
-  - "从飞书拉取" / "拉取飞书" / "飞书拉取"
-  - "从表格生成" / "批量生成" / "自动生成"
-  - "处理待生成" / "处理未生成" / "生成未完成"
-  - "飞书同步" / "同步飞书" / "回传飞书"
-
-  当用户需要：
-  (1) 从飞书拉取待生成的记录并批量生成海报
-  (2) 自动处理飞书表格中"已生成=false"的记录
-  (3) 生成图片后回传飞书并标记已完成
-  (4) 查看飞书表格中有多少条待处理任务
-invocation: user
+name: generating-posters-from-feishu
+description: Generates zodiac poster sets from Feishu Bitable records with automatic HTML rendering and screenshot capture. Use when the user wants to batch generate posters from spreadsheet data, process pending Feishu records, sync generated images back to Feishu, or check how many tasks are pending in the Bitable.
 ---
 
 # 飞书多维表格自动化海报生成器

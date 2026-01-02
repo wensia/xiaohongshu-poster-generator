@@ -1,13 +1,6 @@
 ---
-name: upload-to-feishu
-description: |
-  上传图片到飞书多维表格附件字段。由于 lark-mcp 不支持文件上传，使用此脚本实现图片上传功能。
-
-  触发关键词：
-  - "上传图片到飞书"
-  - "上传附件" / "更新附件"
-  - "把图片传到飞书"
-invocation: user
+name: uploading-images-to-feishu
+description: Uploads images to Feishu Bitable attachment fields using a Python script (since lark-mcp does not support file uploads). Use when the user needs to upload generated poster images to Feishu records, batch upload cover and content pages, or update attachment fields.
 ---
 
 # 飞书图片上传器

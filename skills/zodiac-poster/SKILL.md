@@ -1,14 +1,6 @@
 ---
-name: zodiac-poster
-description: |
-  创建社交媒体星座海报，基于 Markdown 设计规范生成 HTML 并截图。
-  AI 智能优化排版和重点色标记。
-  当用户需要：
-  (1) 生成星座相关的社交媒体图片/海报
-  (2) 创建带有中文文案的竖版海报(1080x1440)
-  (3) 制作星座性格/运势/情感类内容海报
-  (4) 批量生成一套同风格的封面+长文案图
-invocation: user
+name: creating-zodiac-posters
+description: Creates social media zodiac posters by generating HTML from Markdown design specs and capturing screenshots. Use when the user wants to create zodiac-themed vertical posters (1080x1440), design Chinese copywriting images, produce zodiac personality or horoscope content, or batch generate cover and content page sets.
 ---
 
 # 星座海报生成器 v4.0
