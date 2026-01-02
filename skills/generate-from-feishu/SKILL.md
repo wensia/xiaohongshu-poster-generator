@@ -41,6 +41,19 @@ description: Generates zodiac poster sets from Feishu Bitable records with autom
 
 ---
 
+## Related Documentation
+
+| Document | Description |
+|----------|-------------|
+| [io-spec.md](../_shared/io-spec.md) | Unified input/output specifications |
+| [field-mapping.md](../_shared/field-mapping.md) | Feishu field definitions |
+| [validation-rules.md](../_shared/validation-rules.md) | Content validation rules |
+| [cover-generation.md](workflows/cover-generation.md) | Cover page workflow |
+| [content-generation.md](workflows/content-generation.md) | Content page workflow |
+| [copywriting-rules.md](reference/copywriting-rules.md) | Xiaohongshu copywriting style guide |
+
+---
+
 ## 执行前检查
 
 > 飞书配置见 [`skills/_shared/feishu-config.md`](../_shared/feishu-config.md)
