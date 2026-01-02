@@ -214,9 +214,21 @@ def main():
 
         # 支持的图片格式
         extensions = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+
+        # 套图文件名规则：
+        # - cover.png (封面)
+        # - page-02.png ~ page-99.png (内容页，从02开始)
+        # 排除：page-01.png (应该用cover.png), *-interaction.png 等非标准文件
+        import re
+        valid_pattern = re.compile(r'^(cover|page-0[2-9]|page-[1-9][0-9])\.png$', re.IGNORECASE)
+
         for f in sorted(dir_path.iterdir()):
             if f.suffix.lower() in extensions:
-                image_paths.append(str(f))
+                # 检查是否符合套图命名规范
+                if valid_pattern.match(f.name):
+                    image_paths.append(str(f))
+                else:
+                    print(f"跳过非标准文件: {f.name}")
 
     if not image_paths:
         print("错误：请指定图片路径 (--images) 或图片目录 (--dir)")
