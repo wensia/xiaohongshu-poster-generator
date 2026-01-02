@@ -2503,16 +2503,17 @@
 ```css
 /* === 艺术镂空风格 === */
 
-/* 关键词：轮廓镂空 */
+/* 关键词：轮廓镂空（优化版：增粗描边+微透明填充增强可读性） */
 .keyword {
   display: inline-block;
   width: fit-content;
   font-size: 36px;
   font-weight: 700;
-  color: transparent;
-  -webkit-text-stroke: 1.5px #C15F3C;
+  color: rgba(193, 95, 60, 0.08);  /* 微透明填充增强可读性 */
+  -webkit-text-stroke: 2.5px #C15F3C;  /* 从1.5px增粗到2.5px */
   letter-spacing: 8px;
   margin-bottom: 50px;
+  text-shadow: 0 0 1px rgba(193, 95, 60, 0.3);  /* 轻微光晕增强对比度 */
 }
 
 /* 封面星座醒目标识区（封面专用） */
