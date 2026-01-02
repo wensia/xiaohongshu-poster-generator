@@ -2503,16 +2503,15 @@
 ```css
 /* === 优雅留白风格 === */
 
-/* 关键词：细边框实心文字（简约易读） */
+/* 关键词：纯文字+下划线（极简） */
 .keyword {
   display: inline-block;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 500;
   color: #C15F3C;
-  letter-spacing: 6px;
-  padding: 14px 32px;
-  border: 1px solid rgba(193, 95, 60, 0.4);
-  background: transparent;
+  letter-spacing: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(193, 95, 60, 0.4);
   margin-bottom: 50px;
 }
 
