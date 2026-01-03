@@ -33,13 +33,35 @@
 
 **必须使用 SVG 线性图标**，从 `zodiac-symbols.json` 获取。
 
+### 封面图标（突出显示）
+
 ```css
 .zodiac-icon svg {
-  width: 52px;
-  height: 52px;
+  width: 80px;          /* 封面使用大尺寸 */
+  height: 80px;
   stroke: #D97757;      /* 必须使用强调色 */
   stroke-width: 1.5;
   fill: none;           /* 无填充 */
+}
+
+/* 柔和光晕效果 */
+.zodiac-glow::before {
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(217, 119, 87, 0.08) 0%, rgba(217, 119, 87, 0) 70%);
+  border-radius: 50%;
+}
+```
+
+### 内页/结尾页图标（标准尺寸）
+
+```css
+.zodiac-icon svg {
+  width: 52px;          /* 内页使用标准尺寸 */
+  height: 52px;
+  stroke: #D97757;
+  stroke-width: 1.5;
+  fill: none;
 }
 ```
 
@@ -105,9 +127,11 @@
 ```
 ┌─────────────────────────────────────┐
 │                                     │
-│            [星座图标]                │  ← top: 120px
+│          ╭─────────────╮            │  ← top: 100px
+│          │  [星座图标]  │            │  ← 80px 图标 + 柔和光晕
+│          ╰─────────────╯            │
 │             GEMINI                  │
-│                                     │
+│              双子座                  │
 │                                     │
 │         最怕的不是孤独               │  ← 垂直居中
 │          是被束缚                    │
@@ -117,10 +141,17 @@
 │        自由比什么都重要              │
 │                                     │
 │                                     │
-│        双子座 · 情感独白             │  ← bottom: 110px
+│          情感独白                    │  ← bottom: 100px
 │                                     │
 └─────────────────────────────────────┘
 ```
+
+### 设计要点
+
+- **星座图标放大**：从 52px 增大到 80px，更醒目
+- **柔和光晕**：图标背后添加 160px 半透明圆形光晕，不突兀
+- **双语标识**：英文名 + 中文名，强化星座识别
+- **视觉层次**：图标区域作为视觉入口，引导阅读
 
 ### 完整封面 HTML
 
@@ -159,7 +190,7 @@
     }
     .zodiac-badge {
       position: absolute;
-      top: 120px;
+      top: 100px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -167,27 +198,50 @@
       align-items: center;
       z-index: 10;
     }
+    .zodiac-glow {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .zodiac-glow::before {
+      content: '';
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(217, 119, 87, 0.08) 0%, rgba(217, 119, 87, 0) 70%);
+      border-radius: 50%;
+      z-index: -1;
+    }
     .zodiac-icon svg {
-      width: 52px;
-      height: 52px;
+      width: 80px;
+      height: 80px;
       stroke: #D97757;
       stroke-width: 1.5;
       fill: none;
     }
-    .zodiac-name {
-      margin-top: 20px;
-      font-size: 18px;
+    .zodiac-en {
+      margin-top: 24px;
+      font-size: 20px;
       font-weight: 400;
       color: #D97757;
-      letter-spacing: 10px;
-      text-indent: 10px;
+      letter-spacing: 12px;
+      text-indent: 12px;
+    }
+    .zodiac-cn {
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #9A958E;
+      letter-spacing: 8px;
+      text-indent: 8px;
     }
     .main {
       position: relative;
       z-index: 10;
       text-align: center;
       padding: 0 100px;
-      margin-top: 80px;
+      margin-top: 60px;
     }
     .main-title {
       font-size: 62px;
@@ -215,7 +269,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 110px;
+      bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -232,10 +286,13 @@
 <body>
   <div class="poster">
     <div class="zodiac-badge">
-      <div class="zodiac-icon">
-        {{ZODIAC_SVG}}
+      <div class="zodiac-glow">
+        <div class="zodiac-icon">
+          {{ZODIAC_SVG}}
+        </div>
       </div>
-      <div class="zodiac-name">{{ZODIAC_EN}}</div>
+      <div class="zodiac-en">{{ZODIAC_EN}}</div>
+      <div class="zodiac-cn">{{ZODIAC_CN}}</div>
     </div>
     <div class="main">
       <h1 class="main-title">
@@ -245,7 +302,7 @@
       <p class="sub-title">{{SUB_TITLE}}</p>
     </div>
     <div class="footer">
-      <span class="footer-text">{{ZODIAC_CN}} · 情感独白</span>
+      <span class="footer-text">情感独白</span>
     </div>
   </div>
 </body>
