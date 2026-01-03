@@ -220,21 +220,21 @@
       stroke-width: 1.5;
       fill: none;
     }
-    .zodiac-en {
-      margin-top: 24px;
-      font-size: 20px;
-      font-weight: 400;
-      color: #D97757;
-      letter-spacing: 12px;
-      text-indent: 12px;
-    }
     .zodiac-cn {
+      margin-top: 24px;
+      font-size: 28px;
+      font-weight: 500;
+      color: #D97757;
+      letter-spacing: 10px;
+      text-indent: 10px;
+    }
+    .zodiac-en {
       margin-top: 8px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 400;
       color: #9A958E;
-      letter-spacing: 8px;
-      text-indent: 8px;
+      letter-spacing: 6px;
+      text-indent: 6px;
     }
     .main {
       position: relative;
@@ -291,8 +291,8 @@
           {{ZODIAC_SVG}}
         </div>
       </div>
-      <div class="zodiac-en">{{ZODIAC_EN}}</div>
       <div class="zodiac-cn">{{ZODIAC_CN}}</div>
+      <div class="zodiac-en">{{ZODIAC_EN}}</div>
     </div>
     <div class="main">
       <h1 class="main-title">
