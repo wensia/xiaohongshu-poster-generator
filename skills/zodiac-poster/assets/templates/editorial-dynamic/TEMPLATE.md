@@ -141,6 +141,7 @@
 .keyword {
   display: inline-block;
   width: fit-content;
+  height: 75px;  /* 固定高度，确保所有页面色块高度一致 */
   background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
   color: #fff;
   font-size: 36px;
@@ -149,7 +150,8 @@
   padding: 16px 36px;
   border-radius: 2px;
   margin-bottom: 60px;
-  line-height: 1.2;  /* 固定行高，确保所有页面色块高度一致 */
+  line-height: 1.2;
+  white-space: nowrap;  /* 防止换行 */
 }
 
 /* 装饰：大字号背景 */
