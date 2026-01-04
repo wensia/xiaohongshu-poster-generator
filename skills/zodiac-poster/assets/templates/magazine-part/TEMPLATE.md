@@ -92,7 +92,7 @@
 ```css
 .bottom-quote {
   position: absolute;
-  bottom: 140px;
+  bottom: 80px;  /* 减少底部留白 */
   left: 80px;
   right: 80px;
   text-align: center;
@@ -101,6 +101,12 @@
   letter-spacing: 2px;
 }
 ```
+
+### 重点词高亮（必须使用）
+```css
+.accent { color: #C15F3C; }
+```
+**规则**：每个页面至少1个重点词使用 `.accent` 高亮，封面标题和内容页正文都需要呼应
 
 ---
 
@@ -194,7 +200,7 @@
     }
     .bottom-quote {
       position: absolute;
-      bottom: 140px;
+      bottom: 80px;
       left: 80px;
       right: 80px;
       text-align: left;
@@ -204,7 +210,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 60px;
+      bottom: 40px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -219,28 +225,21 @@
   <div class="poster">
     <div class="side-line"></div>
     <div class="header">
-      <span class="tag">射手座 · 职业指南</span>
-      <div class="zodiac-icon">
-        <svg viewBox="0 0 50 50">
-          <line x1="8" y1="42" x2="42" y2="8" stroke-linecap="round"/>
-          <polyline points="30,8 42,8 42,20" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="18" y1="32" x2="32" y2="18" stroke-linecap="round"/>
-          <line x1="12" y1="28" x2="22" y2="38" stroke-linecap="round"/>
-        </svg>
-      </div>
+      <span class="tag">{{ZODIAC}} · {{THEME_LABEL}}</span>
+      <div class="zodiac-icon">{{ZODIAC_SVG}}</div>
     </div>
     <div class="main">
-      <div class="theme-tag">职业规划</div>
-      <h1 class="main-title">射手座<br/>更适合的<span class="accent">职业方向</span></h1>
+      <div class="theme-tag">{{THEME_TAG}}</div>
+      <h1 class="main-title">{{ZODIAC}}<br/>{{TITLE_LINE1}}<span class="accent">{{TITLE_ACCENT}}</span></h1>
       <div class="keyword-tags">
-        <span class="keyword-tag">空间</span>
-        <span class="keyword-tag">变化</span>
-        <span class="keyword-tag">自主</span>
-        <span class="keyword-tag">探索</span>
+        <span class="keyword-tag">{{KEYWORD_1}}</span>
+        <span class="keyword-tag">{{KEYWORD_2}}</span>
+        <span class="keyword-tag">{{KEYWORD_3}}</span>
+        <span class="keyword-tag">{{KEYWORD_4}}</span>
       </div>
-      <p class="sub-title">选择让自己更像自己的工作<br/>方向对了，成果自然会来</p>
+      <p class="sub-title">{{SUB_TITLE}}</p>
     </div>
-    <div class="bottom-quote">「 对的方向，比努力更重要 」</div>
+    <div class="bottom-quote">「 {{QUOTE}} 」</div>
     <div class="footer">
       <span class="page-num">01</span>
     </div>
@@ -248,6 +247,19 @@
 </body>
 </html>
 ```
+
+**封面变量说明**：
+| 变量 | 说明 | 示例 |
+|------|------|------|
+| `{{ZODIAC}}` | 星座名称 | 射手座 |
+| `{{THEME_LABEL}}` | 顶部主题标签 | 职业指南 |
+| `{{ZODIAC_SVG}}` | 星座SVG图标 | `<svg>...</svg>` |
+| `{{THEME_TAG}}` | 橙色主题标签 | 职业规划 |
+| `{{TITLE_LINE1}}` | 标题第一部分 | 更适合的 |
+| `{{TITLE_ACCENT}}` | 标题重点词（橙色） | 职业方向 |
+| `{{KEYWORD_1-4}}` | 关键词标签 | 空间、变化、自主、探索 |
+| `{{SUB_TITLE}}` | 副标题 | 选择让自己更像自己的工作 |
+| `{{QUOTE}}` | 底部引用 | 对的方向，比努力更重要 |
 
 ---
 
@@ -326,7 +338,7 @@
     .accent { color: #C15F3C; }
     .bottom-quote {
       position: absolute;
-      bottom: 140px;
+      bottom: 80px;
       left: 80px;
       right: 80px;
       text-align: left;
@@ -336,7 +348,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 60px;
+      bottom: 40px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -351,32 +363,37 @@
   <div class="poster">
     <div class="side-line"></div>
     <div class="header">
-      <span class="tag">射手座 · 职业指南</span>
-      <div class="zodiac-icon">
-        <svg viewBox="0 0 50 50">
-          <line x1="8" y1="42" x2="42" y2="8" stroke-linecap="round"/>
-          <polyline points="30,8 42,8 42,20" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="18" y1="32" x2="32" y2="18" stroke-linecap="round"/>
-          <line x1="12" y1="28" x2="22" y2="38" stroke-linecap="round"/>
-        </svg>
-      </div>
+      <span class="tag">{{ZODIAC}} · {{THEME_LABEL}}</span>
+      <div class="zodiac-icon">{{ZODIAC_SVG}}</div>
     </div>
     <div class="main">
-      <div class="part-number">PART 01</div>
-      <h2 class="section-title">空间与变化</h2>
+      <div class="part-number">PART {{PART_NUM}}</div>
+      <h2 class="section-title">{{SECTION_TITLE}}</h2>
       <div class="content">
-        <p>射手对工作的核心诉求是<span class="accent">空间与变化</span></p>
-        <p>需要能探索、能移动、能<span class="accent">自主决策</span>的舞台<br/>才能持续保持热情</p>
+        {{CONTENT}}
+        <!-- 正文中必须包含 <span class="accent">重点词</span> -->
       </div>
     </div>
-    <div class="bottom-quote">「 不自由，毋宁死 」</div>
+    <div class="bottom-quote">「 {{QUOTE}} 」</div>
     <div class="footer">
-      <span class="page-num">02</span>
+      <span class="page-num">{{PAGE_NUM}}</span>
     </div>
   </div>
 </body>
 </html>
 ```
+
+**内容页变量说明**：
+| 变量 | 说明 | 示例 |
+|------|------|------|
+| `{{ZODIAC}}` | 星座名称 | 射手座 |
+| `{{THEME_LABEL}}` | 顶部主题标签 | 职业指南 |
+| `{{ZODIAC_SVG}}` | 星座SVG图标 | `<svg>...</svg>` |
+| `{{PART_NUM}}` | 章节编号 | 01、02、03... |
+| `{{SECTION_TITLE}}` | 章节标题 | 空间与变化 |
+| `{{CONTENT}}` | 正文内容（含accent标签） | `<p>...</p>` |
+| `{{QUOTE}}` | 底部引用 | 不自由，毋宁死 |
+| `{{PAGE_NUM}}` | 页码 | 02、03、04... |
 
 ---
 
@@ -453,7 +470,7 @@
     .accent { color: #C15F3C; }
     .bottom-quote {
       position: absolute;
-      bottom: 140px;
+      bottom: 80px;
       left: 80px;
       right: 80px;
       text-align: center;
@@ -463,7 +480,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 60px;
+      bottom: 40px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -478,39 +495,48 @@
   <div class="poster">
     <div class="side-line"></div>
     <div class="header">
-      <span class="tag">射手座 · 职业指南</span>
-      <div class="zodiac-icon">
-        <svg viewBox="0 0 50 50">
-          <line x1="8" y1="42" x2="42" y2="8" stroke-linecap="round"/>
-          <polyline points="30,8 42,8 42,20" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="18" y1="32" x2="32" y2="18" stroke-linecap="round"/>
-          <line x1="12" y1="28" x2="22" y2="38" stroke-linecap="round"/>
-        </svg>
-      </div>
+      <span class="tag">{{ZODIAC}} · {{THEME_LABEL}}</span>
+      <div class="zodiac-icon">{{ZODIAC_SVG}}</div>
     </div>
     <div class="main">
-      <div class="part-number">PART 05</div>
-      <h2 class="section-title">做自己</h2>
+      <div class="part-number">PART {{PART_NUM}}</div>
+      <h2 class="section-title">{{SECTION_TITLE}}</h2>
       <div class="content">
-        <p>与其追求体面</p>
-        <p>不如选择让自己<span class="accent">更像自己</span>的工作</p>
-        <p>方向对了<br/>成果自然会来</p>
+        {{CONTENT}}
+        <!-- 尾页正文必须包含 <span class="accent">重点词</span> 呼应封面 -->
       </div>
     </div>
-    <div class="bottom-quote">「 对的方向，比努力更重要 」</div>
+    <div class="bottom-quote">「 {{QUOTE}} 」</div>
     <div class="footer">
-      <span class="page-num">06</span>
+      <span class="page-num">{{PAGE_NUM}}</span>
     </div>
   </div>
 </body>
 </html>
 ```
 
+**尾页变量说明**：与内容页相同，但尾页的 `{{CONTENT}}` 通常为总结性文字，居中显示
+
 ---
 
 ## 生成规则
 
-### 1. 行尾排版规则（必须遵守）
+### 1. 重点词高亮规则（必须遵守）
+
+**每页必须有至少1个重点词使用 `.accent` 高亮**
+
+| 页面类型 | 重点词要求 | 示例 |
+|----------|-----------|------|
+| 封面 | 标题中1个核心词 | `<span class="accent">职业方向</span>` |
+| 内容页 | 正文中1-2个关键词 | `<span class="accent">空间与变化</span>` |
+| 尾页 | 总结词呼应封面 | `<span class="accent">更像自己</span>` |
+
+**重点词选择原则**：
+- 封面重点词 = 标题核心概念
+- 内容页重点词 = 当页核心观点
+- 尾页重点词 = 呼应封面或总结升华
+
+### 2. 行尾排版规则（必须遵守）
 
 **禁止标点符号作为每行的结尾**
 
@@ -519,25 +545,25 @@
 | `射手对工作的核心诉求是，` | `射手对工作的核心诉求是` |
 | `空间与变化。` | `空间与变化` |
 
-### 2. 内容页 PART 编号规则
+### 3. 内容页 PART 编号规则
 
 - 封面页：无 PART 编号
 - 内容页：从 `PART 01` 开始递增
 - 尾页：使用最后一个 PART 编号
 
-### 3. 页码规则
+### 4. 页码规则
 
 - 封面：`01`
 - 内容页：从 `02` 开始递增
 - 页码位置：右下角
 
-### 4. 关键词标签使用
+### 5. 关键词标签使用
 
 - 仅封面使用 `.keyword-tags`
 - 标签数量：3-5 个
 - 内容：与主题相关的关键概念
 
-### 5. 底部引用规则
+### 6. 底部引用规则
 
 - 每页必须有底部引用
 - 格式：`「 引用内容 」`
@@ -555,4 +581,6 @@
 - [ ] 行尾是否有标点符号（不应有）
 - [ ] 底部引用是否存在
 - [ ] 页码是否正确递增
-- [ ] 关键词是否使用 `.accent` 类高亮
+- [ ] **每页是否有 `.accent` 重点词高亮**
+- [ ] **封面与尾页重点词是否呼应**
+- [ ] 底部留白是否适中（bottom-quote: 80px, footer: 40px）
