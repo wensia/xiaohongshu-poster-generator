@@ -11,24 +11,27 @@ description: Generates zodiac poster sets from Feishu Bitable records with autom
 
 ## ⚠️ 关键要求
 
-### 1. Playwright 浏览器视口尺寸（最重要！）
+### 1. 使用独立截图工具（避免浏览器抢占）
 
-**截图前必须先设置浏览器视口尺寸为 1080x1440（3:4 竖屏比例）！**
+**使用 `tools/poster_screenshot.py` 进行截图，避免 MCP Playwright 浏览器抢占问题。**
 
-```
-使用 mcp__playwright__browser_resize 工具：
-- width: 1080
-- height: 1440
+**单文件截图：**
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    /tmp/cover.html \
+    /path/to/output/cover.png
 ```
 
-**必须在第一次 navigate 之前执行 resize！** 否则截图尺寸会错误。
+**批量截图（推荐，一套图多页时浏览器只启动一次）：**
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    --batch /tmp/html_dir/ /path/to/output/
+```
 
-正确的截图流程：
-```
-1. browser_resize(width=1080, height=1440)  ← 先调整尺寸
-2. browser_navigate(url)                     ← 再打开页面
-3. browser_take_screenshot(filename)         ← 最后截图
-```
+**工具自动处理：**
+- viewport 尺寸 1080x1440
+- 字体加载等待 2 秒
+- 截取 `.poster` 元素
 
 ### 2. 生成后必须回传图片到飞书（重要！）
 
@@ -303,20 +306,21 @@ Claude 执行:
 3. 遍历每条记录:
    a. 读取模板规范
    b. AI 生成 HTML
-   c. 保存 HTML 到 /tmp/
+   c. 保存 HTML 到 /tmp/ 或 output 目录
 
-   ⚠️ 【必须】Playwright 截图步骤:
-   d. browser_resize(width=1080, height=1440)  ← 先设置视口尺寸！
-   e. browser_navigate(file:///tmp/xxx.html)   ← 打开 HTML
-   f. browser_wait_for(time=2)                 ← 等待字体加载
-   g. browser_run_code 截取 .poster 元素:      ← 确保尺寸 1080x1440
-      async (page) => {
-        const poster = await page.$('.poster');
-        await poster.screenshot({
-          path: '/output/path/cover.png',
-          scale: 'css'  // 避免 Retina 2x 缩放
-        });
-      }
+   ⚠️ 【必须】使用独立截图工具（避免 MCP 浏览器抢占）:
+   d. 使用 Bash 工具执行截图脚本:
+      ```bash
+      # 批量模式（推荐，一套图多页时浏览器只启动一次）
+      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+          --batch /tmp/html_dir/ /path/to/output/
+
+      # 或单文件模式
+      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+          /tmp/cover.html /path/to/output/cover.png
+      ```
+
+   工具自动处理：viewport 1080x1440、字体加载等待、截取 .poster 元素
 
    ⚠️ 【必须】防止深色模式：
    生成的 HTML 必须在 CSS 开头包含以下样式：
@@ -329,8 +333,8 @@ Claude 执行:
    否则系统深色模式会导致背景变成深灰色！
 
    ⚠️ 【必须】回传飞书:
-   h. 上传所有图片到飞书存储，获取 file_token
-   i. 更新记录:
+   e. 上传所有图片到飞书存储，获取 file_token
+   f. 更新记录:
       - 已生成 = true
       - 生成图片路径 = <目录路径>
       - 生成图片 = [file_tokens...]  ← 必须包含附件！
@@ -465,12 +469,12 @@ cd "/Users/panyuhang/我的项目/编程/脚本/小红书封面生成"
 
 **症状**：生成的图片尺寸不正确，不是竖屏 3:4 比例
 
-**原因**：没有在截图前设置浏览器视口尺寸
+**原因**：使用了错误的截图方式
 
-**解决**：
-```
-在 browser_navigate 之前，必须先执行：
-mcp__playwright__browser_resize(width=1080, height=1440)
+**解决**：使用独立截图工具，自动处理尺寸
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    input.html output.png
 ```
 
-**注意**：resize 必须在 navigate 之前执行，否则不生效！
+**注意**：截图工具自动设置 viewport 为 1080x1440，无需手动配置

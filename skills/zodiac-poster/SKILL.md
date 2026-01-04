@@ -9,25 +9,31 @@ description: Creates social media zodiac posters by generating HTML from Markdow
 
 ---
 
-## ⚠️ Playwright MCP 使用要求
+## ⚠️ 截图工具使用要求
 
-**生成图片时必须使用无头模式（headless）**
+**使用独立 Python 截图工具（避免 MCP 浏览器抢占问题）**
 
-当使用 Playwright MCP 截图时，确保浏览器在后台运行，不弹出窗口：
+截图流程使用 `tools/poster_screenshot.py`，通过 Bash 工具调用：
 
-```javascript
-// Playwright MCP 默认配置应为 headless 模式
-// 如果需要调试，可临时关闭，但生产环境必须开启
+**单文件截图：**
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    /tmp/cover.html \
+    /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/output/2026/01/04/射手座-主题/cover.png
 ```
 
-**截图流程：**
-1. 将生成的 HTML 保存到 output 目录
-2. **调整浏览器尺寸**：`mcp__playwright__browser_resize` 设置 width=1080, height=1440
-3. 使用 `mcp__playwright__browser_navigate` 打开 HTML 文件
-4. 等待字体加载：`mcp__playwright__browser_wait_for` 等待 2 秒
-5. 使用 `mcp__playwright__browser_take_screenshot` 截图（相对路径）
-6. 复制截图到 output 目录
-7. **完成后关闭浏览器页面**：`mcp__playwright__browser_close`
+**批量截图（一套图多页）：**
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    --batch /tmp/poster_html/ /path/to/output/
+```
+
+**工具特性：**
+- 固定 viewport 1080x1440（无需手动设置）
+- 自动等待字体加载（2秒）
+- 自动截取 `.poster` 元素
+- headless 模式运行，不抢占浏览器
+- 支持 `--json` 输出便于解析结果
 
 ---
 
@@ -374,33 +380,23 @@ output/{YYYY}/{MM}/{DD}/{zodiac}-{title}-{YYMMDD}/cover.html
 output/{YYYY}/{MM}/{DD}/{zodiac}-{title}-{YYMMDD}/page-01.html
 ...
 
-# 2. 调整浏览器尺寸为海报尺寸（必须！）
-mcp__playwright__browser_resize → width=1080, height=1440
+# 2. 使用独立截图工具（避免 MCP 浏览器抢占）
+# 单文件模式
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    /path/to/cover.html \
+    /path/to/output/cover.png
 
-# 3. 打开 HTML 文件
-mcp__playwright__browser_navigate → file:///path/to/cover.html
-
-# 4. 等待字体加载
-mcp__playwright__browser_wait_for → time=2
-
-# 5. 截图（⚠️ 必须使用 run_code 截取 .poster 元素，确保尺寸为 1080x1440）
-mcp__playwright__browser_run_code → code:
-  async (page) => {
-    const poster = await page.$('.poster');
-    await poster.screenshot({
-      path: '/absolute/path/to/output/cover.png',
-      scale: 'css'  // 避免 Retina 屏幕 2x 缩放
-    });
-  }
-
-# 6. 关闭浏览器
-mcp__playwright__browser_close
+# 批量模式（推荐：一套图多页时使用，浏览器只启动一次）
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+    --batch /path/to/html_dir/ /path/to/output/
 ```
 
-**⚠️ 截图注意事项：**
-- **必须**使用 `browser_run_code` 截取 `.poster` 元素
-- **必须**设置 `scale: 'css'` 避免 Retina 屏幕导致 2x 放大
-- **禁止**使用 `browser_take_screenshot`，会导致尺寸错误
+**⚠️ 截图工具特性：**
+- 自动设置 viewport 为 1080x1440
+- 自动截取 `.poster` 元素
+- 自动等待字体加载 2 秒
+- 批量模式复用浏览器实例，速度更快
+- 使用 `--json` 参数可输出 JSON 格式结果
 
 **⚠️ 防止深色模式影响（必须遵守）：**
 生成的 HTML **必须**在 CSS 开头包含以下样式，强制使用浅色模式：
