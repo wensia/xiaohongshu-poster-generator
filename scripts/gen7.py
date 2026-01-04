@@ -65,10 +65,16 @@ def split_content(content):
 
 def gen_cover(template, zodiac, title, subtitle, svg):
     en = ZODIAC_EN.get(zodiac, "SAGITTARIUS")
-    main = title.replace(zodiac, '').strip()
+    # 保留完整标题，不删除星座名称
+    main = title
+    # 处理标题换行和强调
     if '，' in main:
         parts = main.split('，')
         main = f'{parts[0]}<br/><span class="accent">{parts[1]}</span>'
+    elif '的' in main and len(main) > 10:
+        # 在"的"后面换行
+        idx = main.find('的')
+        main = f'{main[:idx+1]}<br/><span class="accent">{main[idx+1:]}</span>'
     
     # 根据模板选择颜色
     colors = {
