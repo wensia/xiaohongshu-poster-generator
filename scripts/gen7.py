@@ -51,21 +51,17 @@ def load_svg():
     with open(PROJECT_ROOT / "skills/zodiac-poster/assets/zodiac-symbols.json", 'r') as f:
         return json.load(f)
 
-def split_content(content, max_chars=150):
+def split_content(content):
+    """严格按段落分页，每段一张图"""
     paras = [p.strip() for p in content.split('\n\n') if p.strip()]
-    if len(paras) < 3:
-        paras = [p.strip() for p in content.split('\n') if p.strip()]
-    pages, current, length = [], [], 0
-    for p in paras:
-        if length + len(p) > max_chars and current:
-            pages.append('\n\n'.join(current))
-            current, length = [p], len(p)
-        else:
-            current.append(p)
-            length += len(p)
-    if current:
-        pages.append('\n\n'.join(current))
-    return pages
+    # 如果只有一大段，尝试按单换行分
+    if len(paras) == 1 and '\n' in paras[0]:
+        lines = [l.strip() for l in paras[0].split('\n') if l.strip()]
+        # 每3行为一段
+        paras = []
+        for i in range(0, len(lines), 3):
+            paras.append('\n'.join(lines[i:i+3]))
+    return paras
 
 def gen_cover(template, zodiac, title, subtitle, svg):
     en = ZODIAC_EN.get(zodiac, "SAGITTARIUS")
