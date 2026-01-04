@@ -149,6 +149,7 @@
   padding: 16px 36px;
   border-radius: 2px;
   margin-bottom: 60px;
+  line-height: 1.2;  /* 固定行高，确保所有页面色块高度一致 */
 }
 
 /* 装饰：大字号背景 */
@@ -603,6 +604,10 @@
 - [ ] 文字内容不含装饰表情（禁止 ✨ 🔥 等）
 - [ ] `.keyword` 色块填充样式正确
 - [ ] 装饰元素仅使用 `.year-bg` 和 `.circle-deco`
+
+### 色块统一检查
+- [ ] 所有内容页（包含结尾页）使用相同的 `.keyword` 样式
+- [ ] `.keyword` 包含 `line-height: 1.2` 确保高度统一
 
 ### 智能标记检查
 - [ ] **色块唯一**：有 `.keyword` 的页面，正文只用 `.accent`（禁止 `.accent-bg`）
