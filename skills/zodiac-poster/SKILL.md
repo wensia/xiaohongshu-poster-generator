@@ -9,11 +9,23 @@ description: Creates social media zodiac posters by generating HTML from Markdow
 
 ---
 
-## ⚠️ 截图工具使用要求
+## ⚠️ 截图工具使用要求（必须遵守！）
 
-**使用独立 Python 截图工具（避免 MCP 浏览器抢占问题）**
+### 🚫 禁止事项
 
-截图流程使用 `skills/_shared/scripts/poster_screenshot.py`，通过 Bash 工具调用：
+**❌ 绝对禁止使用 MCP Playwright 工具进行截图！**
+
+| 禁止操作 | 问题 |
+|----------|------|
+| `mcp__playwright__browser_take_screenshot` | 输出 16:10 横版图片 |
+| `mcp__playwright__browser_navigate` + 截图 | viewport 不正确 |
+| 任何 MCP Playwright 截图操作 | 无法保证 1080x1440 尺寸 |
+
+### ✅ 正确做法
+
+**必须使用独立 Python 截图工具**（`skills/_shared/scripts/poster_screenshot.py`）
+
+通过 Bash 工具调用：
 
 **单文件截图：**
 ```bash
