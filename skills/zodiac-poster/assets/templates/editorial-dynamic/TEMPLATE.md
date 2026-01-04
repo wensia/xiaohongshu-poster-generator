@@ -356,10 +356,10 @@
     /* 插入通用基础样式 */
     /* 插入经典强调风格CSS */
 
-    /* 内容页布局调整 */
+    /* 内容页布局调整：垂直居中 */
     .main {
-      top: 280px;
-      transform: none;
+      top: 50%;
+      transform: translateY(-50%);
       text-align: left;
     }
   </style>
