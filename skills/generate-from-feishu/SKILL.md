@@ -13,18 +13,18 @@ description: Generates zodiac poster sets from Feishu Bitable records with autom
 
 ### 1. 使用独立截图工具（避免浏览器抢占）
 
-**使用 `tools/poster_screenshot.py` 进行截图，避免 MCP Playwright 浏览器抢占问题。**
+**使用 `skills/_shared/scripts/poster_screenshot.py` 进行截图，避免 MCP Playwright 浏览器抢占问题。**
 
 **单文件截图：**
 ```bash
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     /tmp/cover.html \
     /path/to/output/cover.png
 ```
 
 **批量截图（推荐，一套图多页时浏览器只启动一次）：**
 ```bash
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     --batch /tmp/html_dir/ /path/to/output/
 ```
 
@@ -312,11 +312,11 @@ Claude 执行:
    d. 使用 Bash 工具执行截图脚本:
       ```bash
       # 批量模式（推荐，一套图多页时浏览器只启动一次）
-      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
           --batch /tmp/html_dir/ /path/to/output/
 
       # 或单文件模式
-      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+      python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
           /tmp/cover.html /path/to/output/cover.png
       ```
 
@@ -473,7 +473,7 @@ cd "/Users/panyuhang/我的项目/编程/脚本/小红书封面生成"
 
 **解决**：使用独立截图工具，自动处理尺寸
 ```bash
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     input.html output.png
 ```
 

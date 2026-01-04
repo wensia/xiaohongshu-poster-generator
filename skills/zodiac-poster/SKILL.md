@@ -13,18 +13,18 @@ description: Creates social media zodiac posters by generating HTML from Markdow
 
 **使用独立 Python 截图工具（避免 MCP 浏览器抢占问题）**
 
-截图流程使用 `tools/poster_screenshot.py`，通过 Bash 工具调用：
+截图流程使用 `skills/_shared/scripts/poster_screenshot.py`，通过 Bash 工具调用：
 
 **单文件截图：**
 ```bash
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     /tmp/cover.html \
     /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/output/2026/01/04/射手座-主题/cover.png
 ```
 
 **批量截图（一套图多页）：**
 ```bash
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     --batch /tmp/poster_html/ /path/to/output/
 ```
 
@@ -382,12 +382,12 @@ output/{YYYY}/{MM}/{DD}/{zodiac}-{title}-{YYMMDD}/page-01.html
 
 # 2. 使用独立截图工具（避免 MCP 浏览器抢占）
 # 单文件模式
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     /path/to/cover.html \
     /path/to/output/cover.png
 
 # 批量模式（推荐：一套图多页时使用，浏览器只启动一次）
-python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/tools/poster_screenshot.py \
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     --batch /path/to/html_dir/ /path/to/output/
 ```
 
