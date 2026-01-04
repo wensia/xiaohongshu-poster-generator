@@ -145,7 +145,7 @@
     .zodiac-icon svg { width: 44px; height: 44px; stroke: #C15F3C; stroke-width: 1.5; fill: none; }
     .side-line {
       position: absolute;
-      top: 280px;
+      top: 350px;
       right: 60px;
       width: 3px;
       height: 120px;
@@ -153,7 +153,7 @@
     }
     .main {
       position: absolute;
-      top: 280px;  /* 封面主体内容下移 */
+      top: 350px;  /* 封面主体内容下移 */
       left: 80px;
       right: 120px;
       z-index: 10;
