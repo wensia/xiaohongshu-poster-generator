@@ -92,7 +92,7 @@
 ```css
 .bottom-quote {
   position: absolute;
-  bottom: 80px;  /* 减少底部留白 */
+  bottom: 55px;  /* 紧凑底部留白 */
   left: 80px;
   right: 80px;
   text-align: center;
@@ -200,7 +200,7 @@
     }
     .bottom-quote {
       position: absolute;
-      bottom: 80px;
+      bottom: 55px;
       left: 80px;
       right: 80px;
       text-align: left;
@@ -210,7 +210,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -338,7 +338,7 @@
     .accent { color: #C15F3C; }
     .bottom-quote {
       position: absolute;
-      bottom: 80px;
+      bottom: 55px;
       left: 80px;
       right: 80px;
       text-align: left;
@@ -348,7 +348,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -470,7 +470,7 @@
     .accent { color: #C15F3C; }
     .bottom-quote {
       position: absolute;
-      bottom: 80px;
+      bottom: 55px;
       left: 80px;
       right: 80px;
       text-align: center;
@@ -480,7 +480,7 @@
     }
     .footer {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       left: 70px;
       right: 70px;
       display: flex;
@@ -583,4 +583,4 @@
 - [ ] 页码是否正确递增
 - [ ] **每页是否有 `.accent` 重点词高亮**
 - [ ] **封面与尾页重点词是否呼应**
-- [ ] 底部留白是否适中（bottom-quote: 80px, footer: 40px）
+- [ ] 底部留白是否紧凑（bottom-quote: 55px, footer: 30px）
