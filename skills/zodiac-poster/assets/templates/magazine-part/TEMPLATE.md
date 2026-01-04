@@ -61,15 +61,16 @@
 .keyword-tags {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   margin: 30px 0;
 }
 .keyword-tag {
-  font-size: 22px;
+  font-size: 26px;
+  font-weight: 500;
   color: #5A5A5A;
   letter-spacing: 4px;
-  padding: 8px 20px;
-  border: 1px solid rgba(193, 95, 60, 0.3);
+  padding: 14px 28px;
+  border: 2px solid rgba(193, 95, 60, 0.6);
   border-radius: 4px;
 }
 ```
@@ -78,12 +79,12 @@
 ```css
 .theme-tag {
   display: inline-block;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 500;
   color: #fff;
   background: #C15F3C;
-  padding: 8px 20px;
-  letter-spacing: 4px;
+  padding: 14px 32px;
+  letter-spacing: 5px;
   margin-bottom: 30px;
 }
 ```
@@ -160,12 +161,12 @@
     }
     .theme-tag {
       display: inline-block;
-      font-size: 20px;
+      font-size: 26px;
       font-weight: 500;
       color: #fff;
       background: #C15F3C;
-      padding: 8px 20px;
-      letter-spacing: 4px;
+      padding: 14px 32px;
+      letter-spacing: 5px;
       margin-bottom: 30px;
     }
     .main-title {
@@ -180,15 +181,16 @@
     .keyword-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 24px;
       margin-bottom: 60px;
     }
     .keyword-tag {
-      font-size: 22px;
+      font-size: 26px;
+      font-weight: 500;
       color: #5A5A5A;
       letter-spacing: 4px;
-      padding: 10px 24px;
-      border: 1px solid rgba(193, 95, 60, 0.3);
+      padding: 14px 28px;
+      border: 2px solid rgba(193, 95, 60, 0.6);
       border-radius: 4px;
     }
     .sub-title {
