@@ -276,12 +276,12 @@
   width: fit-content;
   background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
   color: #fff;
-  font-size: 32px;
-  font-weight: 500;
-  letter-spacing: 8px;
-  padding: 12px 28px;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 10px;
+  padding: 16px 36px;
   border-radius: 2px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 /* 装饰：大字号背景 */
@@ -356,12 +356,46 @@
 
 /* 内容页正文 */
 .content {
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 400;
-  color: #5A5A5A;
-  line-height: 2;
-  letter-spacing: 2px;
-  text-align: justify;
+  color: #4A4A4A;
+  line-height: 2.2;
+  letter-spacing: 3px;
+  text-align: left;
+}
+
+.content p {
+  margin-bottom: 36px;
+}
+
+/* 总结句 */
+.summary {
+  font-size: 28px;
+  font-weight: 400;
+  color: #9A958A;
+  letter-spacing: 4px;
+  font-style: italic;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(193, 95, 60, 0.2);
+  text-align: center;
+}
+.summary::before { content: '「 '; }
+.summary::after { content: ' 」'; }
+
+/* 重点色变体 */
+.accent-bg {
+  color: #fff;
+  background: linear-gradient(135deg, #C15F3C 0%, #D4765A 100%);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.accent-underline {
+  color: #C15F3C;
+  font-weight: 500;
+  border-bottom: 3px solid rgba(193, 95, 60, 0.4);
+  padding-bottom: 2px;
 }
 ```
 
@@ -451,13 +485,12 @@
 
     <div class="main">
       <div class="keyword">小标题</div>
-      <p class="content">
-        正文内容第一段。<br/><br/>
-        正文内容第二段，<br/>
-        包含<span class="accent">强调词</span>。<br/><br/>
-        正文内容第三段，<br/>
-        可以使用<span class="highlight">高亮文字</span>。
-      </p>
+      <div class="content">
+        <p>正文内容第一段，包含<span class="accent">强调词</span></p>
+        <p>正文内容第二段，可以使用<span class="accent-underline">下划线强调</span></p>
+        <p>正文内容第三段，或者<span class="accent-bg">背景高亮</span>效果</p>
+      </div>
+      <p class="summary">总结金句放在这里</p>
     </div>
 
     <div class="footer">
@@ -470,6 +503,16 @@
 </body>
 </html>
 ```
+
+**内容页变量说明**：
+| 变量 | 说明 | 示例 |
+|------|------|------|
+| `小标题` | 当页主题关键词 | 体验优先 |
+| `.content p` | 正文段落（每段一个p标签） | 多个 `<p>` 元素 |
+| `.accent` | 基础强调（橙色字） | 核心关键词 |
+| `.accent-underline` | 下划线强调 | 次要关键词 |
+| `.accent-bg` | 背景高亮强调 | 重要概念 |
+| `.summary` | 总结句（自带引号） | 金句/结论 |
 
 ---
 
