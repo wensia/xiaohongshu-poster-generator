@@ -22,7 +22,7 @@
 | **强调色** | `#C4653A` | 高亮文字、分隔线、图标描边、PART标签 |
 | **主文字** | `#3D3835` | 主标题、正文 |
 | **次要文字** | `#6B6461` | 页眉标题、副标题、页码、引用 |
-| **背景渐变** | 4色 | `#F8F5F0 → #F5F2ED → #EDE9E3 → #E8E4DD` |
+| **背景渐变** | 线性165° | `#FAF6F1 → #F5EDE4 → #F0E6D9` |
 | **分隔线** | `#D4CFC8` | 页脚分隔线 |
 
 ---
@@ -57,18 +57,13 @@
 
 ## 核心样式规范（必须精准复制）
 
-### 1. 页面容器 + 4色渐变背景 + 光照叠加
+### 1. 页面容器 + 线性渐变背景 + 光照叠加
 
 ```css
 .poster {
   width: 1080px;
   height: 1440px;
-  background: radial-gradient(ellipse at 50% 50%,
-    #F8F5F0 0%,
-    #F5F2ED 40%,
-    #EDE9E3 70%,
-    #E8E4DD 100%
-  );
+  background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
   position: relative;
   padding: 116px 129px;  /* 原45px 50px放大2.57倍 */
   display: flex;
@@ -279,12 +274,7 @@
     .poster {
       width: 1080px;
       height: 1440px;
-      background: radial-gradient(ellipse at 50% 50%,
-        #F8F5F0 0%,
-        #F5F2ED 40%,
-        #EDE9E3 70%,
-        #E8E4DD 100%
-      );
+      background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
       padding: 116px 129px;
       display: flex;
@@ -525,12 +515,7 @@
     .poster {
       width: 1080px;
       height: 1440px;
-      background: radial-gradient(ellipse at 50% 50%,
-        #F8F5F0 0%,
-        #F5F2ED 40%,
-        #EDE9E3 70%,
-        #E8E4DD 100%
-      );
+      background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
       padding: 116px 129px;
       display: flex;
@@ -752,12 +737,7 @@
     .poster {
       width: 1080px;
       height: 1440px;
-      background: radial-gradient(ellipse at 50% 50%,
-        #F8F5F0 0%,
-        #F5F2ED 40%,
-        #EDE9E3 70%,
-        #E8E4DD 100%
-      );
+      background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
       padding: 116px 129px;
       display: flex;
