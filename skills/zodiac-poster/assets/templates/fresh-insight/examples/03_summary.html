@@ -42,28 +42,30 @@
   <circle cx="800" cy="300" r="120" fill="#FFE566" opacity="0.15" filter="url(#blur2)"/>
 
   <!-- ==================== 双子座符号 - 优雅水印 ==================== -->
-  <g transform="translate(540, 280)" opacity="0.06">
+  <g transform="translate(540, 300)" opacity="0.08">
     <!-- 更大、更优雅的双子座符号 -->
-    <line x1="-120" y1="-100" x2="120" y2="-100" stroke="#5CAF8E" stroke-width="18" stroke-linecap="round"/>
-    <line x1="-120" y1="100" x2="120" y2="100" stroke="#5CAF8E" stroke-width="18" stroke-linecap="round"/>
-    <line x1="-60" y1="-100" x2="-60" y2="100" stroke="#5CAF8E" stroke-width="18" stroke-linecap="round"/>
-    <line x1="60" y1="-100" x2="60" y2="100" stroke="#5CAF8E" stroke-width="18" stroke-linecap="round"/>
+    <line x1="-130" y1="-110" x2="130" y2="-110" stroke="#5CAF8E" stroke-width="20" stroke-linecap="round"/>
+    <line x1="-130" y1="110" x2="130" y2="110" stroke="#5CAF8E" stroke-width="20" stroke-linecap="round"/>
+    <line x1="-65" y1="-110" x2="-65" y2="110" stroke="#5CAF8E" stroke-width="20" stroke-linecap="round"/>
+    <line x1="65" y1="-110" x2="65" y2="110" stroke="#5CAF8E" stroke-width="20" stroke-linecap="round"/>
   </g>
 
   <!-- ==================== 思维流动装饰 ==================== -->
   <!-- 左侧流动曲线 - 象征思绪飘动 -->
-  <path d="M 60 400 Q 100 500, 80 600 Q 60 700, 90 800"
-        stroke="url(#flowLine)" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="75" cy="420" r="4" fill="#88D8B0" opacity="0.5"/>
-  <circle cx="85" cy="550" r="3" fill="#88D8B0" opacity="0.4"/>
-  <circle cx="70" cy="680" r="5" fill="#88D8B0" opacity="0.3"/>
+  <path d="M 55 380 Q 95 480, 75 580 Q 55 680, 85 780 Q 65 880, 90 950"
+        stroke="#88D8B0" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <circle cx="70" cy="400" r="5" fill="#88D8B0" opacity="0.5"/>
+  <circle cx="80" cy="530" r="4" fill="#88D8B0" opacity="0.45"/>
+  <circle cx="65" cy="660" r="6" fill="#88D8B0" opacity="0.35"/>
+  <circle cx="78" cy="800" r="4" fill="#88D8B0" opacity="0.4"/>
 
   <!-- 右侧流动曲线 -->
-  <path d="M 1020 450 Q 980 550, 1000 650 Q 1020 750, 990 850"
-        stroke="url(#flowLine)" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <circle cx="1005" cy="470" r="4" fill="#88D8B0" opacity="0.5"/>
-  <circle cx="995" cy="600" r="3" fill="#88D8B0" opacity="0.4"/>
-  <circle cx="1010" cy="730" r="5" fill="#88D8B0" opacity="0.3"/>
+  <path d="M 1025 420 Q 985 520, 1005 620 Q 1025 720, 995 820 Q 1015 920, 990 980"
+        stroke="#88D8B0" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <circle cx="1010" cy="450" r="5" fill="#88D8B0" opacity="0.5"/>
+  <circle cx="1000" cy="580" r="4" fill="#88D8B0" opacity="0.45"/>
+  <circle cx="1015" cy="710" r="6" fill="#88D8B0" opacity="0.35"/>
+  <circle cx="1002" cy="850" r="4" fill="#88D8B0" opacity="0.4"/>
 
   <!-- 顶部装饰点群 - 更精致的排列 -->
   <g fill="#88D8B0">
@@ -75,11 +77,11 @@
   </g>
 
   <!-- ==================== 页面标识 - 简约优雅 ==================== -->
-  <g transform="translate(540, 70)">
-    <!-- 细线 + 文字 + 细线 的组合 -->
-    <line x1="-80" y1="0" x2="-20" y2="0" stroke="#A8E6CF" stroke-width="1.5"/>
-    <text x="0" y="5" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#88D8B0" text-anchor="middle" letter-spacing="4">写给双子</text>
-    <line x1="20" y1="0" x2="80" y2="0" stroke="#A8E6CF" stroke-width="1.5"/>
+  <g transform="translate(540, 75)">
+    <!-- 细线 + 文字 + 细线 的组合 - 更大更醒目 -->
+    <line x1="-130" y1="0" x2="-55" y2="0" stroke="#A8E6CF" stroke-width="2"/>
+    <text x="0" y="7" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="500" fill="#6BC4A0" text-anchor="middle" letter-spacing="6">写给双子</text>
+    <line x1="55" y1="0" x2="130" y2="0" stroke="#A8E6CF" stroke-width="2"/>
   </g>
 
   <!-- ==================== 结语区域 ==================== -->
@@ -91,8 +93,8 @@
 
   <!-- 主要结语文字 - 第一段 -->
   <g transform="translate(540, 580)">
-    <!-- 背景高亮条 -->
-    <rect x="-220" y="15" width="440" height="10" rx="5" fill="url(#quoteHighlight)"/>
+    <!-- 背景高亮条 - 作为文字底色，位于文字下半部分 -->
+    <rect x="-160" y="-8" width="320" height="22" rx="4" fill="url(#quoteHighlight)"/>
     <text x="0" y="0" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="700" fill="#2D3436" text-anchor="middle">你的脑子不是乱</text>
     <text x="0" y="65" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="700" fill="#2D3436" text-anchor="middle">只是同时在处理太多信息</text>
   </g>
@@ -107,9 +109,9 @@
   <!-- 主要结语文字 - 第二段 -->
   <g transform="translate(540, 790)">
     <text x="0" y="0" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="700" fill="#2D3436" text-anchor="middle">那些看似矛盾的想法</text>
+    <!-- 第二行文字的背景高亮 -->
+    <rect x="-220" y="57" width="440" height="22" rx="4" fill="url(#quoteHighlight)"/>
     <text x="0" y="65" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="700" fill="#2D3436" text-anchor="middle">都是你丰富内心的证明</text>
-    <!-- 底部高亮条 -->
-    <rect x="-240" y="75" width="480" height="10" rx="5" fill="url(#quoteHighlight)"/>
   </g>
 
   <!-- ==================== END 标记 ==================== -->
