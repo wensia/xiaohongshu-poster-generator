@@ -102,6 +102,8 @@
 
 ### 2. 页眉（所有页面必须）
 
+**设计理念**：星座名是核心身份标识，使用强调色突出；主题词为辅助信息，使用次要色。
+
 ```css
 .header {
   display: flex;
@@ -110,11 +112,35 @@
 }
 
 .header-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;  /* 原3px */
+}
+
+/* 星座名 - 突出显示 */
+.header-zodiac {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px;  /* 比主题词大 */
+  font-weight: 500;
+  color: var(--accent-color);  /* 使用强调色 */
+  letter-spacing: 3px;
+}
+
+/* 分隔符 */
+.header-separator {
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  color: var(--line-color);
+  margin: 0 5px;
+}
+
+/* 主题词 - 次要显示 */
+.header-topic {
   font-family: 'Noto Sans SC', sans-serif;
-  font-size: 33px;  /* 原13px */
-  font-weight: 400;
+  font-size: 28px;  /* 比星座名小 */
+  font-weight: 300;
   color: var(--text-secondary);
-  letter-spacing: 5px;
+  letter-spacing: 4px;
 }
 
 .zodiac-symbol svg {
@@ -125,6 +151,18 @@
   fill: none;
   transform: rotate(-10deg);
 }
+```
+
+**页眉HTML结构**：
+```html
+<div class="header">
+  <div class="header-title">
+    <span class="header-zodiac">{{ZODIAC}}</span>
+    <span class="header-separator">·</span>
+    <span class="header-topic">{{TOPIC}}</span>
+  </div>
+  <div class="zodiac-symbol">{{ZODIAC_SVG}}</div>
+</div>
 ```
 
 ### 3. 页脚（所有页面必须）
@@ -278,11 +316,29 @@
       margin-bottom: auto;
     }
     .header-title {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .header-zodiac {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--accent-color);
+      letter-spacing: 3px;
+    }
+    .header-separator {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      color: var(--line-color);
+      margin: 0 5px;
+    }
+    .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 33px;
-      font-weight: 400;
+      font-size: 28px;
+      font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
     .zodiac-symbol svg {
       width: 72px;
@@ -360,7 +416,11 @@
 <body>
   <div class="poster">
     <div class="header">
-      <span class="header-title">{{ZODIAC}} · {{TOPIC}}</span>
+      <div class="header-title">
+        <span class="header-zodiac">{{ZODIAC}}</span>
+        <span class="header-separator">·</span>
+        <span class="header-topic">{{TOPIC}}</span>
+      </div>
       <div class="zodiac-symbol">
         {{ZODIAC_SVG}}
       </div>
@@ -501,11 +561,29 @@
       align-items: flex-start;
     }
     .header-title {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .header-zodiac {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--accent-color);
+      letter-spacing: 3px;
+    }
+    .header-separator {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      color: var(--line-color);
+      margin: 0 5px;
+    }
+    .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 33px;
-      font-weight: 400;
+      font-size: 28px;
+      font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
     .zodiac-symbol svg {
       width: 72px;
@@ -603,7 +681,11 @@
 <body>
   <div class="poster">
     <div class="header">
-      <span class="header-title">{{ZODIAC}} · {{TOPIC}}</span>
+      <div class="header-title">
+        <span class="header-zodiac">{{ZODIAC}}</span>
+        <span class="header-separator">·</span>
+        <span class="header-topic">{{TOPIC}}</span>
+      </div>
       <div class="zodiac-symbol">
         {{ZODIAC_SVG}}
       </div>
@@ -706,11 +788,29 @@
       align-items: flex-start;
     }
     .header-title {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .header-zodiac {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--accent-color);
+      letter-spacing: 3px;
+    }
+    .header-separator {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      color: var(--line-color);
+      margin: 0 5px;
+    }
+    .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 33px;
-      font-weight: 400;
+      font-size: 28px;
+      font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
     .zodiac-symbol svg {
       width: 72px;
@@ -827,7 +927,11 @@
 <body>
   <div class="poster">
     <div class="header">
-      <span class="header-title">{{ZODIAC}} · {{TOPIC}}</span>
+      <div class="header-title">
+        <span class="header-zodiac">{{ZODIAC}}</span>
+        <span class="header-separator">·</span>
+        <span class="header-topic">{{TOPIC}}</span>
+      </div>
       <div class="zodiac-symbol">
         {{ZODIAC_SVG}}
       </div>
