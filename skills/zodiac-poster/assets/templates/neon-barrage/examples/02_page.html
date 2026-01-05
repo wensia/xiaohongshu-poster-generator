@@ -55,17 +55,20 @@
 
   <!-- 星座标识 -->
   <rect x="80" y="50" width="160" height="50" rx="25" fill="transparent" stroke="url(#neonGradient2)" stroke-width="2"/>
-  <!-- 星座图标和文字组 - 垂直居中对齐 -->
-  <g transform="translate(100, 75)">
-    <!-- SVG 图标 -->
-    <g transform="translate(0, -12)">
-      <line x1="0" y1="0" x2="18" y2="0" stroke="#C084FC" stroke-width="3" stroke-linecap="round"/>
-      <line x1="0" y1="24" x2="18" y2="24" stroke="#C084FC" stroke-width="3" stroke-linecap="round"/>
-      <line x1="4" y1="0" x2="4" y2="24" stroke="#C084FC" stroke-width="3" stroke-linecap="round"/>
-      <line x1="14" y1="0" x2="14" y2="24" stroke="#C084FC" stroke-width="3" stroke-linecap="round"/>
+  <!-- 星座图标和文字组 - 水平垂直居中 -->
+  <g transform="translate(160, 75)">
+    <!-- 内容整体居中：图标18px + 间距8px + 文字约60px = 86px，偏移-43 -->
+    <g transform="translate(-43, 0)">
+      <!-- SVG 图标 (18x18) 垂直居中 -->
+      <g transform="translate(0, -9)">
+        <line x1="0" y1="0" x2="18" y2="0" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="0" y1="18" x2="18" y2="18" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="0" x2="4" y2="18" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="14" y1="0" x2="14" y2="18" stroke="#C084FC" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+      <!-- 文字 -->
+      <text x="26" y="0" class="accent" fill="#C084FC" font-size="20" dominant-baseline="central">双子座</text>
     </g>
-    <!-- 文字 -->
-    <text x="32" y="0" class="accent" fill="#C084FC" font-size="20" dominant-baseline="middle">双子座</text>
   </g>
 
   <!-- 时间标签 -->
