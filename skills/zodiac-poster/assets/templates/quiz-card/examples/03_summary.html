@@ -37,17 +37,20 @@
 
   <!-- 头部徽章 -->
   <rect x="70" y="70" width="220" height="56" rx="28" fill="#1A1A1A"/>
-  <!-- 星座图标和文字组 - 垂直居中对齐 -->
-  <g transform="translate(100, 98)">
-    <!-- SVG 图标 -->
-    <g transform="translate(0, -12)">
-      <line x1="0" y1="0" x2="18" y2="0" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-      <line x1="0" y1="24" x2="18" y2="24" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-      <line x1="4" y1="0" x2="4" y2="24" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-      <line x1="14" y1="0" x2="14" y2="24" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <!-- 星座图标和文字组 - 水平垂直居中 -->
+  <g transform="translate(180, 98)">
+    <!-- 内容整体居中：图标20px + 间距8px + 文字约78px = 106px，偏移-53 -->
+    <g transform="translate(-53, 0)">
+      <!-- SVG 图标 (20x20) 垂直居中 -->
+      <g transform="translate(0, -10)">
+        <line x1="0" y1="0" x2="20" y2="0" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="0" y1="20" x2="20" y2="20" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="5" y1="0" x2="5" y2="20" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        <line x1="15" y1="0" x2="15" y2="20" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <!-- 文字 -->
+      <text x="28" y="0" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="26" font-weight="500" fill="#FFFFFF" dominant-baseline="central">双子座</text>
     </g>
-    <!-- 文字 -->
-    <text x="32" y="0" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="26" font-weight="500" fill="#FFFFFF" dominant-baseline="middle">双子座</text>
   </g>
 
   <!-- 测试结果标签 -->
