@@ -1,0 +1,204 @@
+<!-- [STYLE: 性格独白风] [TYPE: page] -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1440">
+  <title>Page 04 - 敏锐的捕捉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #F5F2ED;
+      --text-primary: #3D3835;
+      --text-secondary: #6B6461;
+      --accent-color: #C4653A;
+      --line-color: #D4CFC8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
+      position: relative;
+      padding: 90px 100px;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.3) 0%,
+        rgba(255,255,255,0) 20%,
+        rgba(0,0,0,0) 80%,
+        rgba(0,0,0,0.03) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .header-title {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .header-zodiac {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--accent-color);
+      letter-spacing: 2px;
+    }
+    .header-separator {
+      font-family: 'Georgia', serif;
+      font-size: 24px;
+      color: var(--line-color);
+      margin: 0 4px;
+    }
+    .header-topic {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      letter-spacing: 3px;
+    }
+    .zodiac-symbol svg {
+      width: 56px;
+      height: 56px;
+      stroke: var(--accent-color);
+      stroke-width: 1.5;
+      fill: none;
+      transform: rotate(-10deg);
+    }
+
+    .part-label {
+      font-family: 'Georgia', serif;
+      font-size: 26px;
+      color: var(--accent-color);
+      letter-spacing: 8px;
+      margin-top: 30px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 64px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 6px;
+      margin-bottom: 24px;
+    }
+
+    .section-divider {
+      width: 100px;
+      height: 4px;
+      background: var(--accent-color);
+      margin-bottom: 80px;
+    }
+
+    .content-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: 60px;
+    }
+
+    .content-text {
+      font-size: 32px;
+      color: var(--text-primary);
+      line-height: 1.9;
+      letter-spacing: 2px;
+    }
+    .content-text p {
+      margin-bottom: 28px;
+    }
+    .content-text .highlight {
+      color: var(--accent-color);
+    }
+
+    .quote {
+      margin-top: 50px;
+      padding-left: 30px;
+      border-left: 4px solid var(--accent-color);
+    }
+    .quote-text {
+      font-style: italic;
+      font-size: 28px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .footer-line {
+      width: 100%;
+      height: 2px;
+      background: var(--line-color);
+      margin-bottom: 24px;
+    }
+    .page-number {
+      font-family: 'Georgia', serif;
+      font-size: 28px;
+      color: var(--text-secondary);
+      letter-spacing: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="header">
+      <div class="header-title">
+        <span class="header-zodiac">射手座</span>
+        <span class="header-separator">·</span>
+        <span class="header-topic">性格独白</span>
+      </div>
+      <div class="zodiac-symbol">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="80" x2="80" y2="20" />
+          <line x1="80" y1="20" x2="55" y2="20" />
+          <line x1="80" y1="20" x2="80" y2="45" />
+          <line x1="25" y1="45" x2="55" y2="75" />
+        </svg>
+      </div>
+    </div>
+
+    <p class="part-label">PART 03</p>
+    <h2 class="section-title">敏锐的捕捉</h2>
+    <div class="section-divider"></div>
+
+    <div class="content-body">
+      <div class="content-text">
+        <p>你说话的<span class="highlight">语气</span></p>
+        <p>一个<span class="highlight">不耐烦</span>的眼神</p>
+        <p>射手都能敏锐地捕捉到</p>
+        <p>然后默默记在心里</p>
+      </div>
+
+      <div class="quote">
+        <p class="quote-text">"嘴上不说，心里什么都知道"</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-line"></div>
+      <span class="page-number">0 4</span>
+    </div>
+  </div>
+</body>
+</html>
