@@ -48,6 +48,7 @@
 | 上下边距 | 90px | 内容区 y: 90 ~ 1350 |
 | 页眉星座名 | 32px | font-weight: 500 |
 | 主题词 | 24px | font-weight: 300 |
+| **封面主标题** | **72px** | font-weight: 600, letter-spacing: 6 |
 | 章节标题 | 64px | font-weight: 600 |
 | 正文 | 32px | line-height: 61px |
 | 引用文字 | 28px | font-style: italic |
@@ -166,10 +167,10 @@
     <text x="540" y="520" font-family="Noto Serif SC, serif" font-size="32" fill="#6B6461" text-anchor="middle" letter-spacing="6">{{SUBTITLE}}</text>
 
     <!-- 主标题 -->
-    <text x="540" y="660" font-family="Noto Serif SC, serif" font-size="80" font-weight="600" fill="#3D3835" text-anchor="middle" letter-spacing="8">
+    <text x="540" y="660" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#3D3835" text-anchor="middle" letter-spacing="6">
       <tspan>{{TITLE_LINE1}}</tspan>
     </text>
-    <text x="540" y="760" font-family="Noto Serif SC, serif" font-size="80" font-weight="600" fill="#C4653A" text-anchor="middle" letter-spacing="8">{{TITLE_HIGHLIGHT}}</text>
+    <text x="540" y="750" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#C4653A" text-anchor="middle" letter-spacing="6">{{TITLE_HIGHLIGHT}}</text>
 
     <!-- 分隔线 -->
     <rect x="490" y="830" width="100" height="4" fill="#C4653A"/>
