@@ -8,7 +8,7 @@ from pathlib import Path
 # 射手座 SVG
 SAGITTARIUS_SVG = '<svg viewBox="0 0 24 24"><path d="M4 20L20 4M20 4H10M20 4V14" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
-# 基础模板
+# 基础模板 - 优化版（2.0倍缩放，更紧凑）
 BASE_CSS = """
     :root {
       --bg-color: #F5F2ED;
@@ -24,7 +24,7 @@ BASE_CSS = """
       height: 1440px;
       background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
-      padding: 116px 129px;
+      padding: 90px 100px;
       display: flex;
       flex-direction: column;
       font-family: 'Noto Serif SC', serif;
@@ -55,31 +55,31 @@ BASE_CSS = """
     .header-title {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px;
     }
     .header-zodiac {
       font-family: 'Noto Serif SC', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 500;
       color: var(--accent-color);
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
     .header-separator {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--line-color);
-      margin: 0 5px;
+      margin: 0 4px;
     }
     .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
     .zodiac-symbol svg {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
       stroke: var(--accent-color);
       stroke-width: 1.5;
       fill: none;
@@ -95,15 +95,15 @@ BASE_CSS = """
     }
     .footer-line {
       width: 100%;
-      height: 3px;
+      height: 2px;
       background: var(--line-color);
-      margin-bottom: 31px;
+      margin-bottom: 24px;
     }
     .page-number {
       font-family: 'Georgia', serif;
-      font-size: 33px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
 
     .highlight {
@@ -122,156 +122,156 @@ COVER_CSS = BASE_CSS + """
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 51px 0;
+      padding: 40px 0;
     }
     .cover-subtitle {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-secondary);
-      letter-spacing: 8px;
-      margin-bottom: 64px;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
     }
     .cover-title {
-      font-size: 98px;
+      font-size: 80px;
       font-weight: 600;
       color: var(--text-primary);
-      line-height: 1.5;
-      letter-spacing: 10px;
-      margin-bottom: 77px;
+      line-height: 1.4;
+      letter-spacing: 8px;
+      margin-bottom: 60px;
     }
     .cover-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 77px;
+      margin-bottom: 60px;
     }
     .cover-tagline {
-      font-size: 36px;
+      font-size: 30px;
       color: var(--text-secondary);
-      line-height: 2;
-      letter-spacing: 5px;
+      line-height: 1.9;
+      letter-spacing: 4px;
     }
 """
 
 PAGE_CSS = BASE_CSS + """
     .part-label {
       font-family: 'Georgia', serif;
-      font-size: 31px;
+      font-size: 26px;
       color: var(--accent-color);
-      letter-spacing: 10px;
-      margin-top: 39px;
-      margin-bottom: 21px;
+      letter-spacing: 8px;
+      margin-top: 30px;
+      margin-bottom: 16px;
     }
     .section-title {
-      font-size: 82px;
+      font-size: 64px;
       font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: 8px;
-      margin-bottom: 31px;
+      letter-spacing: 6px;
+      margin-bottom: 24px;
     }
     .section-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 154px;
+      margin-bottom: 80px;
     }
     .content-body {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-bottom: 103px;
+      padding-bottom: 60px;
     }
     .content-text {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-primary);
-      line-height: 2.2;
-      letter-spacing: 3px;
+      line-height: 1.9;
+      letter-spacing: 2px;
     }
     .content-text p {
-      margin-bottom: 51px;
+      margin-bottom: 28px;
     }
     .quote {
-      margin-top: 90px;
-      padding-left: 39px;
-      border-left: 5px solid var(--accent-color);
+      margin-top: 50px;
+      padding-left: 30px;
+      border-left: 4px solid var(--accent-color);
     }
     .quote-text {
       font-style: italic;
-      font-size: 36px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 3px;
-      line-height: 1.8;
+      letter-spacing: 2px;
+      line-height: 1.6;
     }
 """
 
 END_CSS = BASE_CSS + """
     .part-label {
       font-family: 'Georgia', serif;
-      font-size: 31px;
+      font-size: 26px;
       color: var(--accent-color);
-      letter-spacing: 10px;
-      margin-top: 39px;
-      margin-bottom: 21px;
+      letter-spacing: 8px;
+      margin-top: 30px;
+      margin-bottom: 16px;
     }
     .section-title {
-      font-size: 82px;
+      font-size: 64px;
       font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: 8px;
-      margin-bottom: 31px;
+      letter-spacing: 6px;
+      margin-bottom: 24px;
     }
     .section-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 129px;
+      margin-bottom: 80px;
     }
     .summary-content {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-bottom: 77px;
+      padding-bottom: 60px;
     }
     .summary-text {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-primary);
-      line-height: 2.4;
-      letter-spacing: 3px;
+      line-height: 2.0;
+      letter-spacing: 2px;
     }
     .summary-text p {
-      margin-bottom: 21px;
+      margin-bottom: 16px;
     }
     .ending-section {
-      margin-top: 116px;
+      margin-top: 80px;
       text-align: center;
     }
     .ending-wish {
-      font-size: 36px;
+      font-size: 30px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
-      line-height: 2;
+      letter-spacing: 4px;
+      line-height: 1.9;
       font-style: italic;
     }
     .ending-mark {
-      margin-top: 64px;
+      margin-top: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 39px;
+      gap: 30px;
     }
     .ending-mark::before,
     .ending-mark::after {
       content: '';
-      width: 77px;
-      height: 3px;
+      width: 60px;
+      height: 2px;
       background: var(--line-color);
     }
     .ending-mark span {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--accent-color);
-      letter-spacing: 8px;
+      letter-spacing: 6px;
     }
 """
 

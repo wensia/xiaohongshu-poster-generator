@@ -29,18 +29,19 @@
 
 ## 尺寸放大规范
 
-**基准转换**：原始 420px → 目标 1080px = **2.57 倍**
+**基准转换**：原始 420px → 目标 1080px = **2.0 倍**（紧凑优化版）
 
 | 原始尺寸 | 放大后 | 用途 |
 |----------|--------|------|
-| 13px | 33px | 页眉标题、页码 |
-| 14px | 36px | 封面标语、引用 |
-| 15px | 39px | 封面副标题、正文 |
-| 28px | 72px | 星座图标 |
-| 32px | 82px | 章节标题 |
-| 38px | 98px | 封面主标题 |
-| 45px | 116px | 页面上下内边距 |
-| 50px | 129px | 页面左右内边距、分隔线宽度 |
+| 12px | 24px | 页眉分隔符、主题词 |
+| 14px | 28px | 页码、引用文字 |
+| 15px | 30px | 封面标语 |
+| 16px | 32px | 页眉星座名、正文、封面副标题 |
+| 28px | 56px | 星座图标 |
+| 32px | 64px | 章节标题 |
+| 40px | 80px | 封面主标题 |
+| 45px | 90px | 页面上下内边距 |
+| 50px | 100px | 页面左右内边距、分隔线宽度 |
 
 ---
 
@@ -65,7 +66,7 @@
   height: 1440px;
   background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
   position: relative;
-  padding: 116px 129px;  /* 原45px 50px放大2.57倍 */
+  padding: 90px 100px;  /* 优化后更紧凑 */
   display: flex;
   flex-direction: column;
   font-family: 'Noto Serif SC', serif;
@@ -109,38 +110,38 @@
 .header-title {
   display: flex;
   align-items: baseline;
-  gap: 8px;  /* 原3px */
+  gap: 6px;
 }
 
 /* 星座名 - 突出显示 */
 .header-zodiac {
   font-family: 'Noto Serif SC', serif;
-  font-size: 36px;  /* 比主题词大 */
+  font-size: 32px;  /* 优化后 */
   font-weight: 500;
   color: var(--accent-color);  /* 使用强调色 */
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 /* 分隔符 */
 .header-separator {
   font-family: 'Georgia', serif;
-  font-size: 28px;
+  font-size: 24px;
   color: var(--line-color);
-  margin: 0 5px;
+  margin: 0 4px;
 }
 
 /* 主题词 - 次要显示 */
 .header-topic {
   font-family: 'Noto Sans SC', sans-serif;
-  font-size: 28px;  /* 比星座名小 */
+  font-size: 24px;  /* 优化后 */
   font-weight: 300;
   color: var(--text-secondary);
-  letter-spacing: 4px;
+  letter-spacing: 3px;
 }
 
 .zodiac-symbol svg {
-  width: 72px;   /* 原28px */
-  height: 72px;
+  width: 56px;   /* 优化后更精致 */
+  height: 56px;
   stroke: var(--accent-color);
   stroke-width: 1.5;
   fill: none;
@@ -172,16 +173,16 @@
 
 .footer-line {
   width: 100%;
-  height: 3px;  /* 原1px放大 */
+  height: 2px;
   background: var(--line-color);
-  margin-bottom: 31px;  /* 原12px */
+  margin-bottom: 24px;
 }
 
 .page-number {
   font-family: 'Georgia', serif;
-  font-size: 33px;  /* 原13px */
+  font-size: 28px;
   color: var(--text-secondary);
-  letter-spacing: 5px;
+  letter-spacing: 4px;
 }
 ```
 
@@ -191,10 +192,10 @@
 
 ```css
 .section-divider {
-  width: 129px;   /* 原50px */
-  height: 5px;    /* 原2px */
+  width: 100px;
+  height: 4px;
   background: var(--accent-color);
-  margin-bottom: 154px;  /* 原60px */
+  margin-bottom: 80px;  /* 优化后更紧凑 */
 }
 ```
 
@@ -203,11 +204,11 @@
 ```css
 .part-label {
   font-family: 'Georgia', serif;
-  font-size: 31px;  /* 原12px */
+  font-size: 26px;
   color: var(--accent-color);
-  letter-spacing: 10px;
-  margin-top: 39px;
-  margin-bottom: 21px;
+  letter-spacing: 8px;
+  margin-top: 30px;
+  margin-bottom: 16px;
 }
 ```
 
@@ -215,14 +216,14 @@
 
 ```css
 .content-text {
-  font-size: 39px;   /* 原15px */
+  font-size: 32px;
   color: var(--text-primary);
-  line-height: 2.2;
-  letter-spacing: 3px;
+  line-height: 1.9;  /* 优化后更紧凑 */
+  letter-spacing: 2px;
 }
 
 .content-text p {
-  margin-bottom: 51px;  /* 原20px */
+  margin-bottom: 28px;  /* 优化后更紧凑 */
 }
 
 .highlight {
@@ -234,17 +235,17 @@
 
 ```css
 .quote {
-  margin-top: 90px;  /* 原35px */
-  padding-left: 39px;  /* 原15px */
-  border-left: 5px solid var(--accent-color);  /* 原2px */
+  margin-top: 50px;
+  padding-left: 30px;
+  border-left: 4px solid var(--accent-color);
 }
 
 .quote-text {
   font-style: italic;
-  font-size: 36px;  /* 原14px */
+  font-size: 28px;
   color: var(--text-secondary);
-  letter-spacing: 3px;
-  line-height: 1.8;
+  letter-spacing: 2px;
+  line-height: 1.6;
 }
 ```
 
@@ -276,7 +277,7 @@
       height: 1440px;
       background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
-      padding: 116px 129px;
+      padding: 90px 100px;
       display: flex;
       flex-direction: column;
       font-family: 'Noto Serif SC', serif;
@@ -308,31 +309,31 @@
     .header-title {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px;
     }
     .header-zodiac {
       font-family: 'Noto Serif SC', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 500;
       color: var(--accent-color);
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
     .header-separator {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--line-color);
-      margin: 0 5px;
+      margin: 0 4px;
     }
     .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
     .zodiac-symbol svg {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
       stroke: var(--accent-color);
       stroke-width: 1.5;
       fill: none;
@@ -347,36 +348,36 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 51px 0;
+      padding: 40px 0;
     }
     .cover-subtitle {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-secondary);
-      letter-spacing: 8px;
-      margin-bottom: 64px;
+      letter-spacing: 6px;
+      margin-bottom: 50px;
     }
     .cover-title {
-      font-size: 98px;
+      font-size: 80px;
       font-weight: 600;
       color: var(--text-primary);
       line-height: 1.5;
-      letter-spacing: 10px;
-      margin-bottom: 77px;
+      letter-spacing: 8px;
+      margin-bottom: 60px;
     }
     .cover-title .highlight {
       color: var(--accent-color);
     }
     .cover-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 77px;
+      margin-bottom: 60px;
     }
     .cover-tagline {
-      font-size: 36px;
+      font-size: 30px;
       color: var(--text-secondary);
       line-height: 2;
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
     .cover-tagline .highlight {
       color: var(--accent-color);
@@ -391,15 +392,15 @@
     }
     .footer-line {
       width: 100%;
-      height: 3px;
+      height: 2px;
       background: var(--line-color);
-      margin-bottom: 31px;
+      margin-bottom: 24px;
     }
     .page-number {
       font-family: 'Georgia', serif;
-      font-size: 33px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
   </style>
 </head>
@@ -558,7 +559,7 @@
       height: 1440px;
       background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
-      padding: 116px 129px;
+      padding: 90px 100px;
       display: flex;
       flex-direction: column;
       font-family: 'Noto Serif SC', serif;
@@ -589,31 +590,31 @@
     .header-title {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px;
     }
     .header-zodiac {
       font-family: 'Noto Serif SC', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 500;
       color: var(--accent-color);
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
     .header-separator {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--line-color);
-      margin: 0 5px;
+      margin: 0 4px;
     }
     .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
     .zodiac-symbol svg {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
       stroke: var(--accent-color);
       stroke-width: 1.5;
       fill: none;
@@ -623,28 +624,28 @@
     /* 章节标签 */
     .part-label {
       font-family: 'Georgia', serif;
-      font-size: 31px;
+      font-size: 26px;
       color: var(--accent-color);
-      letter-spacing: 10px;
-      margin-top: 39px;
-      margin-bottom: 21px;
+      letter-spacing: 8px;
+      margin-top: 30px;
+      margin-bottom: 16px;
     }
 
     /* 章节标题 */
     .section-title {
-      font-size: 82px;
+      font-size: 64px;
       font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: 8px;
-      margin-bottom: 31px;
+      letter-spacing: 6px;
+      margin-bottom: 24px;
     }
 
     /* 分隔线 */
     .section-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 154px;
+      margin-bottom: 80px;
     }
 
     /* 内容区域 */
@@ -653,17 +654,17 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-bottom: 103px;
+      padding-bottom: 60px;
     }
 
     .content-text {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-primary);
-      line-height: 2.2;
-      letter-spacing: 3px;
+      line-height: 1.9;
+      letter-spacing: 2px;
     }
     .content-text p {
-      margin-bottom: 51px;
+      margin-bottom: 28px;
     }
     .content-text .highlight {
       color: var(--accent-color);
@@ -671,16 +672,16 @@
 
     /* 引用区块 */
     .quote {
-      margin-top: 90px;
-      padding-left: 39px;
-      border-left: 5px solid var(--accent-color);
+      margin-top: 50px;
+      padding-left: 30px;
+      border-left: 4px solid var(--accent-color);
     }
     .quote-text {
       font-style: italic;
-      font-size: 36px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 3px;
-      line-height: 1.8;
+      letter-spacing: 2px;
+      line-height: 1.6;
     }
 
     /* 页脚 */
@@ -692,15 +693,15 @@
     }
     .footer-line {
       width: 100%;
-      height: 3px;
+      height: 2px;
       background: var(--line-color);
-      margin-bottom: 31px;
+      margin-bottom: 24px;
     }
     .page-number {
       font-family: 'Georgia', serif;
-      font-size: 33px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
   </style>
 </head>
@@ -780,7 +781,7 @@
       height: 1440px;
       background: linear-gradient(165deg, #FAF6F1 0%, #F5EDE4 50%, #F0E6D9 100%);
       position: relative;
-      padding: 116px 129px;
+      padding: 90px 100px;
       display: flex;
       flex-direction: column;
       font-family: 'Noto Serif SC', serif;
@@ -811,31 +812,31 @@
     .header-title {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px;
     }
     .header-zodiac {
       font-family: 'Noto Serif SC', serif;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 500;
       color: var(--accent-color);
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
     .header-separator {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--line-color);
-      margin: 0 5px;
+      margin: 0 4px;
     }
     .header-topic {
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 300;
       color: var(--text-secondary);
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
     .zodiac-symbol svg {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
       stroke: var(--accent-color);
       stroke-width: 1.5;
       fill: none;
@@ -845,28 +846,28 @@
     /* 章节标签 */
     .part-label {
       font-family: 'Georgia', serif;
-      font-size: 31px;
+      font-size: 26px;
       color: var(--accent-color);
-      letter-spacing: 10px;
-      margin-top: 39px;
-      margin-bottom: 21px;
+      letter-spacing: 8px;
+      margin-top: 30px;
+      margin-bottom: 16px;
     }
 
     /* 章节标题 */
     .section-title {
-      font-size: 82px;
+      font-size: 64px;
       font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: 8px;
-      margin-bottom: 31px;
+      letter-spacing: 6px;
+      margin-bottom: 24px;
     }
 
     /* 分隔线 */
     .section-divider {
-      width: 129px;
-      height: 5px;
+      width: 100px;
+      height: 4px;
       background: var(--accent-color);
-      margin-bottom: 129px;
+      margin-bottom: 80px;
     }
 
     /* 总结内容区域 */
@@ -875,17 +876,17 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-bottom: 77px;
+      padding-bottom: 60px;
     }
 
     .summary-text {
-      font-size: 39px;
+      font-size: 32px;
       color: var(--text-primary);
-      line-height: 2.4;
-      letter-spacing: 3px;
+      line-height: 2.0;
+      letter-spacing: 2px;
     }
     .summary-text p {
-      margin-bottom: 21px;
+      margin-bottom: 18px;
     }
     .summary-text .highlight {
       color: var(--accent-color);
@@ -893,35 +894,35 @@
 
     /* 结语区域 */
     .ending-section {
-      margin-top: 116px;
+      margin-top: 80px;
       text-align: center;
     }
     .ending-wish {
-      font-size: 36px;
+      font-size: 30px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
       line-height: 2;
       font-style: italic;
     }
     .ending-mark {
-      margin-top: 64px;
+      margin-top: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 39px;
+      gap: 30px;
     }
     .ending-mark::before,
     .ending-mark::after {
       content: '';
-      width: 77px;
-      height: 3px;
+      width: 60px;
+      height: 2px;
       background: var(--line-color);
     }
     .ending-mark span {
       font-family: 'Georgia', serif;
-      font-size: 28px;
+      font-size: 24px;
       color: var(--accent-color);
-      letter-spacing: 8px;
+      letter-spacing: 6px;
     }
 
     /* 页脚 */
@@ -933,15 +934,15 @@
     }
     .footer-line {
       width: 100%;
-      height: 3px;
+      height: 2px;
       background: var(--line-color);
-      margin-bottom: 31px;
+      margin-bottom: 24px;
     }
     .page-number {
       font-family: 'Georgia', serif;
-      font-size: 33px;
+      font-size: 28px;
       color: var(--text-secondary);
-      letter-spacing: 5px;
+      letter-spacing: 4px;
     }
   </style>
 </head>
@@ -1105,8 +1106,8 @@
 - [ ] 星座图标是否旋转 -10deg
 - [ ] 页脚是否有分隔线 + 右对齐页码
 - [ ] 页码格式是否为 "0 X"（带空格）
-- [ ] 分隔线是否为 129px × 5px 强调色
-- [ ] 正文字号是否为 39px（非 26px）
+- [ ] 分隔线是否为 100px × 4px 强调色
+- [ ] 正文字号是否为 32px
 - [ ] 行尾是否有标点符号（不应有）
 - [ ] **所有页面强调色是否为 `#C4653A`**
 - [ ] **所有页面视觉风格是否统一**
