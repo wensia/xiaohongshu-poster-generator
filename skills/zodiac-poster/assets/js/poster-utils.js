@@ -1,8 +1,10 @@
 /**
  * Poster Utils - 海报导出工具库
  *
- * 功能：将 HTML 海报导出为高清 PNG 图片
- * 技术：DOM → Canvas → PNG（无需 Playwright）
+ * 功能：将 HTML/SVG 海报导出为高清 PNG 图片
+ * 技术：
+ *   - HTML 模板：DOM → html2canvas → Canvas → PNG
+ *   - SVG 模板：SVG → Image → Canvas → PNG（无需 html2canvas）
  *
  * 使用方式：
  * 1. 在 HTML 中引入此文件
@@ -17,11 +19,19 @@
         scale: 2,           // 缩放倍数（2x = 2160x2880）
         format: 'png',      // 输出格式
         quality: 1.0,       // 图片质量（仅对 jpeg 有效）
-        selector: '.poster' // 海报容器选择器
+        selector: '.poster',// 海报容器选择器（HTML 模板）
+        svgSelector: 'svg', // SVG 选择器（SVG 模板）
+        mode: 'auto'        // 导出模式：'auto' | 'html' | 'svg'
     };
 
     // 海报规格（小红书 3:4 比例）
     const POSTER_SIZE = {
+        width: 1080,
+        height: 1440
+    };
+
+    // SVG 模板规格（与 card-generator 一致的 3:4 比例，但更大）
+    const SVG_SIZE = {
         width: 1080,
         height: 1440
     };
@@ -52,6 +62,67 @@
     }
 
     /**
+     * 检测元素类型（SVG 或 HTML）
+     */
+    function detectElementType(element) {
+        if (element.tagName.toLowerCase() === 'svg') {
+            return 'svg';
+        }
+        if (element.querySelector('svg') && !element.querySelector('.poster')) {
+            return 'svg';
+        }
+        return 'html';
+    }
+
+    /**
+     * SVG 元素 → Canvas（无需 html2canvas）
+     * 参考 card-generator-skill 的实现
+     */
+    async function svgToCanvas(svgElement, scale = 2) {
+        await waitForResources();
+
+        // 克隆 SVG 以避免修改原始元素
+        const svgClone = svgElement.cloneNode(true);
+
+        // 确保 SVG 有正确的尺寸属性
+        svgClone.setAttribute('width', SVG_SIZE.width);
+        svgClone.setAttribute('height', SVG_SIZE.height);
+
+        // 如果没有 viewBox，添加一个
+        if (!svgClone.getAttribute('viewBox')) {
+            svgClone.setAttribute('viewBox', `0 0 ${SVG_SIZE.width} ${SVG_SIZE.height}`);
+        }
+
+        // 序列化 SVG
+        const svgString = new XMLSerializer().serializeToString(svgClone);
+        const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        // 加载 SVG 为图片
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = url;
+        });
+
+        // 创建 Canvas 并绘制（带缩放）
+        const canvas = document.createElement('canvas');
+        canvas.width = SVG_SIZE.width * scale;
+        canvas.height = SVG_SIZE.height * scale;
+        const ctx = canvas.getContext('2d');
+
+        // 缩放绘制
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, 0, 0);
+
+        // 清理
+        URL.revokeObjectURL(url);
+
+        return canvas;
+    }
+
+    /**
      * HTML 元素 → Canvas
      * 使用 html2canvas 库（需要外部引入）
      */
@@ -73,6 +144,25 @@
         });
 
         return canvas;
+    }
+
+    /**
+     * 智能导出：自动检测 SVG 或 HTML
+     */
+    async function smartToCanvas(element, scale = 2, mode = 'auto') {
+        const type = mode === 'auto' ? detectElementType(element) : mode;
+
+        if (type === 'svg') {
+            const svg = element.tagName.toLowerCase() === 'svg'
+                ? element
+                : element.querySelector('svg');
+            if (!svg) {
+                throw new Error('No SVG element found');
+            }
+            return await svgToCanvas(svg, scale);
+        } else {
+            return await elementToCanvas(element, scale);
+        }
     }
 
     /**
@@ -104,24 +194,33 @@
     }
 
     /**
-     * 导出单张海报
+     * 导出单张海报（支持 HTML 和 SVG）
      *
      * @param {Object} options - 配置选项
-     * @param {HTMLElement} options.element - 要导出的元素（默认使用 .poster）
+     * @param {HTMLElement} options.element - 要导出的元素（默认使用 .poster 或 svg）
      * @param {string} options.filename - 输出文件名
      * @param {number} options.scale - 缩放倍数
      * @param {string} options.format - 输出格式（png/jpeg）
+     * @param {string} options.mode - 导出模式：'auto' | 'html' | 'svg'
      * @returns {Promise<Blob>} - 图片 Blob
      */
     async function exportPoster(options = {}) {
         const config = { ...DEFAULT_CONFIG, ...options };
-        const element = config.element || document.querySelector(config.selector);
 
+        // 智能查找元素：先找 .poster（HTML），再找 svg（SVG）
+        let element = config.element;
         if (!element) {
-            throw new Error(`Element not found: ${config.selector}`);
+            element = document.querySelector(config.selector);
+            if (!element) {
+                element = document.querySelector(config.svgSelector);
+            }
         }
 
-        const canvas = await elementToCanvas(element, config.scale);
+        if (!element) {
+            throw new Error(`Element not found: ${config.selector} or ${config.svgSelector}`);
+        }
+
+        const canvas = await smartToCanvas(element, config.scale, config.mode);
         const blob = await canvasToBlob(canvas, config.format, config.quality);
 
         if (config.filename) {
@@ -171,7 +270,8 @@
                 const blob = await exportPoster({
                     element: element,
                     scale: poster.scale || DEFAULT_CONFIG.scale,
-                    format: poster.format || DEFAULT_CONFIG.format
+                    format: poster.format || DEFAULT_CONFIG.format,
+                    mode: poster.mode || DEFAULT_CONFIG.mode
                 });
 
                 const filename = `${poster.name || poster.id}.png`;
@@ -275,14 +375,21 @@
 
     // 暴露到全局
     window.PosterUtils = {
+        // 主要 API
         exportPoster,
         downloadPosters,
         createExportButton,
+        // 底层 API
+        smartToCanvas,
+        svgToCanvas,
         elementToCanvas,
         canvasToBlob,
         downloadBlob,
         waitForResources,
+        detectElementType,
+        // 常量
         POSTER_SIZE,
+        SVG_SIZE,
         DEFAULT_CONFIG
     };
 
