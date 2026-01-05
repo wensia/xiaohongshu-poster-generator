@@ -62,17 +62,18 @@
   <!-- ==================== 主内容卡片 ==================== -->
   <rect x="70" y="360" width="940" height="620" rx="28" fill="#FFFFFF" filter="url(#cardShadow)"/>
 
-  <!-- 卡片标题区 - 带浅色背景 -->
+  <!-- 卡片标题区 - 使用 foreignObject 实现精确对齐 -->
   <rect x="70" y="360" width="940" height="70" rx="28" fill="#FAFAF8"/>
-  <!-- 遮盖底部圆角 -->
   <rect x="70" y="400" width="940" height="30" fill="#FAFAF8"/>
 
-  <!-- 云朵图标 - 大幅上移使其与文字视觉中线对齐 -->
-  <text x="120" y="385" font-family="Apple Color Emoji, Segoe UI Emoji" font-size="26">☁️</text>
-  <!-- 标题文字 -->
-  <text x="158" y="405" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="26" font-weight="700" fill="#2D3436">双子座的大脑</text>
+  <foreignObject x="100" y="370" width="400" height="60">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; height: 100%; gap: 10px;">
+      <span style="font-size: 26px; line-height: 1;">☁️</span>
+      <span style="font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 26px; font-weight: 700; color: #2D3436;">双子座的大脑</span>
+    </div>
+  </foreignObject>
 
-  <!-- 卡片标题分割线 - 加深颜色 -->
+  <!-- 卡片标题分割线 -->
   <line x1="100" y1="440" x2="980" y2="440" stroke="#E5E0D8" stroke-width="1"/>
 
   <!-- 左侧装饰点 - 位于第二分区旁边 -->
