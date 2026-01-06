@@ -147,3 +147,44 @@
 1. **模糊圆形**: 大半径圆 + `filter: blur(40px)` + 低透明度
 2. **点阵网格**: 6px 圆点，间距 32px，排列成 3x4 或 4x4
 3. **高亮块**: 黄色矩形置于文字下方
+
+## 胶囊标签组件
+
+用于内容页的分区标识（如"选A"、"选B"、"真相"等）。
+
+**SVG 代码规范（文字必须垂直水平居中）：**
+
+```svg
+<!-- 胶囊标签：宽80px，高36px，圆角18px -->
+<g transform="translate(130, 490)">
+  <!-- 胶囊背景 -->
+  <rect x="-10" y="-20" width="80" height="36" rx="18" fill="#FFE566" opacity="0.6"/>
+  <!-- 文字居中：x=30 是胶囊水平中心，y=-2 是胶囊垂直中心 -->
+  <text x="30" y="-2"
+        font-family="PingFang SC, Microsoft YaHei, sans-serif"
+        font-size="20"
+        font-weight="600"
+        fill="#2D3436"
+        text-anchor="middle"
+        dominant-baseline="central">选A</text>
+  <!-- 后续标题文字 -->
+  <text x="90" y="0" ...>标题内容</text>
+</g>
+```
+
+**关键属性说明：**
+
+| 属性 | 值 | 说明 |
+|------|-----|------|
+| `text-anchor` | `middle` | 水平居中（相对于 x 坐标） |
+| `dominant-baseline` | `central` | 垂直居中（相对于 y 坐标） |
+| `x` | `30` | 胶囊水平中心 = rect.x + rect.width/2 = -10 + 80/2 |
+| `y` | `-2` | 胶囊垂直中心 = rect.y + rect.height/2 = -20 + 36/2 |
+
+**配色方案：**
+
+| 标签类型 | 背景色 | 透明度 |
+|----------|--------|--------|
+| 选A | `#FFE566` | 0.6 |
+| 选B | `#88D8B0` | 0.6 |
+| 真相 | `#FFF3C4` | 1.0 |
