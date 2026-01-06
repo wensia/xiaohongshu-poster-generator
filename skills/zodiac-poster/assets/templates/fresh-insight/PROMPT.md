@@ -152,14 +152,14 @@
 
 用于内容页的分区标识（如"选A"、"选B"、"真相"等）。
 
-**SVG 代码规范（文字必须垂直水平居中）：**
+**SVG 代码规范（胶囊标签与标题水平对齐）：**
 
 ```svg
 <!-- 胶囊标签：宽80px，高36px，圆角18px -->
 <g transform="translate(130, 490)">
   <!-- 胶囊背景 -->
   <rect x="-10" y="-20" width="80" height="36" rx="18" fill="#FFE566" opacity="0.6"/>
-  <!-- 文字居中：x=30 是胶囊水平中心，y=-2 是胶囊垂直中心 -->
+  <!-- 胶囊内文字：居中于胶囊 -->
   <text x="30" y="-2"
         font-family="PingFang SC, Microsoft YaHei, sans-serif"
         font-size="20"
@@ -167,19 +167,29 @@
         fill="#2D3436"
         text-anchor="middle"
         dominant-baseline="central">选A</text>
-  <!-- 后续标题文字 -->
-  <text x="90" y="0" ...>标题内容</text>
+  <!-- 标题文字：与胶囊文字水平对齐（相同的 y 值和 dominant-baseline） -->
+  <text x="90" y="-2"
+        font-family="PingFang SC, Microsoft YaHei, sans-serif"
+        font-size="26"
+        font-weight="700"
+        fill="#2D3436"
+        dominant-baseline="central">行动派双子</text>
+  <!-- 说明文字（从 y=42 开始） -->
+  <text x="0" y="42" ...>说明文字第一行</text>
+  <text x="0" y="72" ...>说明文字第二行</text>
 </g>
 ```
 
 **关键属性说明：**
 
-| 属性 | 值 | 说明 |
-|------|-----|------|
-| `text-anchor` | `middle` | 水平居中（相对于 x 坐标） |
-| `dominant-baseline` | `central` | 垂直居中（相对于 y 坐标） |
-| `x` | `30` | 胶囊水平中心 = rect.x + rect.width/2 = -10 + 80/2 |
-| `y` | `-2` | 胶囊垂直中心 = rect.y + rect.height/2 = -20 + 36/2 |
+| 元素 | 属性 | 值 | 说明 |
+|------|------|-----|------|
+| 胶囊文字 | `text-anchor` | `middle` | 水平居中于胶囊 |
+| 胶囊文字 | `dominant-baseline` | `central` | 垂直居中 |
+| 胶囊文字 | `x` | `30` | 胶囊中心 = -10 + 80/2 |
+| 胶囊文字 | `y` | `-2` | 胶囊中心 = -20 + 36/2 |
+| 标题文字 | `dominant-baseline` | `central` | **必须**与胶囊文字一致 |
+| 标题文字 | `y` | `-2` | **必须**与胶囊文字相同，确保水平对齐 |
 
 **配色方案：**
 
