@@ -126,12 +126,14 @@
     }
 
     // ============================================
-    // 正文行组件
+    // 正文行组件（支持居中模式）
     // ============================================
-    function ContentLine({ item, y }) {
+    function ContentLine({ item, y, centered = false }) {
       if (!item || item === '') {
         return null;
       }
+
+      const textAnchor = centered ? "middle" : "start";
 
       if (typeof item === 'string') {
         return (
@@ -139,7 +141,8 @@
                 fontFamily="Noto Serif SC, serif"
                 fontSize="32"
                 fill={COLORS.textPrimary}
-                letterSpacing="2">
+                letterSpacing="2"
+                textAnchor={textAnchor}>
             {item}
           </text>
         );
@@ -149,7 +152,8 @@
         <text y={y}
               fontFamily="Noto Serif SC, serif"
               fontSize="32"
-              letterSpacing="2">
+              letterSpacing="2"
+              textAnchor={textAnchor}>
           {item.before && <tspan fill={COLORS.textPrimary}>{item.before}</tspan>}
           {item.highlight && <tspan fill={COLORS.accent}>{item.highlight}</tspan>}
           {item.after && <tspan fill={COLORS.textPrimary}>{item.after}</tspan>}
@@ -211,41 +215,46 @@
             </g>
           </g>
 
-          {/* 章节标签 */}
-          <text x="100" y="220"
-                fontFamily="Georgia, serif"
-                fontSize="26"
-                fill={COLORS.accent}
-                letterSpacing="8">
-            EXTRA
-          </text>
+          {/* ⭐ 居中内容区域（与内容页的左对齐形成差异，增强仪式感） */}
+          <g id="centered-content" transform="translate(540, 0)">
+            {/* 章节标签 */}
+            <text x="0" y="220"
+                  fontFamily="Georgia, serif"
+                  fontSize="26"
+                  fill={COLORS.accent}
+                  letterSpacing="8"
+                  textAnchor="middle">
+              EXTRA
+            </text>
 
-          {/* 章节标题 */}
-          <text x="100" y="310"
-                fontFamily="Noto Serif SC, serif"
-                fontSize="64"
-                fontWeight="600"
-                fill={COLORS.textPrimary}
-                letterSpacing="6">
-            {data.sectionTitle}
-          </text>
+            {/* 章节标题 */}
+            <text x="0" y="310"
+                  fontFamily="Noto Serif SC, serif"
+                  fontSize="64"
+                  fontWeight="600"
+                  fill={COLORS.textPrimary}
+                  letterSpacing="6"
+                  textAnchor="middle">
+              {data.sectionTitle}
+            </text>
 
-          {/* 分隔线 */}
-          <rect x="100" y="340" width="100" height="4" fill={COLORS.accent}/>
+            {/* 分隔线（居中） */}
+            <rect x="-50" y="340" width="100" height="4" fill={COLORS.accent}/>
 
-          {/* 总结正文 */}
-          <g id="summary" transform="translate(100, 520)">
-            {data.content.map((item, index) => (
-              <ContentLine
-                key={index}
-                item={item}
-                y={index * LINE_HEIGHT}
-              />
-            ))}
-          </g>
+            {/* 总结正文（居中） */}
+            <g id="summary" transform="translate(0, 520)">
+              {data.content.map((item, index) => (
+                <ContentLine
+                  key={index}
+                  item={item}
+                  y={index * LINE_HEIGHT}
+                  centered={true}
+                />
+              ))}
+            </g>
 
-          {/* 结语 */}
-          <g id="ending" transform="translate(540, 1000)">
+            {/* 结语 */}
+            <g id="ending" transform="translate(0, 480)">
             <text y="0"
                   fontFamily="Noto Serif SC, serif"
                   fontSize="30"
@@ -282,6 +291,7 @@
                     stroke={COLORS.divider}
                     strokeWidth="2"/>
             </g>
+          </g>
           </g>
 
           {/* 页脚 */}

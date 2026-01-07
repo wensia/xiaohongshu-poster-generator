@@ -302,6 +302,8 @@
 
 ## 结尾页模板
 
+> **设计理念**：尾页是套图的收尾，采用**整体居中布局**增强仪式感和总结感，与内容页的左对齐形成差异化。
+
 ```svg
 <!-- [STYLE: 性格独白风] [TYPE: end] -->
 <svg width="1080" height="1440" viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
@@ -326,7 +328,7 @@
   <rect width="1080" height="1440" fill="url(#bgGradient)"/>
   <rect width="1080" height="1440" fill="url(#lightOverlay)"/>
 
-  <!-- 页眉 -->
+  <!-- 页眉（保持左对齐，与其他页面一致） -->
   <g id="header">
     <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#C4653A" letter-spacing="2">{{ZODIAC}}</text>
     <text x="210" y="130" font-family="Georgia, serif" font-size="24" fill="#D4CFC8">·</text>
@@ -336,30 +338,34 @@
     </g>
   </g>
 
-  <!-- 章节标签 -->
-  <text x="100" y="220" font-family="Georgia, serif" font-size="26" fill="#C4653A" letter-spacing="8">EXTRA</text>
+  <!-- ⭐ 居中内容区域（与内容页的左对齐形成差异） -->
+  <g id="centered-content" transform="translate(540, 0)">
+    <!-- 章节标签 -->
+    <text x="0" y="220" font-family="Georgia, serif" font-size="26" fill="#C4653A" letter-spacing="8" text-anchor="middle">EXTRA</text>
 
-  <!-- 章节标题 -->
-  <text x="100" y="310" font-family="Noto Serif SC, serif" font-size="64" font-weight="600" fill="#3D3835" letter-spacing="6">{{SECTION_TITLE}}</text>
+    <!-- 章节标题 -->
+    <text x="0" y="310" font-family="Noto Serif SC, serif" font-size="64" font-weight="600" fill="#3D3835" letter-spacing="6" text-anchor="middle">{{SECTION_TITLE}}</text>
 
-  <!-- 分隔线 -->
-  <rect x="100" y="340" width="100" height="4" fill="#C4653A"/>
+    <!-- 分隔线（居中） -->
+    <rect x="-50" y="340" width="100" height="4" fill="#C4653A"/>
 
-  <!-- 总结正文 -->
-  <g id="summary" transform="translate(100, 520)">
-    {{CONTENT_LINES}}
-  </g>
+    <!-- 总结正文（居中） -->
+    <g id="summary" transform="translate(0, 520)">
+      {{CONTENT_LINES}}
+      <!-- 每行使用 text-anchor="middle" -->
+    </g>
 
-  <!-- 结语 -->
-  <g id="ending" transform="translate(540, 1000)">
-    <text y="0" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE1}}</text>
-    <text y="60" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE2}}</text>
+    <!-- 结语 -->
+    <g id="ending" transform="translate(0, 980)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE1}}</text>
+      <text y="60" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE2}}</text>
 
-    <!-- END 标记 -->
-    <g transform="translate(0, 140)">
-      <line x1="-90" y1="0" x2="-30" y2="0" stroke="#D4CFC8" stroke-width="2"/>
-      <text x="0" y="8" font-family="Georgia, serif" font-size="24" fill="#C4653A" text-anchor="middle" letter-spacing="6">END</text>
-      <line x1="30" y1="0" x2="90" y2="0" stroke="#D4CFC8" stroke-width="2"/>
+      <!-- END 标记 -->
+      <g transform="translate(0, 140)">
+        <line x1="-90" y1="0" x2="-30" y2="0" stroke="#D4CFC8" stroke-width="2"/>
+        <text x="0" y="8" font-family="Georgia, serif" font-size="24" fill="#C4653A" text-anchor="middle" letter-spacing="6">END</text>
+        <line x1="30" y1="0" x2="90" y2="0" stroke="#D4CFC8" stroke-width="2"/>
+      </g>
     </g>
   </g>
 
@@ -370,6 +376,28 @@
   </g>
 </svg>
 ```
+
+### 结尾页正文居中规则
+
+**每行文本必须使用 `text-anchor="middle"`**：
+
+```svg
+<text y="0" font-family="Noto Serif SC, serif" font-size="32" fill="#3D3835" letter-spacing="2" text-anchor="middle">你不需要对每个人都好</text>
+<text y="61" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2" text-anchor="middle">
+  <tspan fill="#3D3835">生理性讨厌</tspan><tspan fill="#C4653A">不是缺点</tspan>
+</text>
+```
+
+### 结尾页 vs 内容页对比
+
+| 元素 | 内容页 | 结尾页 |
+|------|--------|--------|
+| PART/EXTRA 标签 | 左对齐 x=100 | **居中** text-anchor="middle" |
+| 章节标题 | 左对齐 x=100 | **居中** text-anchor="middle" |
+| 分隔线 | 左对齐 x=100 | **居中** x=-50 (相对于540) |
+| 正文内容 | 左对齐 | **居中** text-anchor="middle" |
+| 结语 | - | 居中 |
+| END 标记 | - | 居中 |
 
 ---
 
