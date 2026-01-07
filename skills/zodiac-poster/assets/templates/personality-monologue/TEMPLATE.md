@@ -303,6 +303,51 @@
 ## 结尾页模板
 
 > **设计理念**：尾页是套图的收尾，采用**整体居中布局**增强仪式感和总结感，与内容页的左对齐形成差异化。
+>
+> **重要**：尾页分为**两个内容区域**，需用**装饰分隔线**明确区分：
+> 1. **主文案区域** - 陈述性总结（正体字）
+> 2. **祝福语区域** - 情感升华收尾（斜体字，与内容页 `.quote` 风格呼应）
+
+### 尾页内容结构
+
+```
+┌─────────────────────────────┐
+│  [页眉]                      │
+│                             │
+│         EXTRA               │
+│       写给XX座               │
+│         ────                │
+│                             │
+│    [主文案区域 - 正体32px]   │
+│    你的XX不是缺点            │
+│    是你保护自己的本能         │
+│    ...                      │
+│                             │
+│      ─── ◆ ───              │  ← 装饰分隔线
+│                             │
+│    [祝福语区域 - 斜体28px]   │
+│    愿你永远忠于自己的感觉     │
+│    不必讨好任何人            │
+│                             │
+│      ─── END ───            │
+│                             │
+│  [页脚]                      │
+└─────────────────────────────┘
+```
+
+### 两区域样式对比
+
+| 区域 | 字体 | 字号 | 颜色 | 间距 |
+|------|------|------|------|------|
+| **主文案** | Noto Serif SC（正体） | 32px | #3D3835 主文字 | line-height: 2.0 |
+| **祝福语** | Noto Serif SC（斜体） | 28px | #6B6461 次要文字 | line-height: 1.9 |
+
+### 装饰分隔线规范
+
+- **上边距**：70px（与主文案的间隔）
+- **下边距**：50px（与祝福语的间隔）
+- **样式**：`─── ◆ ───`（两侧线条 50px + 中间菱形符号）
+- **颜色**：线条 #D4CFC8，符号 #C4653A
 
 ```svg
 <!-- [STYLE: 性格独白风] [TYPE: end] -->
@@ -349,19 +394,26 @@
     <!-- 分隔线（居中） -->
     <rect x="-50" y="340" width="100" height="4" fill="#C4653A"/>
 
-    <!-- 总结正文（居中） -->
+    <!-- ⭐ 主文案区域（正体32px，主文字色） -->
     <g id="summary" transform="translate(0, 520)">
       {{CONTENT_LINES}}
-      <!-- 每行使用 text-anchor="middle" -->
+      <!-- 每行使用 text-anchor="middle"，font-size="32"，fill="#3D3835" -->
     </g>
 
-    <!-- 结语 -->
-    <g id="ending" transform="translate(0, 980)">
-      <text y="0" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE1}}</text>
-      <text y="60" font-family="Noto Serif SC, serif" font-size="30" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="4">{{ENDING_LINE2}}</text>
+    <!-- ⭐ 装饰分隔线 ─── ◆ ─── -->
+    <g id="content-divider" transform="translate(0, 820)">
+      <line x1="-70" y1="0" x2="-20" y2="0" stroke="#D4CFC8" stroke-width="1"/>
+      <text x="0" y="5" font-size="16" fill="#C4653A" text-anchor="middle">◆</text>
+      <line x1="20" y1="0" x2="70" y2="0" stroke="#D4CFC8" stroke-width="1"/>
+    </g>
+
+    <!-- ⭐ 祝福语区域（斜体28px，次要文字色） -->
+    <g id="ending" transform="translate(0, 920)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="28" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="3">{{ENDING_LINE1}}</text>
+      <text y="55" font-family="Noto Serif SC, serif" font-size="28" font-style="italic" fill="#6B6461" text-anchor="middle" letter-spacing="3">{{ENDING_LINE2}}</text>
 
       <!-- END 标记 -->
-      <g transform="translate(0, 140)">
+      <g transform="translate(0, 130)">
         <line x1="-90" y1="0" x2="-30" y2="0" stroke="#D4CFC8" stroke-width="2"/>
         <text x="0" y="8" font-family="Georgia, serif" font-size="24" fill="#C4653A" text-anchor="middle" letter-spacing="6">END</text>
         <line x1="30" y1="0" x2="90" y2="0" stroke="#D4CFC8" stroke-width="2"/>
@@ -379,13 +431,19 @@
 
 ### 结尾页正文居中规则
 
-**每行文本必须使用 `text-anchor="middle"`**：
+**主文案每行（32px 正体）**：
 
 ```svg
 <text y="0" font-family="Noto Serif SC, serif" font-size="32" fill="#3D3835" letter-spacing="2" text-anchor="middle">你不需要对每个人都好</text>
 <text y="61" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2" text-anchor="middle">
   <tspan fill="#3D3835">生理性讨厌</tspan><tspan fill="#C4653A">不是缺点</tspan>
 </text>
+```
+
+**祝福语每行（28px 斜体）**：
+
+```svg
+<text y="0" font-family="Noto Serif SC, serif" font-size="28" font-style="italic" fill="#6B6461" letter-spacing="3" text-anchor="middle">愿你永远忠于自己的感觉</text>
 ```
 
 ### 结尾页 vs 内容页对比
@@ -396,7 +454,8 @@
 | 章节标题 | 左对齐 x=100 | **居中** text-anchor="middle" |
 | 分隔线 | 左对齐 x=100 | **居中** x=-50 (相对于540) |
 | 正文内容 | 左对齐 | **居中** text-anchor="middle" |
-| 结语 | - | 居中 |
+| **装饰分隔线** | - | ─── ◆ ─── |
+| 祝福语 | `.quote` 左边框 | 居中斜体 |
 | END 标记 | - | 居中 |
 
 ---
@@ -453,3 +512,9 @@
 - [ ] 内页有引用区块（左边框4px）
 - [ ] 结尾页有 END 标记（带左右装饰线）
 - [ ] 正文行间距 61px
+
+### 结尾页专项检查
+- [ ] 主文案和祝福语之间有**装饰分隔线** `─── ◆ ───`
+- [ ] 主文案使用正体 32px，主文字色 #3D3835
+- [ ] 祝福语使用斜体 28px，次要文字色 #6B6461
+- [ ] 装饰分隔线上边距 70px，下边距 50px

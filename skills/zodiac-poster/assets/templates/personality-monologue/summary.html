@@ -241,7 +241,7 @@
             {/* 分隔线（居中） */}
             <rect x="-50" y="340" width="100" height="4" fill={COLORS.accent}/>
 
-            {/* 总结正文（居中） */}
+            {/* ⭐ 主文案区域（正体32px，主文字色） */}
             <g id="summary" transform="translate(0, 520)">
               {data.content.map((item, index) => (
                 <ContentLine
@@ -253,45 +253,61 @@
               ))}
             </g>
 
-            {/* 结语 */}
-            <g id="ending" transform="translate(0, 480)">
-            <text y="0"
-                  fontFamily="Noto Serif SC, serif"
-                  fontSize="30"
-                  fontStyle="italic"
-                  fill={COLORS.textSecondary}
-                  textAnchor="middle"
-                  letterSpacing="4">
-              {data.endingLine1}
-            </text>
-            <text y="60"
-                  fontFamily="Noto Serif SC, serif"
-                  fontSize="30"
-                  fontStyle="italic"
-                  fill={COLORS.textSecondary}
-                  textAnchor="middle"
-                  letterSpacing="4">
-              {data.endingLine2}
-            </text>
-
-            {/* END 标记 */}
-            <g transform="translate(0, 140)">
-              <line x1="-90" y1="0" x2="-30" y2="0"
+            {/* ⭐ 装饰分隔线 ─── ◆ ─── */}
+            <g id="content-divider" transform="translate(0, 820)">
+              <line x1="-70" y1="0" x2="-20" y2="0"
                     stroke={COLORS.divider}
-                    strokeWidth="2"/>
-              <text x="0" y="8"
-                    fontFamily="Georgia, serif"
-                    fontSize="24"
+                    strokeWidth="1"/>
+              <text x="0" y="5"
+                    fontSize="16"
                     fill={COLORS.accent}
-                    textAnchor="middle"
-                    letterSpacing="6">
-                END
+                    textAnchor="middle">
+                ◆
               </text>
-              <line x1="30" y1="0" x2="90" y2="0"
+              <line x1="20" y1="0" x2="70" y2="0"
                     stroke={COLORS.divider}
-                    strokeWidth="2"/>
+                    strokeWidth="1"/>
             </g>
-          </g>
+
+            {/* ⭐ 祝福语区域（斜体28px，次要文字色） */}
+            <g id="ending" transform="translate(0, 920)">
+              <text y="0"
+                    fontFamily="Noto Serif SC, serif"
+                    fontSize="28"
+                    fontStyle="italic"
+                    fill={COLORS.textSecondary}
+                    textAnchor="middle"
+                    letterSpacing="3">
+                {data.endingLine1}
+              </text>
+              <text y="55"
+                    fontFamily="Noto Serif SC, serif"
+                    fontSize="28"
+                    fontStyle="italic"
+                    fill={COLORS.textSecondary}
+                    textAnchor="middle"
+                    letterSpacing="3">
+                {data.endingLine2}
+              </text>
+
+              {/* END 标记 */}
+              <g transform="translate(0, 130)">
+                <line x1="-90" y1="0" x2="-30" y2="0"
+                      stroke={COLORS.divider}
+                      strokeWidth="2"/>
+                <text x="0" y="8"
+                      fontFamily="Georgia, serif"
+                      fontSize="24"
+                      fill={COLORS.accent}
+                      textAnchor="middle"
+                      letterSpacing="6">
+                  END
+                </text>
+                <line x1="30" y1="0" x2="90" y2="0"
+                      stroke={COLORS.divider}
+                      strokeWidth="2"/>
+              </g>
+            </g>
           </g>
 
           {/* 页脚 */}
