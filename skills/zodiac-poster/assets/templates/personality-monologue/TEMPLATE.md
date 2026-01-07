@@ -342,6 +342,22 @@
 | **主文案** | Noto Serif SC（正体） | 32px | #3D3835 主文字 | line-height: 2.0 |
 | **祝福语** | Noto Serif SC（斜体） | 28px | #6B6461 次要文字 | line-height: 1.9 |
 
+### 内容区域布局规范
+
+**关键CSS**：使用 Flexbox 垂直居中，确保上下留白均衡
+
+```css
+.centered-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;  /* ⭐ 垂直居中 */
+  padding-bottom: 60px;     /* 微调视觉重心 */
+}
+```
+
 ### 装饰分隔线规范
 
 - **上边距**：70px（与主文案的间隔）
