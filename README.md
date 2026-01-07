@@ -43,7 +43,7 @@
 ### 第一步：克隆项目
 
 ```bash
-git clone https://github.com/your-username/xiaohongshu-poster-generator.git
+git clone https://github.com/wensia/xiaohongshu-poster-generator.git
 cd xiaohongshu-poster-generator
 ```
 
@@ -234,7 +234,7 @@ cd xiaohongshu-mcp
 cd xiaohongshu-poster-generator
 
 # 启动 Claude Code
-claude
+claude .
 ```
 
 ### 常用命令
