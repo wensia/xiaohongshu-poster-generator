@@ -31,27 +31,29 @@
     </g>
   </g>
 
-  <!-- 双星座对称布局 - 优雅的线条图标 -->
+  <!-- 双星座对称布局 - Tabler Icons 统一风格 -->
   <g id="dual-zodiac" transform="translate(540, 300)">
 
-    <!-- 左星座：射手座 ♐ - 简洁箭头，单路径 -->
-    <g transform="translate(-120, 0)">
-      <path d="M-24,24 L24,-24 M8,-24 L24,-24 L24,-8 M-16,8 L-8,16"
-            fill="none" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 左星座：射手座 ♐ (Tabler Icons) -->
+    <g transform="translate(-120, 0) translate(-30, -30) scale(2.5)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20l16 -16" />
+      <path d="M13 4h7v7" />
+      <path d="M6.5 12.5l5 5" />
     </g>
 
-    <!-- 连接符号：双心形 -->
+    <!-- 连接符号：无限 ∞ -->
     <g transform="translate(0, 0)">
-      <path d="M0,-8 C-6,-14 -14,-8 -8,0 C-2,8 0,12 0,12 C0,12 2,8 8,0 C14,-8 6,-14 0,-8"
-            fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <path d="M-18,0 C-18,-10 -6,-10 0,0 C6,10 18,10 18,0 C18,-10 6,-10 0,0 C-6,10 -18,10 -18,0"
+            fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
     </g>
 
-    <!-- 右星座：狮子座 ♌ - 鬃毛圆环 + 优雅尾巴 -->
-    <g transform="translate(120, 0)">
-      <!-- 圆环代表狮子鬃毛 -->
-      <circle cx="-6" cy="-2" r="14" fill="none" stroke="#B86B4A" stroke-width="2.5"/>
-      <!-- 尾巴从圆环右边缘延伸，形成连贯的视觉 -->
-      <path d="M8,-2 Q18,-2 18,12 Q18,24 6,24" fill="none" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- 右星座：狮子座 ♌ (Tabler Icons) -->
+    <g transform="translate(120, 0) translate(-30, -30) scale(2.5)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 17a4 4 0 1 0 8 0" />
+      <path d="M3 16a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+      <path d="M7 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+      <path d="M7 7c0 3 2 5 2 9" />
+      <path d="M15 7c0 4 -2 6 -2 10" />
     </g>
   </g>
 
