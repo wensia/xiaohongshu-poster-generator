@@ -31,60 +31,61 @@
     </g>
   </g>
 
-  <!-- 双星座对称布局 -->
-  <g id="dual-zodiac">
-    <!-- 左星座：射手座 (中心点 420, 360) -->
-    <g transform="translate(420, 360)">
-      <!-- 射手座箭头符号，以(0,0)为中心 -->
-      <line x1="-30" y1="30" x2="30" y2="-30" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="30" y1="-30" x2="10" y2="-30" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="30" y1="-30" x2="30" y2="-10" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="-25" y1="0" x2="0" y2="25" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 双星座对称布局 - 使用统一风格的线条图标 -->
+  <g id="dual-zodiac" transform="translate(540, 340)">
+
+    <!-- 左星座：射手座 ♐ - 标准占星符号风格 -->
+    <g transform="translate(-100, 0)">
+      <!-- 箭头主体（45度对角线） -->
+      <line x1="-22" y1="22" x2="22" y2="-22" stroke="#B86B4A" stroke-width="2" stroke-linecap="round"/>
+      <!-- 箭头头部 -->
+      <polyline points="8,-22 22,-22 22,-8" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 横穿短线 -->
+      <line x1="-8" y1="8" x2="8" y2="-8" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" transform="translate(-7, 7) rotate(90)"/>
     </g>
 
-    <!-- 无限符号 (中心点 540, 360) -->
-    <g transform="translate(540, 360)">
-      <path d="M-25,0 C-25,-15 -10,-15 0,0 C10,15 25,15 25,0 C25,-15 10,-15 0,0 C-10,15 -25,15 -25,0"
-            fill="none" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- 无限符号 ∞ -->
+    <g transform="translate(0, 0)">
+      <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+            fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round"/>
     </g>
 
-    <!-- 右星座：狮子座 (中心点 660, 360) -->
-    <g transform="translate(660, 360)">
-      <!-- 狮子座符号：圆 + 曲线尾巴，以(0,0)为中心 -->
-      <circle cx="-10" cy="-5" r="22" fill="none" stroke="#B86B4A" stroke-width="2.5"/>
-      <path d="M12,-5 Q35,-5 35,18 Q35,35 15,35" fill="none" stroke="#B86B4A" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- 右星座：狮子座 ♌ - 标准占星符号风格 -->
+    <g transform="translate(100, 0)">
+      <!-- 主圆（鬃毛） -->
+      <circle cx="-8" cy="-4" r="16" fill="none" stroke="#B86B4A" stroke-width="2"/>
+      <!-- 尾巴曲线（一笔画完，连贯） -->
+      <path d="M8,-4 Q20,-4 20,10 Q20,22 8,22" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round"/>
     </g>
   </g>
 
   <!-- 配对指数 -->
-  <g id="match-index" transform="translate(540, 500)">
-    <text x="0" y="0" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="4">MATCH INDEX</text>
-    <!-- 85% 基线对齐：% 使用较小字号并调整垂直位置 -->
-    <text x="0" y="60" font-family="Georgia, serif" font-weight="600" fill="#B86B4A" text-anchor="middle">
-      <tspan font-size="72">85</tspan><tspan font-size="52" baseline-shift="-5%">%</tspan>
-    </text>
+  <g id="match-index" transform="translate(540, 480)">
+    <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#8B7355" text-anchor="middle" letter-spacing="6" font-weight="400">MATCH INDEX</text>
+    <!-- 85% 使用统一字号，保持基线一致 -->
+    <text x="0" y="70" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">85%</text>
   </g>
 
   <!-- 分隔线 -->
-  <rect x="490" y="620" width="100" height="3" fill="#B86B4A"/>
+  <rect x="490" y="600" width="100" height="2" fill="#B86B4A"/>
 
   <!-- 封面标题 -->
-  <g id="cover-title" transform="translate(540, 740)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="6">命中注定</text>
-    <text x="0" y="80" font-family="Noto Serif SC, serif" font-size="32" fill="#7D7067" text-anchor="middle" letter-spacing="4">火象最佳CP</text>
+  <g id="cover-title" transform="translate(540, 720)">
+    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="8">命中注定</text>
+    <text x="0" y="72" font-family="Noto Serif SC, serif" font-size="28" fill="#7D7067" text-anchor="middle" letter-spacing="6">火象最佳CP</text>
   </g>
 
   <!-- 标语 -->
-  <g id="tagline" transform="translate(540, 940)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="28" fill="#7D7067" text-anchor="middle" letter-spacing="3">两个人在一起</text>
-    <text x="0" y="50" font-family="Noto Serif SC, serif" font-size="28" text-anchor="middle" letter-spacing="3">
+  <g id="tagline" transform="translate(540, 920)">
+    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="26" fill="#7D7067" text-anchor="middle" letter-spacing="2">两个人在一起</text>
+    <text x="0" y="48" font-family="Noto Serif SC, serif" font-size="26" text-anchor="middle" letter-spacing="2">
       <tspan fill="#B86B4A">发光发热</tspan><tspan fill="#7D7067">，谁也不用收敛</tspan>
     </text>
   </g>
 
   <!-- 页脚 -->
   <g id="footer">
-    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="2"/>
-    <text x="980" y="1390" font-family="Georgia, serif" font-size="28" fill="#7D7067" text-anchor="end" letter-spacing="4">0 1</text>
+    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="1.5"/>
+    <text x="980" y="1388" font-family="Georgia, serif" font-size="24" fill="#7D7067" text-anchor="end" letter-spacing="6">01</text>
   </g>
 </svg>
