@@ -641,7 +641,10 @@ def html_to_png(html_content, output_path):
     # 使用Playwright截图
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1080, "height": 1440})
+        page = browser.new_page(
+            viewport={"width": 1080, "height": 1440},
+            device_scale_factor=2  # 2x 导出，实际像素 2160x2880
+        )
         page.goto(f"file://{html_path}")
         page.wait_for_load_state("networkidle")
         time.sleep(0.5)  # 等待字体加载

@@ -6,9 +6,11 @@
 用法:
   单文件模式: python poster_screenshot.py input.html output.png
   批量模式:   python poster_screenshot.py --batch input_dir/ output_dir/
+  1x 模式:    python poster_screenshot.py --scale 1 input.html output.png
 
 特性:
   - 固定 viewport 1080x1440
+  - 默认 2x 导出（实际像素 2160x2880）
   - 等待字体加载
   - 截取 .poster 元素
   - 批量模式复用浏览器实例
@@ -271,7 +273,8 @@ def main():
         height=args.height,
         headless=not args.no_headless,
         selector=args.selector,
-        font_wait_ms=args.wait
+        font_wait_ms=args.wait,
+        scale=args.scale
     ) as tool:
 
         if args.batch:

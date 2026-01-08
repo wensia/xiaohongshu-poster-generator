@@ -51,7 +51,10 @@ def svg_to_png(svg_path, png_path):
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1080, "height": 1440})
+        page = browser.new_page(
+            viewport={"width": 1080, "height": 1440},
+            device_scale_factor=2  # 2x 导出，实际像素 2160x2880
+        )
         page.set_content(html)
         page.wait_for_timeout(2500)  # 等待字体加载
         page.screenshot(path=png_path)

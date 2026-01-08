@@ -30,7 +30,8 @@ Used for fetching note details, comments, and publishing content.
 | Property | Value |
 |----------|-------|
 | **Path Pattern** | `output/{YYYY}/{MM}/{DD}/{zodiac}-{title}-{YYMMDD}/` |
-| **Dimensions** | 1080 × 1440 px (3:4 vertical ratio) |
+| **Viewport** | 1080 × 1440 px (3:4 vertical ratio) |
+| **Actual Pixels** | 2160 × 2880 px (2x export, `device_scale_factor=2`) |
 | **Format** | PNG |
 | **Naming** | `{zodiac}-{title}-cover.png`, `{zodiac}-{title}-page-02.png`, etc. |
 

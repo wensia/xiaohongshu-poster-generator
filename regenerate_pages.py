@@ -253,7 +253,10 @@ def html_to_png(html_path: str, output_path: str, width: int = 1080, height: int
     """使用 Playwright 将 HTML 转换为 PNG"""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": width, "height": height})
+        page = browser.new_page(
+            viewport={"width": width, "height": height},
+            device_scale_factor=2  # 2x 导出，实际像素翻倍
+        )
         page.goto(f"file://{html_path}")
         page.wait_for_load_state("networkidle")
         page.wait_for_timeout(1000)

@@ -30,8 +30,15 @@ python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills
 
 **工具自动处理：**
 - viewport 尺寸 1080x1440
+- **默认 2x 导出（实际像素 2160×2880）**
 - 字体加载等待 2 秒
 - 截取 `.poster` 元素
+
+**如需 1x 导出（1080×1440）：**
+```bash
+python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
+    --scale 1 input.html output.png
+```
 
 ### 2. 生成后必须回传图片到飞书（重要！）
 
@@ -545,16 +552,16 @@ cd "/Users/panyuhang/我的项目/编程/脚本/小红书封面生成"
 2. 确认 HTML 语法正确
 3. 查看 /tmp/ 目录下的 HTML 文件
 
-### 截图尺寸错误（不是 1080x1440）
+### 截图尺寸错误（不是 2160x2880）
 
-**症状**：生成的图片尺寸不正确，不是竖屏 3:4 比例
+**症状**：生成的图片尺寸是 1080×1440 而不是 2160×2880
 
-**原因**：使用了错误的截图方式
+**原因**：未设置 `device_scale_factor=2`
 
-**解决**：使用独立截图工具，自动处理尺寸
+**解决**：使用独立截图工具，默认 2x 导出
 ```bash
 python3 /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/skills/_shared/scripts/poster_screenshot.py \
     input.html output.png
 ```
 
-**注意**：截图工具自动设置 viewport 为 1080x1440，无需手动配置
+**注意**：截图工具默认设置 viewport 为 1080x1440 + 2x 导出 = 实际像素 2160×2880

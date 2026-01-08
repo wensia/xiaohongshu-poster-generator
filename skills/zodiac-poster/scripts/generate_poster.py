@@ -46,8 +46,11 @@ def html_to_png_playwright(html_path: str, output_path: str, width: int = 1080, 
         # 启动无头浏览器
         browser = p.chromium.launch(headless=True)
 
-        # 创建页面，设置视口大小
-        page = browser.new_page(viewport={"width": width, "height": height})
+        # 创建页面，设置视口大小，2x 导出
+        page = browser.new_page(
+            viewport={"width": width, "height": height},
+            device_scale_factor=2  # 2x 导出，实际像素翻倍
+        )
 
         # 加载 HTML 文件
         html_url = f"file://{os.path.abspath(html_path)}"
