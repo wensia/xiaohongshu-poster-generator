@@ -2,7 +2,7 @@
 <svg width="1080" height="1440" viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap');
     </style>
     <linearGradient id="bgGradient" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FDF8F4"/>
@@ -21,81 +21,71 @@
   <rect width="1080" height="1440" fill="url(#bgGradient)"/>
   <rect width="1080" height="1440" fill="url(#lightOverlay)"/>
 
-  <!-- 页眉 -->
-  <g id="header">
-    <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#B86B4A" letter-spacing="2">射手座 × 狮子座</text>
-    <text x="360" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
-    <text x="385" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
-    <g transform="translate(940, 110)">
-      <path d="M-15,0 C-15,-10 -5,-10 0,0 C5,10 15,10 15,0 C15,-10 5,-10 0,0 C-5,10 -15,10 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
-    </g>
+  <!-- 顶部装饰 -->
+  <g id="top-decoration" transform="translate(540, 120)">
+    <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+          fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.4"/>
   </g>
 
-  <!-- 居中内容区域 -->
-  <g id="centered-content" transform="translate(540, 0)">
-    <!-- 章节标签 -->
-    <text x="0" y="220" font-family="Georgia, serif" font-size="24" fill="#B86B4A" letter-spacing="6" text-anchor="middle">DESTINY</text>
+  <!-- 主内容区域 -->
+  <g id="main-content" transform="translate(540, 0)">
 
-    <!-- 双星座小图标（缩小版，Tabler Icons 统一风格） -->
-    <g transform="translate(0, 300)">
-      <!-- 射手座 ♐ (Tabler Icons) -->
-      <g transform="translate(-60, 0) translate(-15, -15) scale(1.25)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 20l16 -16" />
-        <path d="M13 4h7v7" />
-        <path d="M6.5 12.5l5 5" />
-      </g>
-      <!-- 无限符号 ∞ -->
-      <path d="M-12,0 C-12,-6 -4,-6 0,0 C4,6 12,6 12,0 C12,-6 4,-6 0,0 C-4,6 -12,6 -12,0"
-            fill="none" stroke="#B86B4A" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-      <!-- 狮子座 ♌ (Tabler Icons) -->
-      <g transform="translate(60, 0) translate(-15, -15) scale(1.25)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M13 17a4 4 0 1 0 8 0" />
-        <path d="M3 16a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-        <path d="M7 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-        <path d="M7 7c0 3 2 5 2 9" />
-        <path d="M15 7c0 4 -2 6 -2 10" />
-      </g>
-    </g>
+    <!-- 标题区：星座配对 -->
+    <text x="0" y="280" font-family="Noto Serif SC, serif" font-size="42" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">射手座 × 狮子座</text>
+    <text x="0" y="340" font-family="Noto Sans SC, sans-serif" font-size="20" font-weight="300" fill="#7D7067" text-anchor="middle" letter-spacing="6">命定之约</text>
 
     <!-- 分隔线 -->
-    <rect x="-40" y="360" width="80" height="3" fill="#B86B4A"/>
+    <line x1="-50" y1="400" x2="50" y2="400" stroke="#D4C9BE" stroke-width="1"/>
 
-    <!-- 主文案区域 -->
-    <g id="summary" transform="translate(0, 480)">
-      <text y="0" font-family="Noto Serif SC, serif" font-size="32" fill="#4A3F35" letter-spacing="2" text-anchor="middle">适配指数：85%</text>
-      <text y="61" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2" text-anchor="middle">
-        <tspan fill="#B86B4A">火象最佳CP</tspan>
-      </text>
-      <text y="122" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2" text-anchor="middle">
+    <!-- 核心数据：契合指数 -->
+    <g transform="translate(0, 500)">
+      <text x="0" y="0" font-family="Noto Sans SC, sans-serif" font-size="18" font-weight="400" fill="#8B7355" text-anchor="middle" letter-spacing="4">契合指数</text>
+      <text x="0" y="70" font-family="Playfair Display, serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">85%</text>
+    </g>
+
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 640)">
+      <line x1="-60" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-10,0 C-10,-6 -4,-6 0,0 C4,6 10,6 10,0 C10,-6 4,-6 0,0 C-4,6 -10,6 -10,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="20" y1="0" x2="60" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    </g>
+
+    <!-- 总结要点 -->
+    <g id="summary" transform="translate(0, 720)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="28" fill="#B86B4A" text-anchor="middle" letter-spacing="4">火象最佳CP</text>
+      <text y="60" font-family="Noto Serif SC, serif" font-size="28" text-anchor="middle" letter-spacing="2">
         <tspan fill="#4A3F35">一起</tspan><tspan fill="#B86B4A">发光发热</tspan>
       </text>
-      <text y="183" font-family="Noto Serif SC, serif" font-size="32" fill="#4A3F35" letter-spacing="2" text-anchor="middle">谁也不用收敛自己</text>
+      <text y="120" font-family="Noto Serif SC, serif" font-size="28" fill="#4A3F35" text-anchor="middle" letter-spacing="2">谁也不用收敛自己</text>
     </g>
 
-    <!-- 装饰分隔线 -->
-    <g id="content-divider" transform="translate(0, 780)">
-      <line x1="-70" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1"/>
-      <path d="M-8,0 C-8,-5 -3,-5 0,0 C3,5 8,5 8,0 C8,-5 3,-5 0,0 C-3,5 -8,5 -8,0" fill="none" stroke="#B86B4A" stroke-width="1.5"/>
-      <line x1="20" y1="0" x2="70" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 920)">
+      <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-12,0 C-12,-7 -5,-7 0,0 C5,7 12,7 12,0 C12,-7 5,-7 0,0 C-5,7 -12,7 -12,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="1"/>
     </g>
 
-    <!-- 祝福语区域 -->
-    <g id="ending" transform="translate(0, 880)">
-      <text y="0" font-family="Noto Serif SC, serif" font-size="26" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="3">愿你遇到的狮子</text>
-      <text y="50" font-family="Noto Serif SC, serif" font-size="26" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="3">都愿意和你一起发光</text>
-
-      <!-- END 标记 -->
-      <g transform="translate(0, 120)">
-        <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="2"/>
-        <text x="0" y="8" font-family="Georgia, serif" font-size="22" fill="#B86B4A" text-anchor="middle" letter-spacing="5">BOND</text>
-        <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="2"/>
-      </g>
+    <!-- 祝福语 -->
+    <g id="blessing" transform="translate(0, 1020)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="24" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="2">愿你遇到的狮子</text>
+      <text y="50" font-family="Noto Serif SC, serif" font-size="24" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="2">都愿意和你一起发光</text>
     </g>
+
+    <!-- END 标记 -->
+    <g id="end-mark" transform="translate(0, 1180)">
+      <line x1="-60" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1.5"/>
+      <text x="0" y="6" font-family="Georgia, serif" font-size="18" fill="#B86B4A" text-anchor="middle" letter-spacing="6">END</text>
+      <line x1="20" y1="0" x2="60" y2="0" stroke="#D4C9BE" stroke-width="1.5"/>
+    </g>
+
   </g>
 
   <!-- 页脚 -->
   <g id="footer">
-    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="2"/>
-    <text x="980" y="1390" font-family="Georgia, serif" font-size="28" fill="#7D7067" text-anchor="end" letter-spacing="4">0 3</text>
+    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="1.5"/>
+    <text x="980" y="1388" font-family="Georgia, serif" font-size="24" fill="#7D7067" text-anchor="end" letter-spacing="6">03</text>
   </g>
 </svg>
