@@ -32,7 +32,13 @@ def create_canvas_html(svg_content, width=1080, height=1440, scale=2):
     <script>
         async function render() {{
             const svgB64 = "{svg_b64}";
-            const svgContent = atob(svgB64);
+            // 正确处理 UTF-8 编码
+            const binaryString = atob(svgB64);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {{
+                bytes[i] = binaryString.charCodeAt(i);
+            }}
+            const svgContent = new TextDecoder('utf-8').decode(bytes);
 
             const blob = new Blob([svgContent], {{type: 'image/svg+xml;charset=utf-8'}});
             const url = URL.createObjectURL(blob);
