@@ -39,8 +39,8 @@
     <!-- 双星座小图标 -->
     <g transform="translate(0, 300)">
       <!-- 射手座 -->
-      <g transform="translate(-60, -25) scale(0.5)">
-        <svg viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#B86B4A" stroke-width="2.5">
+      <g transform="translate(-50, -25) scale(0.5)">
+        <svg viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#B86B4A" stroke-width="2">
           <line x1="20" y1="80" x2="80" y2="20"/>
           <line x1="80" y1="20" x2="55" y2="20"/>
           <line x1="80" y1="20" x2="80" y2="45"/>
@@ -48,10 +48,10 @@
         </svg>
       </g>
       <!-- 无限符号 -->
-      <path d="M-15,0 C-15,-8 -5,-8 0,0 C5,8 15,8 15,0 C15,-8 5,-8 0,0 C-5,8 -15,8 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5"/>
+      <path d="M-15,0 C-15,-8 -5,-8 0,0 C5,8 15,8 15,0 C15,-8 5,-8 0,0 C-5,8 -15,8 -15,0" fill="none" stroke="#B86B4A" stroke-width="2"/>
       <!-- 狮子座 -->
-      <g transform="translate(20, -25) scale(0.5)">
-        <svg viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#8B7355" stroke-width="2.5">
+      <g transform="translate(50, -25) scale(0.5)">
+        <svg viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#8B7355" stroke-width="2">
           <circle cx="35" cy="35" r="20"/>
           <path d="M55 35 Q75 35 75 55 Q75 75 55 75"/>
         </svg>

@@ -45,11 +45,11 @@
 
     <!-- 无限符号连接 -->
     <g transform="translate(0, 40)">
-      <path d="M-25,0 C-25,-15 -10,-15 0,0 C10,15 25,15 25,0 C25,-15 10,-15 0,0 C-10,15 -25,15 -25,0" fill="none" stroke="#B86B4A" stroke-width="2.5"/>
+      <path d="M-25,0 C-25,-15 -10,-15 0,0 C10,15 25,15 25,0 C25,-15 10,-15 0,0 C-10,15 -25,15 -25,0" fill="none" stroke="#B86B4A" stroke-width="2"/>
     </g>
 
     <!-- 右星座：狮子座 -->
-    <g transform="translate(80, 0)">
+    <g transform="translate(120, 0)">
       <svg viewBox="0 0 100 100" width="80" height="80" fill="none" stroke="#8B7355" stroke-width="2">
         <circle cx="35" cy="35" r="20"/>
         <path d="M55 35 Q75 35 75 55 Q75 75 55 75"/>
@@ -60,7 +60,9 @@
   <!-- 配对指数 -->
   <g id="match-index" transform="translate(540, 500)">
     <text x="0" y="0" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="4">MATCH INDEX</text>
-    <text x="0" y="55" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#B86B4A" text-anchor="middle">85%</text>
+    <text x="0" y="55" font-family="Georgia, serif" font-weight="600" fill="#B86B4A" text-anchor="middle">
+      <tspan font-size="64">85</tspan><tspan font-size="48" dy="3">%</tspan>
+    </text>
   </g>
 
   <!-- 分隔线 -->

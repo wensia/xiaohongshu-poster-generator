@@ -26,6 +26,7 @@ from typing import List
 # 配置常量
 DEFAULT_WIDTH = 1080
 DEFAULT_HEIGHT = 1440
+DEFAULT_SCALE = 2  # 2x 导出，实际像素 2160x2880
 FONT_WAIT_MS = 2000
 DEFAULT_SELECTOR = ".poster"
 
@@ -55,12 +56,13 @@ class PosterScreenshot:
 
     def __init__(self, width: int = DEFAULT_WIDTH, height: int = DEFAULT_HEIGHT,
                  headless: bool = True, selector: str = DEFAULT_SELECTOR,
-                 font_wait_ms: int = FONT_WAIT_MS):
+                 font_wait_ms: int = FONT_WAIT_MS, scale: int = DEFAULT_SCALE):
         self.width = width
         self.height = height
         self.headless = headless
         self.selector = selector
         self.font_wait_ms = font_wait_ms
+        self.scale = scale  # device_scale_factor, 2 = 2x 导出
         self.browser = None
         self.playwright = None
 
@@ -111,9 +113,10 @@ class PosterScreenshot:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         try:
-            # 创建页面
+            # 创建页面，设置 device_scale_factor 实现高分辨率导出
             page = self.browser.new_page(
-                viewport={"width": self.width, "height": self.height}
+                viewport={"width": self.width, "height": self.height},
+                device_scale_factor=self.scale
             )
 
             # 加载 HTML
@@ -243,6 +246,8 @@ def main():
                         help=f"视口宽度（默认: {DEFAULT_WIDTH}）")
     parser.add_argument("--height", "-H", type=int, default=DEFAULT_HEIGHT,
                         help=f"视口高度（默认: {DEFAULT_HEIGHT}）")
+    parser.add_argument("--scale", "-S", type=int, default=DEFAULT_SCALE,
+                        help=f"导出倍率，2=2x高清（默认: {DEFAULT_SCALE}，实际像素={DEFAULT_WIDTH*DEFAULT_SCALE}x{DEFAULT_HEIGHT*DEFAULT_SCALE}）")
 
     # 行为选项
     parser.add_argument("--selector", "-s", default=DEFAULT_SELECTOR,
