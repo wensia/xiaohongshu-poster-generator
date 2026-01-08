@@ -21,62 +21,57 @@
   <rect width="1080" height="1440" fill="url(#bgGradient)"/>
   <rect width="1080" height="1440" fill="url(#lightOverlay)"/>
 
-  <!-- 页眉 -->
-  <g id="header">
-    <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#B86B4A" letter-spacing="2">射手座 × 狮子座</text>
-    <text x="360" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
-    <text x="385" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
-    <g transform="translate(940, 110)">
-      <path d="M-15,0 C-15,-10 -5,-10 0,0 C5,10 15,10 15,0 C15,-10 5,-10 0,0 C-5,10 -15,10 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
-    </g>
+  <!-- 顶部装饰 - 简化的无限符号 -->
+  <g id="top-decoration" transform="translate(540, 120)">
+    <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+          fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.4"/>
   </g>
 
-  <!-- 双星座对称布局 - Tabler Icons 统一风格 -->
-  <g id="dual-zodiac" transform="translate(540, 300)">
+  <!-- 主视觉区域 - 居中的星座配对 -->
+  <g id="hero-section" transform="translate(540, 0)">
+    <!-- 副标题 -->
+    <text x="0" y="320" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="8">DESTINED BOND</text>
 
-    <!-- 左星座：射手座 ♐ (Tabler Icons) -->
-    <g transform="translate(-120, 0) translate(-30, -30) scale(2.5)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4 20l16 -16" />
-      <path d="M13 4h7v7" />
-      <path d="M6.5 12.5l5 5" />
-    </g>
+    <!-- 主标题：星座配对 (视觉核心) -->
+    <text x="0" y="420" font-family="Noto Serif SC, serif" font-size="56" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="6">射手座 × 狮子座</text>
 
-    <!-- 连接符号：无限 ∞ -->
-    <g transform="translate(0, 0)">
-      <path d="M-18,0 C-18,-10 -6,-10 0,0 C6,10 18,10 18,0 C18,-10 6,-10 0,0 C-6,10 -18,10 -18,0"
-            fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-    </g>
-
-    <!-- 右星座：狮子座 ♌ (Tabler Icons) -->
-    <g transform="translate(120, 0) translate(-30, -30) scale(2.5)" fill="none" stroke="#B86B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M13 17a4 4 0 1 0 8 0" />
-      <path d="M3 16a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M7 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-      <path d="M7 7c0 3 2 5 2 9" />
-      <path d="M15 7c0 4 -2 6 -2 10" />
-    </g>
+    <!-- 中文副标题 -->
+    <text x="0" y="490" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" text-anchor="middle" letter-spacing="4">命定之约</text>
   </g>
 
-  <!-- 配对指数 -->
-  <g id="match-index" transform="translate(540, 440)">
-    <text x="0" y="0" font-family="Georgia, serif" font-size="18" fill="#8B7355" text-anchor="middle" letter-spacing="6" font-weight="400">MATCH INDEX</text>
-    <!-- 85% 使用统一字号，保持基线一致 -->
-    <text x="0" y="70" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">85%</text>
+  <!-- 配对指数区域 -->
+  <g id="match-section" transform="translate(540, 0)">
+    <!-- 装饰线 -->
+    <line x1="-60" y1="560" x2="60" y2="560" stroke="#D4C9BE" stroke-width="1"/>
+
+    <!-- 百分比 -->
+    <text x="0" y="680" font-family="Georgia, serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">85%</text>
+
+    <!-- 标签 -->
+    <text x="0" y="730" font-family="Georgia, serif" font-size="16" fill="#8B7355" text-anchor="middle" letter-spacing="6">MATCH INDEX</text>
   </g>
 
-  <!-- 分隔线 -->
-  <rect x="490" y="560" width="100" height="2" fill="#B86B4A"/>
+  <!-- 主题概念 -->
+  <g id="concept-section" transform="translate(540, 0)">
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 800)">
+      <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-12,0 C-12,-7 -5,-7 0,0 C5,7 12,7 12,0 C12,-7 5,-7 0,0 C-5,7 -12,7 -12,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    </g>
 
-  <!-- 封面标题 -->
-  <g id="cover-title" transform="translate(540, 680)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="8">命中注定</text>
-    <text x="0" y="72" font-family="Noto Serif SC, serif" font-size="28" fill="#7D7067" text-anchor="middle" letter-spacing="6">火象最佳CP</text>
+    <!-- 主题词 -->
+    <text x="0" y="900" font-family="Noto Serif SC, serif" font-size="48" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="12">命中注定</text>
+
+    <!-- 描述 -->
+    <text x="0" y="965" font-family="Noto Serif SC, serif" font-size="24" fill="#7D7067" text-anchor="middle" letter-spacing="4">火象最佳CP</text>
   </g>
 
   <!-- 标语 -->
-  <g id="tagline" transform="translate(540, 880)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="26" fill="#7D7067" text-anchor="middle" letter-spacing="2">两个人在一起</text>
-    <text x="0" y="48" font-family="Noto Serif SC, serif" font-size="26" text-anchor="middle" letter-spacing="2">
+  <g id="tagline" transform="translate(540, 0)">
+    <text x="0" y="1100" font-family="Noto Serif SC, serif" font-size="24" fill="#7D7067" text-anchor="middle" letter-spacing="2">两个人在一起</text>
+    <text x="0" y="1150" font-family="Noto Serif SC, serif" font-size="24" text-anchor="middle" letter-spacing="2">
       <tspan fill="#B86B4A">发光发热</tspan><tspan fill="#7D7067">，谁也不用收敛</tspan>
     </text>
   </g>
