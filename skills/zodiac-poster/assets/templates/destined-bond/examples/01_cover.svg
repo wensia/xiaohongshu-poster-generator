@@ -2,7 +2,7 @@
 <svg width="1080" height="1440" viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap');
     </style>
     <linearGradient id="bgGradient" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FDF8F4"/>
@@ -45,7 +45,7 @@
     <line x1="-60" y1="560" x2="60" y2="560" stroke="#D4C9BE" stroke-width="1"/>
 
     <!-- 百分比 -->
-    <text x="0" y="680" font-family="Georgia, serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">85%</text>
+    <text x="0" y="680" font-family="Playfair Display, serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">85%</text>
 
     <!-- 标签 -->
     <text x="0" y="730" font-family="Georgia, serif" font-size="16" fill="#8B7355" text-anchor="middle" letter-spacing="6">MATCH INDEX</text>
