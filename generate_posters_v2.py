@@ -231,13 +231,16 @@ END_CSS = BASE_CSS + """
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       padding-bottom: 60px;
+      text-align: center;
     }
     .summary-text {
       font-size: 32px;
       color: var(--text-primary);
       line-height: 2.0;
       letter-spacing: 2px;
+      text-align: center;
     }
     .summary-text p {
       margin-bottom: 16px;
