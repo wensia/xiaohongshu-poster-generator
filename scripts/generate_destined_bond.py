@@ -8,6 +8,15 @@ import re
 from pathlib import Path
 
 TEMPLATE_PATH = Path(__file__).parent.parent / "skills/zodiac-poster/assets/templates/destined-bond/TEMPLATE.md"
+FONT_BASE64_PATH = Path(__file__).parent.parent / "skills/zodiac-poster/assets/fonts/PlayfairDisplay-SemiBold.base64"
+
+# 加载本地字体 Base64
+def load_font_base64():
+    if FONT_BASE64_PATH.exists():
+        return FONT_BASE64_PATH.read_text().strip()
+    return None
+
+PLAYFAIR_FONT_BASE64 = load_font_base64()
 
 def extract_templates_from_md(md_path):
     """从TEMPLATE.md中提取SVG模板"""
@@ -41,9 +50,30 @@ def extract_templates_from_md(md_path):
 
     return templates
 
+def inject_local_font_to_svg(svg):
+    """将本地字体注入SVG的defs/style中"""
+    if not PLAYFAIR_FONT_BASE64:
+        return svg
+
+    font_face = f'''@font-face {{
+      font-family: 'Playfair Display';
+      font-style: normal;
+      font-weight: 600;
+      src: url(data:font/truetype;base64,{PLAYFAIR_FONT_BASE64}) format('truetype');
+    }}'''
+
+    # 替换SVG中的@import为本地字体
+    svg = re.sub(
+        r"@import url\(['\"]https://fonts\.googleapis\.com/[^)]+\);?",
+        font_face,
+        svg
+    )
+    return svg
+
 def render_cover(template, data):
     """渲染封面"""
     svg = template
+    svg = inject_local_font_to_svg(svg)
     svg = svg.replace("{{ZODIAC1}}", data["zodiac1"])
     svg = svg.replace("{{ZODIAC2}}", data["zodiac2"])
     svg = svg.replace("{{MATCH_PERCENT}}", data["match_percent"])
@@ -101,6 +131,7 @@ def render_page(template, data):
 def render_end(template, data):
     """渲染结尾页"""
     svg = template
+    svg = inject_local_font_to_svg(svg)
     svg = svg.replace("{{ZODIAC1}}", data["zodiac1"])
     svg = svg.replace("{{ZODIAC2}}", data["zodiac2"])
     svg = svg.replace("{{MATCH_PERCENT}}", data["match_percent"])
@@ -114,20 +145,30 @@ def render_end(template, data):
     return svg
 
 def wrap_svg_html(svg_content):
-    """包装SVG为HTML用于截图，使用国内CDN镜像加载字体"""
+    """包装SVG为HTML用于截图，使用本地嵌入字体确保正确渲染"""
+    # 构建字体CSS
+    font_face_css = ""
+    if PLAYFAIR_FONT_BASE64:
+        font_face_css = f"""
+    @font-face {{
+      font-family: 'Playfair Display';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(data:font/truetype;base64,{PLAYFAIR_FONT_BASE64}) format('truetype');
+    }}"""
+
     return f'''<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <!-- 使用国内CDN镜像加载 Google Fonts -->
-  <link rel="preconnect" href="https://fonts.loli.net">
-  <link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
-  <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- 备用: 原始 Google Fonts -->
+  <!-- 备用: Google Fonts CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* 本地嵌入 Playfair Display 字体 */{font_face_css}
+
     :root, html, body {{
       color-scheme: light only;
       background: #FDF8F4;
@@ -138,22 +179,9 @@ def wrap_svg_html(svg_content):
       width: 1080px;
       height: 1440px;
     }}
-    /* 强制加载字体 */
-    .font-preload {{
-      position: absolute;
-      left: -9999px;
-      visibility: hidden;
-    }}
-    .font-preload-playfair {{ font-family: 'Playfair Display', serif; }}
-    .font-preload-noto-serif {{ font-family: 'Noto Serif SC', serif; }}
-    .font-preload-noto-sans {{ font-family: 'Noto Sans SC', sans-serif; }}
   </style>
 </head>
 <body>
-  <!-- 强制预加载字体 -->
-  <div class="font-preload font-preload-playfair">85%</div>
-  <div class="font-preload font-preload-noto-serif">测试</div>
-  <div class="font-preload font-preload-noto-sans">测试</div>
   <div class="poster">
 {svg_content}
   </div>
