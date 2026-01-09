@@ -127,6 +127,21 @@ class PosterScreenshot:
             # 等待网络空闲（字体加载）
             page.wait_for_load_state("networkidle")
 
+            # 使用 JavaScript 显式等待字体加载完成
+            page.evaluate("""
+                () => new Promise((resolve) => {
+                    if (document.fonts && document.fonts.ready) {
+                        document.fonts.ready.then(() => {
+                            // 字体加载完成后再等待一小段时间确保渲染
+                            setTimeout(resolve, 500);
+                        });
+                    } else {
+                        // 回退：直接等待
+                        setTimeout(resolve, 2000);
+                    }
+                })
+            """)
+
             # 额外等待确保字体渲染完成
             page.wait_for_timeout(self.font_wait_ms)
 

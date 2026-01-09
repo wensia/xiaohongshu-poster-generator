@@ -114,11 +114,19 @@ def render_end(template, data):
     return svg
 
 def wrap_svg_html(svg_content):
-    """包装SVG为HTML用于截图"""
+    """包装SVG为HTML用于截图，使用国内CDN镜像加载字体"""
     return f'''<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
+  <!-- 使用国内CDN镜像加载 Google Fonts -->
+  <link rel="preconnect" href="https://fonts.loli.net">
+  <link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+  <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 备用: 原始 Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root, html, body {{
       color-scheme: light only;
@@ -130,9 +138,22 @@ def wrap_svg_html(svg_content):
       width: 1080px;
       height: 1440px;
     }}
+    /* 强制加载字体 */
+    .font-preload {{
+      position: absolute;
+      left: -9999px;
+      visibility: hidden;
+    }}
+    .font-preload-playfair {{ font-family: 'Playfair Display', serif; }}
+    .font-preload-noto-serif {{ font-family: 'Noto Serif SC', serif; }}
+    .font-preload-noto-sans {{ font-family: 'Noto Sans SC', sans-serif; }}
   </style>
 </head>
 <body>
+  <!-- 强制预加载字体 -->
+  <div class="font-preload font-preload-playfair">85%</div>
+  <div class="font-preload font-preload-noto-serif">测试</div>
+  <div class="font-preload font-preload-noto-sans">测试</div>
   <div class="poster">
 {svg_content}
   </div>
