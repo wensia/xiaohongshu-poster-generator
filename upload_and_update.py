@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Upload PNG files to Feishu Bitable and update records."""
+"""Upload PNG files to Feishu and update records."""
 
 import os
 import requests
@@ -52,7 +52,9 @@ def upload_file(token, file_path):
     result = resp.json()
     if result.get("code") != 0:
         raise Exception(f"Upload failed for {file_name}: {result}")
-    return result["data"]["file_token"]
+    file_token = result["data"]["file_token"]
+    print(f"    Full token: {file_token}")
+    return file_token
 
 
 def update_record(token, record_id, file_tokens):
@@ -69,7 +71,7 @@ def update_record(token, record_id, file_tokens):
     data = {
         "fields": {
             "生成图片": attachments,
-            "生成状态": "已生成",
+            "已生成": True,
         }
     }
 
@@ -83,10 +85,12 @@ def update_record(token, record_id, file_tokens):
 def main():
     print("Getting tenant access token...")
     token = get_tenant_access_token()
-    print(f"Token obtained: {token[:20]}...")
+    print(f"Token obtained successfully")
 
     for title, record_id in RECORDS.items():
-        print(f"\n=== Processing: {title} ===")
+        print(f"\n{'='*50}")
+        print(f"Processing: {title}")
+        print(f"{'='*50}")
         dir_path = os.path.join(BASE_DIR, title)
 
         # Get PNG files in order
@@ -102,39 +106,38 @@ def main():
             file_path = os.path.join(dir_path, filename)
             if os.path.exists(file_path):
                 png_files.append(file_path)
-                print(f"  Found: {filename}")
-            else:
-                print(f"  Missing: {filename}")
 
         if len(png_files) != 7:
-            print(f"  ERROR: Expected 7 files, found {len(png_files)}")
+            print(f"ERROR: Expected 7 files, found {len(png_files)}")
             continue
 
-        # Upload files
-        print(f"  Uploading {len(png_files)} files...")
+        # Upload files and collect tokens
+        print(f"Uploading {len(png_files)} files...")
         file_tokens = []
         for file_path in png_files:
             try:
+                print(f"  Uploading: {os.path.basename(file_path)}")
                 ft = upload_file(token, file_path)
                 file_tokens.append(ft)
-                print(f"    Uploaded: {os.path.basename(file_path)} -> {ft[:20]}...")
             except Exception as e:
-                print(f"    Failed: {os.path.basename(file_path)} - {e}")
+                print(f"  FAILED: {e}")
                 break
 
         if len(file_tokens) != 7:
-            print(f"  ERROR: Only uploaded {len(file_tokens)} files")
+            print(f"ERROR: Only uploaded {len(file_tokens)} files")
             continue
 
         # Update record
-        print(f"  Updating record {record_id}...")
+        print(f"Updating record {record_id}...")
         try:
             update_record(token, record_id, file_tokens)
-            print(f"  SUCCESS: Record updated!")
+            print(f"SUCCESS: Record updated with 7 images!")
         except Exception as e:
-            print(f"  ERROR: Failed to update record - {e}")
+            print(f"ERROR: {e}")
 
-    print("\n=== Done ===")
+    print(f"\n{'='*50}")
+    print("All done!")
+    print(f"{'='*50}")
 
 
 if __name__ == "__main__":
