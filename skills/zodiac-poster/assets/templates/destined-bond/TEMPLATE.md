@@ -1,7 +1,7 @@
 # 命定之约风 (Destined Bond) SVG 模板规范
 
 **格式**：纯 SVG（不使用 HTML/CSS）
-**特征**：双星座对称布局 + 无限符号连接 + 暖棕配色 + 配对指数展示
+**特征**：居中对称布局 + 无限符号装饰 + 暖棕配色 + 配对指数突出展示
 **适用**：星座配对、CP分析、缘分解读、关系解析
 
 ---
@@ -39,6 +39,20 @@
 
 ---
 
+## 字体加载
+
+```svg
+<defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap');
+  </style>
+</defs>
+```
+
+**注意**：封面和结尾页需要 `Playfair Display` 字体用于配对指数百分比显示。
+
+---
+
 ## 尺寸规范
 
 **画布**：1080px × 1440px
@@ -47,65 +61,41 @@
 |------|------|------|
 | 左右边距 | 100px | 内容区 x: 100 ~ 980 |
 | 上下边距 | 90px | 内容区 y: 90 ~ 1350 |
-| 页眉星座名 | 32px | font-weight: 500 |
-| **封面主标题** | **72px** | font-weight: 600, letter-spacing: 6 |
+| **封面配对指数** | **96px** | Playfair Display, 视觉核心 |
+| 封面星座配对 | 56px | font-weight: 600 |
+| 封面主题词 | 48px | font-weight: 600 |
 | 章节标题 | 56px | font-weight: 600 |
 | 正文 | 32px | line-height: 61px |
-| 引用文字 | 28px | font-style: italic |
-| 页码 | 28px | font-family: Georgia |
-| 星座图标 | 80×80px | 双图标对称布局 |
-| 无限符号 | 40×20px | 连接两星座 |
-
----
-
-## 字体加载
-
-```svg
-<defs>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;display=swap');
-  </style>
-</defs>
-```
+| 引用文字 | 26px | font-style: italic |
+| 结尾页配对指数 | 72px | Playfair Display |
+| 结尾页总结文字 | 28px | |
+| 页码 | 24-28px | font-family: Georgia |
 
 ---
 
 ## 核心设计元素
 
-### 1. 双星座图标布局（封面专用）
+### 1. 顶部装饰 - 无限符号（封面/结尾页专用）
 
 ```svg
-<!-- 双星座对称布局 -->
-<g id="dual-zodiac" transform="translate(540, 350)">
-  <!-- 左星座 -->
-  <g transform="translate(-120, 0)">
-    {{ZODIAC1_SVG}}
-  </g>
-
-  <!-- 无限符号连接 -->
-  <g transform="translate(0, 40)">
-    <path d="M-25,0 C-25,-15 -10,-15 0,0 C10,15 25,15 25,0 C25,-15 10,-15 0,0 C-10,15 -25,15 -25,0"
-          fill="none" stroke="#B86B4A" stroke-width="2"/>
-  </g>
-
-  <!-- 右星座 -->
-  <g transform="translate(120, 0)">
-    {{ZODIAC2_SVG}}
-  </g>
+<g id="top-decoration" transform="translate(540, 120)">
+  <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+        fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.4"/>
 </g>
 ```
 
-### 2. 配对指数展示
+### 2. 分隔装饰 - 小无限符号
 
 ```svg
-<!-- 配对指数 -->
-<g id="match-index" transform="translate(540, 520)">
-  <text x="0" y="0" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="4">MATCH INDEX</text>
-  <text x="0" y="50" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#B86B4A" text-anchor="middle">{{MATCH_PERCENT}}%</text>
+<g transform="translate(0, {{Y_POSITION}})">
+  <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+  <path d="M-12,0 C-12,-7 -5,-7 0,0 C5,7 12,7 12,0 C12,-7 5,-7 0,0 C-5,7 -12,7 -12,0"
+        fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+  <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="1"/>
 </g>
 ```
 
-### 3. 页眉结构
+### 3. 页眉结构（内页专用）
 
 ```svg
 <g id="header">
@@ -118,13 +108,13 @@
         letter-spacing="2">{{ZODIAC1}} × {{ZODIAC2}}</text>
 
   <!-- 分隔符 -->
-  <text x="280" y="130"
+  <text x="360" y="130"
         font-family="Georgia, serif"
         font-size="24"
         fill="#D4C9BE">·</text>
 
   <!-- 主题词 -->
-  <text x="310" y="130"
+  <text x="385" y="130"
         font-family="Noto Sans SC, sans-serif"
         font-size="24"
         font-weight="300"
@@ -145,15 +135,15 @@
 <g id="footer">
   <!-- 分隔线 -->
   <line x1="100" y1="1350" x2="980" y2="1350"
-        stroke="#D4C9BE" stroke-width="2"/>
+        stroke="#D4C9BE" stroke-width="1.5"/>
 
   <!-- 页码 -->
-  <text x="980" y="1390"
+  <text x="980" y="1388"
         font-family="Georgia, serif"
-        font-size="28"
+        font-size="24"
         fill="#7D7067"
         text-anchor="end"
-        letter-spacing="4">{{PAGE_NUM}}</text>
+        letter-spacing="6">{{PAGE_NUM}}</text>
 </g>
 ```
 
@@ -161,12 +151,14 @@
 
 ## 封面模板
 
+**特点**：无页眉、全居中布局、配对指数为视觉核心（96px大字）
+
 ```svg
 <!-- [STYLE: 命定之约风] [TYPE: cover] -->
 <svg width="1080" height="1440" viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap');
     </style>
     <linearGradient id="bgGradient" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FDF8F4"/>
@@ -185,61 +177,65 @@
   <rect width="1080" height="1440" fill="url(#bgGradient)"/>
   <rect width="1080" height="1440" fill="url(#lightOverlay)"/>
 
-  <!-- 页眉 -->
-  <g id="header">
-    <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#B86B4A" letter-spacing="2">{{ZODIAC1}} × {{ZODIAC2}}</text>
-    <text x="280" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
-    <text x="310" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
-    <g transform="translate(940, 110)">
-      <path d="M-15,0 C-15,-10 -5,-10 0,0 C5,10 15,10 15,0 C15,-10 5,-10 0,0 C-5,10 -15,10 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
-    </g>
+  <!-- 顶部装饰 - 简化的无限符号 -->
+  <g id="top-decoration" transform="translate(540, 120)">
+    <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+          fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.4"/>
   </g>
 
-  <!-- 双星座对称布局 -->
-  <g id="dual-zodiac" transform="translate(540, 320)">
-    <!-- 左星座 -->
-    <g transform="translate(-120, 0)">
-      {{ZODIAC1_SVG_LARGE}}
-    </g>
+  <!-- 主视觉区域 - 居中的星座配对 -->
+  <g id="hero-section" transform="translate(540, 0)">
+    <!-- 英文副标题 -->
+    <text x="0" y="320" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="8">DESTINED BOND</text>
 
-    <!-- 无限符号连接 -->
-    <g transform="translate(0, 40)">
-      <path d="M-25,0 C-25,-15 -10,-15 0,0 C10,15 25,15 25,0 C25,-15 10,-15 0,0 C-10,15 -25,15 -25,0" fill="none" stroke="#B86B4A" stroke-width="2.5"/>
-    </g>
+    <!-- 主标题：星座配对 (视觉核心) -->
+    <text x="0" y="420" font-family="Noto Serif SC, serif" font-size="56" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="6">{{ZODIAC1}} × {{ZODIAC2}}</text>
 
-    <!-- 右星座 -->
-    <g transform="translate(120, 0)">
-      {{ZODIAC2_SVG_LARGE}}
-    </g>
+    <!-- 中文副标题 -->
+    <text x="0" y="490" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" text-anchor="middle" letter-spacing="4">命定之约</text>
   </g>
 
-  <!-- 配对指数 -->
-  <g id="match-index" transform="translate(540, 500)">
-    <text x="0" y="0" font-family="Georgia, serif" font-size="20" fill="#8B7355" text-anchor="middle" letter-spacing="4">MATCH INDEX</text>
-    <text x="0" y="55" font-family="Georgia, serif" font-size="64" font-weight="600" fill="#B86B4A" text-anchor="middle">{{MATCH_PERCENT}}%</text>
+  <!-- 配对指数区域 -->
+  <g id="match-section" transform="translate(540, 0)">
+    <!-- 装饰线 -->
+    <line x1="-60" y1="560" x2="60" y2="560" stroke="#D4C9BE" stroke-width="1"/>
+
+    <!-- 标签 -->
+    <text x="0" y="620" font-family="Noto Sans SC, sans-serif" font-size="20" font-weight="400" fill="#8B7355" text-anchor="middle" letter-spacing="4">契合指数</text>
+
+    <!-- 百分比 (视觉核心) -->
+    <text x="0" y="710" font-family="Playfair Display, serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">{{MATCH_PERCENT}}%</text>
   </g>
 
-  <!-- 分隔线 -->
-  <rect x="490" y="600" width="100" height="3" fill="#B86B4A"/>
+  <!-- 主题概念 -->
+  <g id="concept-section" transform="translate(540, 0)">
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 820)">
+      <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-12,0 C-12,-7 -5,-7 0,0 C5,7 12,7 12,0 C12,-7 5,-7 0,0 C-5,7 -12,7 -12,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    </g>
 
-  <!-- 封面标题 -->
-  <g id="cover-title" transform="translate(540, 720)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="6">{{TITLE}}</text>
-    <text x="0" y="80" font-family="Noto Serif SC, serif" font-size="32" fill="#7D7067" text-anchor="middle" letter-spacing="4">{{SUBTITLE}}</text>
+    <!-- 主题词 -->
+    <text x="0" y="920" font-family="Noto Serif SC, serif" font-size="48" font-weight="600" fill="#4A3F35" text-anchor="middle" letter-spacing="12">{{THEME_TITLE}}</text>
+
+    <!-- 描述 -->
+    <text x="0" y="985" font-family="Noto Serif SC, serif" font-size="24" fill="#7D7067" text-anchor="middle" letter-spacing="4">{{THEME_DESC}}</text>
   </g>
 
   <!-- 标语 -->
-  <g id="tagline" transform="translate(540, 920)">
-    <text x="0" y="0" font-family="Noto Serif SC, serif" font-size="28" fill="#7D7067" text-anchor="middle" letter-spacing="3">{{TAGLINE_LINE1}}</text>
-    <text x="0" y="50" font-family="Noto Serif SC, serif" font-size="28" text-anchor="middle" letter-spacing="3">
+  <g id="tagline" transform="translate(540, 0)">
+    <text x="0" y="1100" font-family="Noto Serif SC, serif" font-size="24" fill="#7D7067" text-anchor="middle" letter-spacing="2">{{TAGLINE_LINE1}}</text>
+    <text x="0" y="1150" font-family="Noto Serif SC, serif" font-size="24" text-anchor="middle" letter-spacing="2">
       <tspan fill="#B86B4A">{{TAGLINE_HIGHLIGHT}}</tspan><tspan fill="#7D7067">{{TAGLINE_REST}}</tspan>
     </text>
   </g>
 
   <!-- 页脚 -->
   <g id="footer">
-    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="2"/>
-    <text x="980" y="1390" font-family="Georgia, serif" font-size="28" fill="#7D7067" text-anchor="end" letter-spacing="4">0 1</text>
+    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="1.5"/>
+    <text x="980" y="1388" font-family="Georgia, serif" font-size="24" fill="#7D7067" text-anchor="end" letter-spacing="6">01</text>
   </g>
 </svg>
 ```
@@ -250,18 +246,18 @@
 |------|------|------|
 | `{{ZODIAC1}}` | 星座1名 | 射手座 |
 | `{{ZODIAC2}}` | 星座2名 | 狮子座 |
-| `{{ZODIAC1_SVG_LARGE}}` | 星座1图标(80px) | `<svg>...</svg>` |
-| `{{ZODIAC2_SVG_LARGE}}` | 星座2图标(80px) | `<svg>...</svg>` |
 | `{{MATCH_PERCENT}}` | 配对指数 | 85 |
-| `{{TITLE}}` | 主标题 | 命中注定 |
-| `{{SUBTITLE}}` | 副标题 | 火象最佳CP |
+| `{{THEME_TITLE}}` | 主题词 | 命中注定 |
+| `{{THEME_DESC}}` | 主题描述 | 火象最佳CP |
 | `{{TAGLINE_LINE1}}` | 标语第一行 | 两个人在一起 |
 | `{{TAGLINE_HIGHLIGHT}}` | 标语高亮 | 发光发热 |
-| `{{TAGLINE_REST}}` | 标语剩余 | 谁也不用收敛 |
+| `{{TAGLINE_REST}}` | 标语剩余 | ，谁也不用收敛 |
 
 ---
 
 ## 内页模板
+
+**特点**：有页眉、左对齐布局、BOND标签、引用区块
 
 ```svg
 <!-- [STYLE: 命定之约风] [TYPE: page] -->
@@ -290,8 +286,8 @@
   <!-- 页眉 -->
   <g id="header">
     <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#B86B4A" letter-spacing="2">{{ZODIAC1}} × {{ZODIAC2}}</text>
-    <text x="280" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
-    <text x="310" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
+    <text x="360" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
+    <text x="385" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
     <g transform="translate(940, 110)">
       <path d="M-15,0 C-15,-10 -5,-10 0,0 C5,10 15,10 15,0 C15,-10 5,-10 0,0 C-5,10 -15,10 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
     </g>
@@ -331,25 +327,39 @@
 
 **每行文本模板**：
 ```svg
-<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="32" fill="#4A3F35" letter-spacing="2">
+<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">
   <tspan fill="#4A3F35">{{TEXT_BEFORE}}</tspan>
   <tspan fill="#B86B4A">{{HIGHLIGHT}}</tspan>
   <tspan fill="#4A3F35">{{TEXT_AFTER}}</tspan>
 </text>
 ```
 
-**行间距**：61px（y递增）
+**行间距**：61px（y递增：0, 61, 122, 183, 244, 305...）
+
+### 内页变量
+
+| 变量 | 说明 | 示例 |
+|------|------|------|
+| `{{ZODIAC1}}` | 星座1名 | 射手座 |
+| `{{ZODIAC2}}` | 星座2名 | 狮子座 |
+| `{{PART_NUM}}` | 章节编号 | 01 |
+| `{{SECTION_TITLE}}` | 章节标题 | 初见时刻 |
+| `{{CONTENT_LINES}}` | 正文内容 | 多行text元素 |
+| `{{QUOTE}}` | 引用文字 | 火象的相遇，注定热烈 |
+| `{{PAGE_NUM}}` | 页码 | 0 2 |
 
 ---
 
 ## 结尾页模板
+
+**特点**：顶部无限符号、全居中布局、配对指数、总结要点、祝福语、END标记
 
 ```svg
 <!-- [STYLE: 命定之约风] [TYPE: end] -->
 <svg width="1080" height="1440" viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Noto+Sans+SC:wght@300;400;500&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap');
     </style>
     <linearGradient id="bgGradient" x1="0%" y1="100%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FDF8F4"/>
@@ -368,79 +378,90 @@
   <rect width="1080" height="1440" fill="url(#bgGradient)"/>
   <rect width="1080" height="1440" fill="url(#lightOverlay)"/>
 
-  <!-- 页眉 -->
-  <g id="header">
-    <text x="100" y="130" font-family="Noto Serif SC, serif" font-size="32" font-weight="500" fill="#B86B4A" letter-spacing="2">{{ZODIAC1}} × {{ZODIAC2}}</text>
-    <text x="280" y="130" font-family="Georgia, serif" font-size="24" fill="#D4C9BE">·</text>
-    <text x="310" y="130" font-family="Noto Sans SC, sans-serif" font-size="24" font-weight="300" fill="#7D7067" letter-spacing="3">命定之约</text>
-    <g transform="translate(940, 110)">
-      <path d="M-15,0 C-15,-10 -5,-10 0,0 C5,10 15,10 15,0 C15,-10 5,-10 0,0 C-5,10 -15,10 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
-    </g>
+  <!-- 顶部装饰 -->
+  <g id="top-decoration" transform="translate(540, 120)">
+    <path d="M-20,0 C-20,-12 -8,-12 0,0 C8,12 20,12 20,0 C20,-12 8,-12 0,0 C-8,12 -20,12 -20,0"
+          fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.4"/>
   </g>
 
-  <!-- 居中内容区域 -->
-  <g id="centered-content" transform="translate(540, 0)">
-    <!-- 章节标签 -->
-    <text x="0" y="220" font-family="Georgia, serif" font-size="24" fill="#B86B4A" letter-spacing="6" text-anchor="middle">DESTINY</text>
+  <!-- 主内容区域 -->
+  <g id="main-content" transform="translate(540, 0)">
 
-    <!-- 双星座小图标 -->
-    <g transform="translate(0, 280)">
-      <g transform="translate(-60, 0) scale(0.7)">{{ZODIAC1_SVG}}</g>
-      <path d="M-15,0 C-15,-8 -5,-8 0,0 C5,8 15,8 15,0 C15,-8 5,-8 0,0 C-5,8 -15,8 -15,0" fill="none" stroke="#B86B4A" stroke-width="1.5" transform="translate(0, 25)"/>
-      <g transform="translate(60, 0) scale(0.7)">{{ZODIAC2_SVG}}</g>
-    </g>
+    <!-- 标题区：星座配对 -->
+    <text x="0" y="280" font-family="Noto Serif SC, serif" font-size="42" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">{{ZODIAC1}} × {{ZODIAC2}}</text>
+    <text x="0" y="340" font-family="Noto Sans SC, sans-serif" font-size="20" font-weight="300" fill="#7D7067" text-anchor="middle" letter-spacing="6">命定之约</text>
 
     <!-- 分隔线 -->
-    <rect x="-40" y="360" width="80" height="3" fill="#B86B4A"/>
+    <line x1="-50" y1="400" x2="50" y2="400" stroke="#D4C9BE" stroke-width="1"/>
 
-    <!-- 主文案区域 -->
-    <g id="summary" transform="translate(0, 480)">
-      {{CONTENT_LINES}}
+    <!-- 核心数据：契合指数 -->
+    <g transform="translate(0, 500)">
+      <text x="0" y="0" font-family="Noto Sans SC, sans-serif" font-size="18" font-weight="400" fill="#8B7355" text-anchor="middle" letter-spacing="4">契合指数</text>
+      <text x="0" y="70" font-family="Playfair Display, serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">{{MATCH_PERCENT}}%</text>
     </g>
 
-    <!-- 装饰分隔线 -->
-    <g id="content-divider" transform="translate(0, 780)">
-      <line x1="-70" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1"/>
-      <path d="M-8,0 C-8,-5 -3,-5 0,0 C3,5 8,5 8,0 C8,-5 3,-5 0,0 C-3,5 -8,5 -8,0" fill="none" stroke="#B86B4A" stroke-width="1.5"/>
-      <line x1="20" y1="0" x2="70" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 640)">
+      <line x1="-60" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-10,0 C-10,-6 -4,-6 0,0 C4,6 10,6 10,0 C10,-6 4,-6 0,0 C-4,6 -10,6 -10,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="20" y1="0" x2="60" y2="0" stroke="#D4C9BE" stroke-width="1"/>
     </g>
 
-    <!-- 祝福语区域 -->
-    <g id="ending" transform="translate(0, 880)">
-      <text y="0" font-family="Noto Serif SC, serif" font-size="26" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="3">{{ENDING_LINE1}}</text>
-      <text y="50" font-family="Noto Serif SC, serif" font-size="26" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="3">{{ENDING_LINE2}}</text>
-
-      <!-- END 标记 -->
-      <g transform="translate(0, 120)">
-        <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="2"/>
-        <text x="0" y="8" font-family="Georgia, serif" font-size="22" fill="#B86B4A" text-anchor="middle" letter-spacing="5">BOND</text>
-        <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="2"/>
-      </g>
+    <!-- 总结要点 -->
+    <g id="summary" transform="translate(0, 720)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="28" fill="#B86B4A" text-anchor="middle" letter-spacing="4">{{SUMMARY_HIGHLIGHT}}</text>
+      <text y="60" font-family="Noto Serif SC, serif" font-size="28" text-anchor="middle" letter-spacing="2">
+        <tspan fill="#4A3F35">{{SUMMARY_LINE1_BEFORE}}</tspan><tspan fill="#B86B4A">{{SUMMARY_LINE1_HIGHLIGHT}}</tspan>
+      </text>
+      <text y="120" font-family="Noto Serif SC, serif" font-size="28" fill="#4A3F35" text-anchor="middle" letter-spacing="2">{{SUMMARY_LINE2}}</text>
     </g>
+
+    <!-- 分隔装饰 -->
+    <g transform="translate(0, 920)">
+      <line x1="-80" y1="0" x2="-25" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+      <path d="M-12,0 C-12,-7 -5,-7 0,0 C5,7 12,7 12,0 C12,-7 5,-7 0,0 C-5,7 -12,7 -12,0"
+            fill="none" stroke="#B86B4A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="25" y1="0" x2="80" y2="0" stroke="#D4C9BE" stroke-width="1"/>
+    </g>
+
+    <!-- 祝福语 -->
+    <g id="blessing" transform="translate(0, 1020)">
+      <text y="0" font-family="Noto Serif SC, serif" font-size="24" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="2">{{BLESSING_LINE1}}</text>
+      <text y="50" font-family="Noto Serif SC, serif" font-size="24" font-style="italic" fill="#7D7067" text-anchor="middle" letter-spacing="2">{{BLESSING_LINE2}}</text>
+    </g>
+
+    <!-- END 标记 -->
+    <g id="end-mark" transform="translate(0, 1180)">
+      <line x1="-60" y1="0" x2="-20" y2="0" stroke="#D4C9BE" stroke-width="1.5"/>
+      <text x="0" y="6" font-family="Georgia, serif" font-size="18" fill="#B86B4A" text-anchor="middle" letter-spacing="6">END</text>
+      <line x1="20" y1="0" x2="60" y2="0" stroke="#D4C9BE" stroke-width="1.5"/>
+    </g>
+
   </g>
 
   <!-- 页脚 -->
   <g id="footer">
-    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="2"/>
-    <text x="980" y="1390" font-family="Georgia, serif" font-size="28" fill="#7D7067" text-anchor="end" letter-spacing="4">{{PAGE_NUM}}</text>
+    <line x1="100" y1="1350" x2="980" y2="1350" stroke="#D4C9BE" stroke-width="1.5"/>
+    <text x="980" y="1388" font-family="Georgia, serif" font-size="24" fill="#7D7067" text-anchor="end" letter-spacing="6">{{PAGE_NUM}}</text>
   </g>
 </svg>
 ```
 
----
+### 结尾页变量
 
-## 高亮词规则
-
-### 封面（必须2个）
-- 标语1个高亮
-- 使用 `fill="#B86B4A"`
-
-### 内页（必须2个呼应对）
-- 使用 `<tspan fill="#B86B4A">` 包裹高亮词
-- 两个词形成语义呼应
-
-### 结尾页（1-2个）
-- 与封面形成首尾呼应
+| 变量 | 说明 | 示例 |
+|------|------|------|
+| `{{ZODIAC1}}` | 星座1名 | 射手座 |
+| `{{ZODIAC2}}` | 星座2名 | 狮子座 |
+| `{{MATCH_PERCENT}}` | 配对指数 | 85 |
+| `{{SUMMARY_HIGHLIGHT}}` | 总结高亮 | 火象最佳CP |
+| `{{SUMMARY_LINE1_BEFORE}}` | 总结行1前半 | 一起 |
+| `{{SUMMARY_LINE1_HIGHLIGHT}}` | 总结行1高亮 | 发光发热 |
+| `{{SUMMARY_LINE2}}` | 总结行2 | 谁也不用收敛自己 |
+| `{{BLESSING_LINE1}}` | 祝福语行1 | 愿你遇到的狮子 |
+| `{{BLESSING_LINE2}}` | 祝福语行2 | 都愿意和你一起发光 |
+| `{{PAGE_NUM}}` | 页码 | 03 |
 
 ---
 
@@ -448,12 +469,27 @@
 
 | 章节 | 标题示例 |
 |------|----------|
-| BOND 01 | 初见时刻 |
-| BOND 02 | 相处模式 |
-| BOND 03 | 争执瞬间 |
-| BOND 04 | 心动时刻 |
-| BOND 05 | 挑战关卡 |
-| DESTINY | 命定结语 |
+| BOND 01 | 初见时刻 / 第一眼 |
+| BOND 02 | 相处模式 / 一起疯的时候 |
+| BOND 03 | 争执瞬间 / 吵架的时候 |
+| BOND 04 | 心动时刻 / 最甜的瞬间 |
+| BOND 05 | 挑战关卡 / 最难的时刻 |
+
+---
+
+## 高亮词规则
+
+### 封面（1-2个）
+- 标语中1个高亮词
+- 使用 `fill="#B86B4A"`
+
+### 内页（2个呼应对）
+- 使用 `<tspan fill="#B86B4A">` 包裹高亮词
+- 两个词形成语义呼应
+
+### 结尾页（2-3个）
+- 总结高亮 + 总结行高亮
+- 与封面形成首尾呼应
 
 ---
 
@@ -462,26 +498,26 @@
 ### 基础检查
 - [ ] 画布尺寸 1080×1440
 - [ ] 背景渐变定义正确（暖棕色系）
-- [ ] 字体 @import 已添加
-- [ ] 页眉结构完整（双星座名+分隔符+主题词+无限符号）
+- [ ] 字体 @import 已添加（封面/结尾需 Playfair Display）
 - [ ] 页脚分隔线 + 右对齐页码
+
+### 封面专项检查
+- [ ] **无页眉**
+- [ ] 顶部有无限符号装饰
+- [ ] 配对指数使用 96px Playfair Display
+- [ ] 有分隔装饰（小无限符号）
+- [ ] 主题词 48px 居中
+
+### 内页专项检查
+- [ ] 页眉结构完整（双星座名+分隔符+主题词+小无限符号）
+- [ ] BOND XX 章节标签
+- [ ] 引用区块有左边框
 - [ ] 页码格式 "0 X"（带空格）
 
-### 特色元素检查
-- [ ] 封面有双星座对称布局
-- [ ] 封面有配对指数展示
-- [ ] 封面有无限符号连接
-- [ ] 页眉右上角有小无限符号装饰
-- [ ] 结尾页有双星座小图标
-
-### 高亮检查
-- [ ] 封面：标语1个高亮词
-- [ ] 内页：2个高亮词呼应对
-- [ ] 结尾页：1-2个高亮词
-- [ ] 高亮使用 `fill="#B86B4A"`
-
 ### 结尾页专项检查
-- [ ] 有装饰分隔线（小无限符号）
-- [ ] 主文案使用正体 32px
-- [ ] 祝福语使用斜体 26px
-- [ ] END 标记改为 BOND
+- [ ] **无页眉**
+- [ ] 顶部有无限符号装饰
+- [ ] 配对指数使用 72px Playfair Display
+- [ ] 有两处分隔装饰
+- [ ] 祝福语使用斜体 24px
+- [ ] END 标记居中
