@@ -363,8 +363,8 @@ def parse_highlight_marks(text: str) -> list:
   <rect x="100" y="340" width="100" height="4" fill="#C4653A"/>
 
   <!-- 正文内容 -->
-  <g id="content" transform="translate(100, 520)">
-    <!-- 动态生成每行文本 -->
+  <g id="content" transform="translate(100, 480)">
+    <!-- 动态生成每行文本，字体36px，字间距4px，行高70px -->
     {{CONTENT_LINES}}
   </g>
 
@@ -386,25 +386,30 @@ def parse_highlight_marks(text: str) -> list:
 
 ### 正文内容生成规则
 
+**字体规范**：
+| 属性 | 值 | 说明 |
+|------|-----|------|
+| 字体大小 | **36px** | 正文主字号 |
+| 字间距 | **4px** | letter-spacing |
+| 行间距 | **70px** | y 坐标递增值 |
+
 **每行文本模板**：
 ```svg
-<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="32" fill="#3D3835" letter-spacing="2">
+<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="4">
   <tspan fill="#3D3835">{{TEXT_BEFORE}}</tspan>
   <tspan fill="#C4653A">{{HIGHLIGHT}}</tspan>
   <tspan fill="#3D3835">{{TEXT_AFTER}}</tspan>
 </text>
 ```
 
-**行间距**：61px（y递增）
-
 **示例**：
 ```svg
-<text y="0" font-family="Noto Serif SC, serif" font-size="32" fill="#3D3835" letter-spacing="2">射手表面乐观</text>
-<text y="61" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">
+<text y="0" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="4">射手表面乐观</text>
+<text y="70" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="4">
   <tspan fill="#3D3835">其实内心</tspan><tspan fill="#C4653A">敏感</tspan><tspan fill="#3D3835">得要命</tspan>
 </text>
-<text y="122" font-family="Noto Serif SC, serif" font-size="32" fill="#3D3835" letter-spacing="2">只是不想给别人添麻烦</text>
-<text y="183" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">
+<text y="140" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="4">只是不想给别人添麻烦</text>
+<text y="210" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="4">
   <tspan fill="#3D3835">习惯了</tspan><tspan fill="#C4653A">自己扛</tspan>
 </text>
 ```

@@ -255,14 +255,20 @@ def create_page(record: dict, part_num: int, paragraph: str, page_num: int) -> s
     section = extract_section_title(paragraph)
     lines = paragraph.split('\n')
 
-    # 生成正文内容
+    # 生成正文内容（字体36px，字间距4px，行高70px - 按 TEMPLATE.md 规范）
     content_lines = ""
     y = 0
     for line in lines:
         line = line.strip()
         if line:
-            content_lines += f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="2">{line}</text>\n'
-            y += 65
+            # 解析【】高亮标记
+            parts = parse_highlight_marks(line)
+            tspans = ""
+            for part_text, is_highlight in parts:
+                color = "#C4653A" if is_highlight else "#3D3835"
+                tspans += f'<tspan fill="{color}">{part_text}</tspan>'
+            content_lines += f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="4">{tspans}</text>\n'
+            y += 70
 
     # 生成引用
     quote = lines[-1] if lines else ""
