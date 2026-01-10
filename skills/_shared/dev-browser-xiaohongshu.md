@@ -157,11 +157,52 @@ const snapshot = await client.getAISnapshot("xhs-comments");
 // - generic [ref=e612]:
 //   - generic [ref=e613]: 32分钟前上海
 
-// 5. 截图备份
+// 5. 解析评论并输出表格
+const comments = parseCommentsFromSnapshot(snapshot);
+printCommentsTable(comments);
+
+// 6. 截图备份
 await page.screenshot({ path: "tmp/comments.png" });
 
 await client.disconnect();
+
+// === 辅助函数 ===
+function parseCommentsFromSnapshot(snapshot) {
+  // 从 ARIA 快照解析评论数据
+  // 返回 [{userName, content, time, location, likes}, ...]
+}
+
+function printCommentsTable(comments) {
+  console.log("\n=== 笔记评论列表 ===\n");
+  console.log("| # | 用户 | 评论内容 | 时间 | 地点 | 点赞 |");
+  console.log("|---|------|----------|------|------|------|");
+  comments.forEach((c, i) => {
+    console.log(`| ${i + 1} | ${c.userName} | ${c.content.slice(0, 30)}... | ${c.time} | ${c.location} | ${c.likes || 0} |`);
+  });
+}
 ```
+
+### 输出格式示例
+
+拉取评论后，以 **Markdown 表格** 格式展示结果：
+
+```
+=== 笔记评论列表 ===
+
+笔记标题: 射手遇到处女
+总评论数: 6 条
+
+| # | 用户 | 评论内容 | 时间 | 地点 | 点赞 |
+|---|------|----------|------|------|------|
+| 1 | 九峰 | 认识20多年了，结婚15年了... | 32分钟前 | 上海 | 0 |
+| 2 | 云天_LYJ | 射手座➕上升处女座，唉！ | 33分钟前 | 上海 | 0 |
+| 3 | 红茶可可屋 | 射手，从来就是无敌... | 1小时前 | 湖北 | 1 |
+| 4 | TonyStank | 被处女较真折磨死... | 1小时前 | 辽宁 | 0 |
+| 5 | 不会弹琴的喵桑 | 回复 @yuuu_🌷 | 35分钟前 | 陕西 | 0 |
+| 6 | 是小吉不是大吉 | 回复 @吉速小羊 | 32分钟前 | 福建 | 0 |
+```
+
+---
 
 ### ARIA 快照中的评论结构
 
