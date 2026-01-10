@@ -1,0 +1,7 @@
+{
+  "name": "xiaohongshu-publish",
+  "description": "发布内容到小红书。从飞书表拉取记录，使用浏览器自动发布笔记。",
+  "triggers": ["/publish-xhs", "/xiaohongshu"],
+  "author": "local",
+  "version": "1.0.0"
+}
