@@ -189,6 +189,18 @@ PAGE_CSS = BASE_CSS + """
     .content-text p {
       margin-bottom: 20px;
     }
+    .quote {
+      margin-top: 50px;
+      padding-left: 30px;
+      border-left: 4px solid var(--accent-color);
+    }
+    .quote-text {
+      font-style: italic;
+      font-size: 26px;
+      color: var(--text-secondary);
+      letter-spacing: 2px;
+      line-height: 1.6;
+    }
 """
 
 END_CSS = BASE_CSS + """
@@ -322,8 +334,12 @@ def create_cover(zodiac, topic, subtitle, title_before, title_highlight, title_a
 '''
     return html
 
-def create_page(zodiac, topic, part_num, section_title, content_lines, page_num):
+def create_page(zodiac, topic, part_num, section_title, content_lines, page_num, quote=""):
     content_html = "\n".join([f"        <p>{line}</p>" for line in content_lines])
+    quote_html = f'''
+      <div class="quote">
+        <p class="quote-text">"{quote}"</p>
+      </div>''' if quote else ""
     html = f'''<!-- [STYLE: 性格独白风] [TYPE: page] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -346,6 +362,7 @@ def create_page(zodiac, topic, part_num, section_title, content_lines, page_num)
       <div class="content-text">
 {content_html}
       </div>
+{quote_html}
     </div>
 
     {create_footer(page_num)}
@@ -407,49 +424,67 @@ def main():
     zodiac = "双子座"
     topic = "理想的生活"
 
-    # 页面数据
+    # 页面数据（根据双子座人设优化：机智、好奇、社交感、反差可爱）
     pages_data = [
         {
             "section": "新鲜有趣",
             "lines": [
                 "每天都有<span class=\"highlight\">新发现</span>",
-                "世界永远不无聊"
-            ]
+                "刷到什么都想试试",
+                "好奇心就是我的燃料",
+                "世界永远<span class=\"highlight\">不无聊</span>"
+            ],
+            "quote": "无聊？不存在的，双子的世界永远有新鲜事"
         },
         {
             "section": "朋友遍天下",
             "lines": [
-                "聊天<span class=\"highlight\">不冷场</span>",
-                "话题接不完"
-            ]
+                "聊什么都能<span class=\"highlight\">接住</span>",
+                "话题永远接不完",
+                "社交是一种本能",
+                "沉默？<span class=\"highlight\">那是什么</span>"
+            ],
+            "quote": "能聊到一起，比什么都重要"
         },
         {
-            "section": "想法被听见",
+            "section": "被理解",
             "lines": [
-                "有人懂我的<span class=\"highlight\">双面</span>",
-                "变化被接受"
-            ]
+                "有人懂我的<span class=\"highlight\">AB面</span>",
+                "今天安静明天疯狂",
+                "不用解释也能被接受",
+                "这才是<span class=\"highlight\">真正的舒服</span>"
+            ],
+            "quote": "懂我的多面，才是真的懂我"
         },
         {
             "section": "信息自由",
             "lines": [
-                "八卦<span class=\"highlight\">第一时间</span>知道",
-                "脑子永远在线"
-            ]
+                "热搜<span class=\"highlight\">第一时间</span>知道",
+                "八卦从不落下",
+                "脑子永远在线",
+                "信息就是<span class=\"highlight\">快乐源泉</span>"
+            ],
+            "quote": "知道得多，才能聊得嗨"
         },
         {
             "section": "不被定义",
             "lines": [
-                "今天可以<span class=\"highlight\">安静</span>",
-                "明天可以<span class=\"highlight\">疯狂</span>"
-            ]
+                "今天可以<span class=\"highlight\">社牛</span>",
+                "明天可以<span class=\"highlight\">社恐</span>",
+                "后天又是新人设",
+                "都是真实的我"
+            ],
+            "quote": "别给我贴标签，我自己都数不清有几面"
         },
         {
-            "section": "知心闺蜜",
+            "section": "知心好友",
             "lines": [
-                "想聊就聊",
-                "深夜也能<span class=\"highlight\">接电话</span>"
-            ]
+                "想聊就聊<span class=\"highlight\">不用铺垫</span>",
+                "深夜也能秒接电话",
+                "懂的都懂",
+                "不懂的<span class=\"highlight\">解释也没用</span>"
+            ],
+            "quote": "真朋友，就是随时能接上话的那种"
         }
     ]
 
@@ -468,7 +503,7 @@ def main():
 
     # 2-7. 内容页
     for i, page in enumerate(pages_data, start=1):
-        html = create_page(zodiac, topic, i, page["section"], page["lines"], i + 1)
+        html = create_page(zodiac, topic, i, page["section"], page["lines"], i + 1, page.get("quote", ""))
         filename = f"{i+1:02d}_page.html"
         (output_dir / filename).write_text(html, encoding="utf-8")
         print(f"✅ {filename}")
