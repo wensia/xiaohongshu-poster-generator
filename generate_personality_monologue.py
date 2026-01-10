@@ -2,9 +2,11 @@
 """
 性格独白风 SVG 模板生成器
 每套：1封面 + 5内容页 + 1总结页 = 7张
+支持智能高亮
 """
 import asyncio
 import requests
+import re
 from pathlib import Path
 from datetime import datetime
 from playwright.async_api import async_playwright
@@ -15,143 +17,13 @@ APP_SECRET = "CyANTKyK1HhZ569m9vasodAGqsjKwh1u"
 APP_TOKEN = "Qt6Qbzzy6aWBgassGQhcUU5vngc"
 TABLE_ID = "tblyDtUqcfFMaDfO"
 
-# 5条记录数据
-RECORDS = [
-    {
-        "record_id": "recv7SLDWWqsun",
-        "title": "双子座来不及想",
-        "subtitle": "直觉比脑子快",
-        "content": """别人还在列清单分析利弊的时候
-我已经做完了
-不是冲动 是直觉比脑子快
-
-想太多真的会错过
-机会不等人 感觉不等人
-双子的第六感 比逻辑靠谱
-
-后悔这件事
-等做完再说吧
-反正现在这一秒 我很爽
-
-有人说我不过脑子
-其实是脑子太快
-快到来不及解释给你听
-
-双子的人生哲学就四个字
-先冲了再说
-想不通的事 做完就通了"""
-    },
-    {
-        "record_id": "recv7SLEpwXaFg",
-        "title": "双子座是看感觉的",
-        "subtitle": "感觉对了什么都对",
-        "content": """逻辑我有的
-但感觉永远排第一
-脑子说可以 心说不行
-那就是不行
-
-道理我都懂
-可是感觉不对啊
-这句话我说了一万遍
-
-选人选事选未来
-最后都是一个字
-感觉
-感觉对了 什么都对
-
-你问我为什么选这个
-我也说不清
-就是感觉它在发光
-
-感觉不对的时候
-理由再多也没用
-硬撑只会更累
-不如相信直觉 然后走人"""
-    },
-    {
-        "record_id": "recv7SLENIkRKM",
-        "title": "双子座的拉扯感",
-        "subtitle": "两个我在开会",
-        "content": """想靠近 又想逃
-想要 又怕真的要到
-这不是矛盾
-是两个我在开会
-
-一边说无所谓
-一边偷偷在意
-表面风轻云淡
-内心戏比电视剧还多
-
-纠结的时候
-脑子里像开辩论赛
-正方反方都是我
-而且永远打成平手
-
-别催我做决定
-我需要让两个自己先吵完
-吵完才能统一意见
-
-所以双子的犹豫不是优柔寡断
-是内心在做民主决策
-投票还没出结果而已"""
-    },
-    {
-        "record_id": "recv7SLFdsL59Y",
-        "title": "双子座容易被点燃",
-        "subtitle": "一点就着",
-        "content": """一个眼神 一句话
-甚至一个表情包
-都能让我瞬间上头
-双子就是这么容易被点燃
-
-热情来得快 燃得猛
-但也可能说灭就灭
-不是善变
-是太容易被触动
-
-有趣的人 有趣的事
-都是我的火柴
-一点就着 根本控制不住
-
-新鲜感就是我的氧气
-没有它 火就灭了
-所以别怪我冷
-是你没有持续给燃料
-
-想让双子一直在线
-秘诀只有一个
-不断给新鲜感
-让我永远有东西可以期待"""
-    },
-    {
-        "record_id": "recv7SLFBUOE1k",
-        "title": "双子座的最终选择",
-        "subtitle": "绕一圈回到直觉",
-        "content": """纠结了很久 分析了很久
-问了很多人 列了很多单
-最后怎么选的
-闭眼 随便选一个
-
-选完才发现
-这不就是我一开始想要的吗
-绕了一大圈
-还是回到了最初的直觉
-
-双子的选择题永远是
-A想要 B也想要
-最终答案
-先A后B 或者都要
-
-选不出来的时候
-就别选了
-等一个新选项出现
-说不定比AB都好
-
-所以双子的最终选择
-往往不是选出来的
-是等出来的
-或者 是心里早就定了的"""
-    }
+# 5条记录ID
+RECORD_IDS = [
+    "recv7SLDWWqsun",
+    "recv7SLEpwXaFg",
+    "recv7SLENIkRKM",
+    "recv7SLFdsL59Y",
+    "recv7SLFBUOE1k"
 ]
 
 # 双子座 SVG 图标
@@ -190,6 +62,37 @@ def get_access_token():
     url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
     resp = requests.post(url, json={"app_id": APP_ID, "app_secret": APP_SECRET})
     return resp.json()["tenant_access_token"]
+
+def fetch_records(token: str) -> list:
+    """从飞书获取记录"""
+    url = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{APP_TOKEN}/tables/{TABLE_ID}/records/search"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    # 搜索指定记录
+    data = {
+        "filter": {
+            "conjunction": "or",
+            "conditions": [{"field_name": "record_id", "operator": "is", "value": [rid]} for rid in RECORD_IDS]
+        },
+        "automatic_fields": True
+    }
+
+    records = []
+    for rid in RECORD_IDS:
+        url_get = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{APP_TOKEN}/tables/{TABLE_ID}/records/{rid}"
+        resp = requests.get(url_get, headers=headers)
+        result = resp.json()
+        if result.get("code") == 0:
+            record = result["data"]["record"]
+            fields = record["fields"]
+            records.append({
+                "record_id": rid,
+                "title": fields.get("标题", ""),
+                "subtitle": fields.get("副标题", ""),
+                "content": fields.get("正文内容", ""),
+                "template": fields.get("模板", "")
+            })
+    return records
 
 def upload_image(token: str, image_path: Path) -> str:
     url = "https://open.feishu.cn/open-apis/drive/v1/medias/upload_all"
@@ -243,45 +146,111 @@ def create_footer(page_num: int):
   </g>
 '''
 
-def smart_highlight(title: str) -> tuple:
-    """智能识别标题高亮词"""
-    highlights = {
-        "来不及想": ("双子座", "来不及", "想"),
-        "是看感觉的": ("双子座", "看感觉", "的"),
-        "的拉扯感": ("双子座的", "拉扯感", ""),
-        "容易被点燃": ("双子座", "容易被点燃", ""),
-        "的最终选择": ("双子座的", "最终选择", ""),
-    }
-    for key, val in highlights.items():
-        if key in title:
-            return val
-    return (title, "", "")
+def smart_highlight_text(text: str) -> list:
+    """
+    智能高亮文本
+    返回: [(text, is_highlight), ...] 的列表
+    高亮规则优先级:
+    1. 星座名称 (双子座、白羊座等)
+    2. 核心动词 (做、想、选、看、说、燃等)
+    3. 核心名词 (决定、感觉、内心、热情、选择、直觉等)
+    4. 情感/状态形容词 (全凭、一点就、充满等)
+    """
+    # 高亮关键词库
+    zodiac_names = ["双子座", "白羊座", "金牛座", "巨蟹座", "狮子座", "处女座",
+                    "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座"]
+
+    core_verbs = ["做", "想", "选", "选择", "看", "说", "燃", "拉扯", "点燃", "着",
+                  "冲", "等", "要", "爱", "恨", "懂", "懒", "累", "玩", "闹", "哭", "笑"]
+
+    core_nouns = ["决定", "感觉", "内心", "热情", "选择", "直觉", "生活", "朋友",
+                  "情绪", "自由", "灵魂", "内心戏", "新鲜感", "安全感", "未来"]
+
+    emotion_adjs = ["全凭", "一点就", "充满", "永远", "总是", "来不及", "回到",
+                   "绕一圈", "容易", "真的", "才是", "就是"]
+
+    # 合并所有关键词
+    all_keywords = zodiac_names + core_nouns + emotion_adjs + core_verbs
+
+    # 按长度降序排序，优先匹配更长的词
+    all_keywords = sorted(set(all_keywords), key=len, reverse=True)
+
+    # 构建结果
+    result = []
+    remaining = text
+    while remaining:
+        found = False
+        for keyword in all_keywords:
+            if remaining.startswith(keyword):
+                result.append((keyword, True))
+                remaining = remaining[len(keyword):]
+                found = True
+                break
+        if not found:
+            # 找到下一个关键词的位置
+            next_pos = len(remaining)
+            for keyword in all_keywords:
+                pos = remaining.find(keyword)
+                if pos != -1 and pos < next_pos:
+                    next_pos = pos
+
+            if next_pos > 0:
+                result.append((remaining[:next_pos], False))
+                remaining = remaining[next_pos:]
+            else:
+                result.append((remaining, False))
+                remaining = ""
+
+    return result
+
+def render_highlighted_text(text: str, base_x: int, base_y: int, font_size: int = 72,
+                           font_weight: str = "600", anchor: str = "middle") -> str:
+    """渲染带高亮的文本为SVG tspan"""
+    parts = smart_highlight_text(text)
+
+    tspans = ""
+    for part_text, is_highlight in parts:
+        color = "#C4653A" if is_highlight else "#3D3835"
+        tspans += f'<tspan fill="{color}">{part_text}</tspan>'
+
+    return f'''<text x="{base_x}" y="{base_y}" font-family="Noto Serif SC, serif" font-size="{font_size}" font-weight="{font_weight}" text-anchor="{anchor}" letter-spacing="6">{tspans}</text>'''
 
 def create_cover(record: dict, page_num: int = 1) -> str:
-    """创建封面 SVG"""
+    """创建封面 SVG - 支持两行标题和智能高亮"""
     title = record["title"]
     subtitle = record["subtitle"]
-    before, highlight, after = smart_highlight(title)
+
+    # 解析两行标题
+    title_lines = title.split('\n') if '\n' in title else [title]
+    line1 = title_lines[0] if len(title_lines) > 0 else ""
+    line2 = title_lines[1] if len(title_lines) > 1 else ""
+
+    # 渲染第一行（智能高亮）
+    line1_svg = render_highlighted_text(line1, 540, 600, font_size=72, font_weight="600", anchor="middle")
+
+    # 第二行使用 accent 色
+    line2_svg = f'<text x="540" y="700" font-family="Noto Serif SC, serif" font-size="56" font-weight="500" fill="#C4653A" text-anchor="middle" letter-spacing="8">{line2}</text>' if line2 else ""
 
     svg = SVG_HEADER + create_header() + f'''
   <!-- 封面内容 -->
   <g id="cover-content">
     <!-- 副标题 -->
-    <text x="540" y="520" font-family="Noto Serif SC, serif" font-size="32" fill="#6B6461" text-anchor="middle" letter-spacing="6">{subtitle}</text>
+    <text x="540" y="480" font-family="Noto Serif SC, serif" font-size="32" fill="#6B6461" text-anchor="middle" letter-spacing="6">{subtitle}</text>
 
-    <!-- 主标题 -->
-    <text x="540" y="680" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" text-anchor="middle" letter-spacing="6">
-      <tspan fill="#3D3835">{before}</tspan><tspan fill="#C4653A">{highlight}</tspan><tspan fill="#3D3835">{after}</tspan>
-    </text>
+    <!-- 主标题第一行（智能高亮） -->
+    {line1_svg}
+
+    <!-- 主标题第二行（accent色） -->
+    {line2_svg}
 
     <!-- 分隔线 -->
-    <rect x="490" y="750" width="100" height="4" fill="#C4653A"/>
+    <rect x="490" y="780" width="100" height="4" fill="#C4653A"/>
 
     <!-- 标语 -->
-    <text x="540" y="860" font-family="Noto Serif SC, serif" font-size="30" fill="#6B6461" text-anchor="middle" letter-spacing="4">
+    <text x="540" y="890" font-family="Noto Serif SC, serif" font-size="30" fill="#6B6461" text-anchor="middle" letter-spacing="4">
       <tspan fill="#C4653A">机智灵动</tspan><tspan fill="#6B6461"> · 好奇心爆棚</tspan>
     </text>
-    <text x="540" y="920" font-family="Noto Serif SC, serif" font-size="30" fill="#6B6461" text-anchor="middle" letter-spacing="4">
+    <text x="540" y="950" font-family="Noto Serif SC, serif" font-size="30" fill="#6B6461" text-anchor="middle" letter-spacing="4">
       <tspan fill="#6B6461">思维跳跃 · </tspan><tspan fill="#C4653A">永远有趣</tspan>
     </text>
   </g>
@@ -431,7 +400,11 @@ async def svg_to_png(svg_dir: Path) -> list:
 def generate_one_set(record: dict, base_dir: Path) -> Path:
     """生成一套图片"""
     title = record["title"]
-    output_dir = base_dir / title
+    # 处理两行标题，用目录安全的名称
+    dir_name = title.split('\n')[0] if '\n' in title else title
+    # 确保目录名安全（移除可能导致问题的字符）
+    dir_name = dir_name.replace('/', '_').replace('\\', '_')
+    output_dir = base_dir / dir_name
     output_dir.mkdir(parents=True, exist_ok=True)
 
     paragraphs = parse_paragraphs(record["content"])
@@ -459,8 +432,12 @@ async def main():
     token = get_access_token()
     print("✅ Token 获取成功\n")
 
-    for record in RECORDS:
-        title = record["title"]
+    print("📥 从飞书获取记录...")
+    records = fetch_records(token)
+    print(f"✅ 获取到 {len(records)} 条记录\n")
+
+    for record in records:
+        title = record["title"].replace('\n', ' / ')
         print(f"\n{'='*50}")
         print(f"📝 处理: {title}")
         print(f"{'='*50}")
