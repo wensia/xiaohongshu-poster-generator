@@ -146,67 +146,47 @@ def create_footer(page_num: int):
   </g>
 '''
 
-def smart_highlight_text(text: str) -> list:
+def parse_highlight_marks(text: str) -> list:
     """
-    智能高亮文本
-    返回: [(text, is_highlight), ...] 的列表
-    高亮规则优先级:
-    1. 星座名称 (双子座、白羊座等)
-    2. 核心动词 (做、想、选、看、说、燃等)
-    3. 核心名词 (决定、感觉、内心、热情、选择、直觉等)
-    4. 情感/状态形容词 (全凭、一点就、充满等)
+    解析【】标记，返回 [(text, is_highlight), ...] 列表
+
+    这是纯解析函数，不做任何语义判断。
+    高亮词由 AI 在内容生成阶段用【】标记。
+
+    示例:
+        输入: "【双子座】做【决定】来不及【想】"
+        输出: [("双子座", True), ("做", False), ("决定", True), ("来不及", False), ("想", True)]
     """
-    # 高亮关键词库
-    zodiac_names = ["双子座", "白羊座", "金牛座", "巨蟹座", "狮子座", "处女座",
-                    "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座"]
-
-    core_verbs = ["做", "想", "选", "选择", "看", "说", "燃", "拉扯", "点燃", "着",
-                  "冲", "等", "要", "爱", "恨", "懂", "懒", "累", "玩", "闹", "哭", "笑"]
-
-    core_nouns = ["决定", "感觉", "内心", "热情", "选择", "直觉", "生活", "朋友",
-                  "情绪", "自由", "灵魂", "内心戏", "新鲜感", "安全感", "未来"]
-
-    emotion_adjs = ["全凭", "一点就", "充满", "永远", "总是", "来不及", "回到",
-                   "绕一圈", "容易", "真的", "才是", "就是"]
-
-    # 合并所有关键词
-    all_keywords = zodiac_names + core_nouns + emotion_adjs + core_verbs
-
-    # 按长度降序排序，优先匹配更长的词
-    all_keywords = sorted(set(all_keywords), key=len, reverse=True)
-
-    # 构建结果
     result = []
-    remaining = text
-    while remaining:
-        found = False
-        for keyword in all_keywords:
-            if remaining.startswith(keyword):
-                result.append((keyword, True))
-                remaining = remaining[len(keyword):]
-                found = True
-                break
-        if not found:
-            # 找到下一个关键词的位置
-            next_pos = len(remaining)
-            for keyword in all_keywords:
-                pos = remaining.find(keyword)
-                if pos != -1 and pos < next_pos:
-                    next_pos = pos
+    pattern = r'【([^】]+)】'
+    last_end = 0
 
-            if next_pos > 0:
-                result.append((remaining[:next_pos], False))
-                remaining = remaining[next_pos:]
-            else:
-                result.append((remaining, False))
-                remaining = ""
+    for match in re.finditer(pattern, text):
+        # 标记前的普通文字
+        if match.start() > last_end:
+            result.append((text[last_end:match.start()], False))
+        # 标记内的高亮文字
+        result.append((match.group(1), True))
+        last_end = match.end()
+
+    # 剩余的普通文字
+    if last_end < len(text):
+        result.append((text[last_end:], False))
+
+    # 如果没有任何标记，返回整个文本作为普通文字
+    if not result:
+        result.append((text, False))
 
     return result
 
 def render_highlighted_text(text: str, base_x: int, base_y: int, font_size: int = 72,
                            font_weight: str = "600", anchor: str = "middle") -> str:
-    """渲染带高亮的文本为SVG tspan"""
-    parts = smart_highlight_text(text)
+    """
+    渲染带【】标记的文本为 SVG tspan
+
+    解析【】标记，将标记内的文字渲染为 accent 色，其余为普通色。
+    """
+    parts = parse_highlight_marks(text)
 
     tspans = ""
     for part_text, is_highlight in parts:
@@ -214,6 +194,10 @@ def render_highlighted_text(text: str, base_x: int, base_y: int, font_size: int 
         tspans += f'<tspan fill="{color}">{part_text}</tspan>'
 
     return f'''<text x="{base_x}" y="{base_y}" font-family="Noto Serif SC, serif" font-size="{font_size}" font-weight="{font_weight}" text-anchor="{anchor}" letter-spacing="6">{tspans}</text>'''
+
+def strip_highlight_marks(text: str) -> str:
+    """去掉【】标记，只保留内容"""
+    return re.sub(r'【([^】]+)】', r'\1', text)
 
 def create_cover(record: dict, page_num: int = 1) -> str:
     """创建封面 SVG - 支持两行标题和智能高亮"""
@@ -225,11 +209,12 @@ def create_cover(record: dict, page_num: int = 1) -> str:
     line1 = title_lines[0] if len(title_lines) > 0 else ""
     line2 = title_lines[1] if len(title_lines) > 1 else ""
 
-    # 渲染第一行（智能高亮）
+    # 渲染第一行（解析【】标记，高亮标记内的文字）
     line1_svg = render_highlighted_text(line1, 540, 600, font_size=72, font_weight="600", anchor="middle")
 
-    # 第二行使用 accent 色
-    line2_svg = f'<text x="540" y="700" font-family="Noto Serif SC, serif" font-size="56" font-weight="500" fill="#C4653A" text-anchor="middle" letter-spacing="8">{line2}</text>' if line2 else ""
+    # 第二行：去掉【】标记，整行使用 accent 色
+    line2_clean = strip_highlight_marks(line2)
+    line2_svg = f'<text x="540" y="700" font-family="Noto Serif SC, serif" font-size="56" font-weight="500" fill="#C4653A" text-anchor="middle" letter-spacing="8">{line2_clean}</text>' if line2_clean else ""
 
     svg = SVG_HEADER + create_header() + f'''
   <!-- 封面内容 -->
@@ -402,6 +387,8 @@ def generate_one_set(record: dict, base_dir: Path) -> Path:
     title = record["title"]
     # 处理两行标题，用目录安全的名称
     dir_name = title.split('\n')[0] if '\n' in title else title
+    # 去掉【】标记
+    dir_name = strip_highlight_marks(dir_name)
     # 确保目录名安全（移除可能导致问题的字符）
     dir_name = dir_name.replace('/', '_').replace('\\', '_')
     output_dir = base_dir / dir_name
