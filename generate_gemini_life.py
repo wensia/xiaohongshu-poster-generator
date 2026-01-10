@@ -287,7 +287,11 @@ def create_footer(page_num):
     </div>
 '''
 
-def create_cover(zodiac, topic, subtitle, title):
+def create_cover(zodiac, topic, subtitle, title_before, title_highlight, title_after, taglines):
+    """
+    创建封面
+    主标题支持智能高亮：title_before + title_highlight(强调色) + title_after
+    """
     html = f'''<!-- [STYLE: 性格独白风] [TYPE: cover] -->
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -304,11 +308,10 @@ def create_cover(zodiac, topic, subtitle, title):
 
     <div class="cover-content">
       <p class="cover-subtitle">{subtitle}</p>
-      <h1 class="cover-title">{title}</h1>
+      <h1 class="cover-title">{title_before}<span class="highlight">{title_highlight}</span>{title_after}</h1>
       <div class="cover-divider"></div>
       <p class="cover-tagline">
-        <span class="highlight">新鲜有趣</span> · 永远好奇<br>
-        朋友遍天下 · <span class="highlight">不被定义</span>
+        {taglines}
       </p>
     </div>
 
@@ -450,8 +453,16 @@ def main():
         }
     ]
 
-    # 1. 封面
-    html = create_cover(zodiac, topic, "新鲜有趣 永远好奇", "双子座理想的生活")
+    # 1. 封面（主标题智能高亮："理想的"作为高亮词）
+    taglines = '<span class="highlight">新鲜有趣</span> · 永远好奇<br>朋友遍天下 · <span class="highlight">不被定义</span>'
+    html = create_cover(
+        zodiac, topic,
+        subtitle="每天都有新鲜感",
+        title_before="双子座",
+        title_highlight="理想的",
+        title_after="生活",
+        taglines=taglines
+    )
     (output_dir / "01_cover.html").write_text(html, encoding="utf-8")
     print(f"✅ 01_cover.html")
 

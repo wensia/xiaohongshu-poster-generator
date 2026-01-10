@@ -166,11 +166,13 @@
     <!-- 副标题 -->
     <text x="540" y="520" font-family="Noto Serif SC, serif" font-size="32" fill="#6B6461" text-anchor="middle" letter-spacing="6">{{SUBTITLE}}</text>
 
-    <!-- 主标题 -->
-    <text x="540" y="660" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#3D3835" text-anchor="middle" letter-spacing="6">
-      <tspan>{{TITLE_LINE1}}</tspan>
+    <!-- 主标题（支持单行/双行两种模式） -->
+    <!-- 模式A: 单行标题（使用 tspan 实现内联高亮） -->
+    <text x="540" y="660" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" text-anchor="middle" letter-spacing="6">
+      <tspan fill="#3D3835">{{TITLE_BEFORE}}</tspan><tspan fill="#C4653A">{{TITLE_HIGHLIGHT}}</tspan><tspan fill="#3D3835">{{TITLE_AFTER}}</tspan>
     </text>
-    <text x="540" y="750" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#C4653A" text-anchor="middle" letter-spacing="6">{{TITLE_HIGHLIGHT}}</text>
+    <!-- 模式B: 双行标题（第二行整行高亮，可选） -->
+    <text x="540" y="750" font-family="Noto Serif SC, serif" font-size="72" font-weight="600" fill="#C4653A" text-anchor="middle" letter-spacing="6">{{TITLE_LINE2}}</text>
 
     <!-- 分隔线 -->
     <rect x="490" y="830" width="100" height="4" fill="#C4653A"/>
@@ -198,11 +200,30 @@
 | `{{TOPIC}}` | 主题 | 性格独白 |
 | `{{ZODIAC_SVG}}` | 星座图标 | `<svg>...</svg>` |
 | `{{SUBTITLE}}` | 副标题 | 表面乐观 |
-| `{{TITLE_LINE1}}` | 主标题第一行 | 什么苦都能吃 |
-| `{{TITLE_HIGHLIGHT}}` | **高亮词**（强调色） | 唯独心寒不行 |
+| **主标题（模式A：单行内联高亮）** | | |
+| `{{TITLE_BEFORE}}` | 高亮词前的文字 | 双子座 |
+| `{{TITLE_HIGHLIGHT}}` | **高亮词**（强调色） | 理想的 |
+| `{{TITLE_AFTER}}` | 高亮词后的文字 | 生活 |
+| **主标题（模式B：双行标题）** | | |
+| `{{TITLE_LINE2}}` | 第二行（整行高亮，可选） | 唯独心寒不行 |
 | `{{TAGLINE_LINE1}}` | 标语第一行 | 走得洒脱 |
 | `{{TAGLINE_HIGHLIGHT}}` | **标语高亮**（强调色） | 是因为 |
 | `{{TAGLINE_REST}}` | 标语剩余 | 早就做好了准备 |
+
+### 主标题高亮规则
+
+**智能识别高亮词的优先级**：
+1. **动词/形容词短语**：如"理想的"、"真实的"、"最美的"
+2. **核心概念词**：如"自由"、"独处"、"边界感"
+3. **星座名**：如需强调星座特质时
+
+**示例拆分**：
+| 完整标题 | TITLE_BEFORE | TITLE_HIGHLIGHT | TITLE_AFTER |
+|----------|--------------|-----------------|-------------|
+| 双子座理想的生活 | 双子座 | 理想的 | 生活 |
+| 射手座的独处方式 | 射手座的 | 独处 | 方式 |
+| 最懂你的星座 | 最懂你的 | 星座 | （空） |
+| 天秤座的边界感 | 天秤座的 | 边界感 | （空） |
 
 ---
 
