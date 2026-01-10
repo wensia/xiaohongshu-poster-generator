@@ -270,8 +270,8 @@ def create_page(record: dict, part_num: int, paragraph: str, page_num: int) -> s
             content_lines += f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="4">{tspans}</text>\n'
             y += 70
 
-    # 生成引用
-    quote = lines[-1] if lines else ""
+    # 生成引用（去掉【】标记）
+    quote = strip_highlight_marks(lines[-1]) if lines else ""
 
     svg = SVG_HEADER + create_header() + f'''
   <!-- 章节标签 -->
