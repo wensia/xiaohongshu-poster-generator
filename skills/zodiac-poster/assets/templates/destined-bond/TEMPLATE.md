@@ -206,7 +206,7 @@
     <text x="0" y="620" font-family="Noto Sans SC, sans-serif" font-size="20" font-weight="400" fill="#8B7355" text-anchor="middle" letter-spacing="4">契合指数</text>
 
     <!-- 百分比 (视觉核心) -->
-    <text x="0" y="710" font-family="Georgia, serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">{{MATCH_PERCENT}}%</text>
+    <text x="0" y="710" font-family="Arial, sans-serif" font-size="96" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="4">{{MATCH_PERCENT}}%</text>
   </g>
 
   <!-- 主题概念 -->
@@ -444,7 +444,7 @@
     <!-- 核心数据：契合指数 -->
     <g transform="translate(0, 500)">
       <text x="0" y="0" font-family="Noto Sans SC, sans-serif" font-size="18" font-weight="400" fill="#8B7355" text-anchor="middle" letter-spacing="4">契合指数</text>
-      <text x="0" y="70" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">{{MATCH_PERCENT}}%</text>
+      <text x="0" y="70" font-family="Arial, sans-serif" font-size="72" font-weight="600" fill="#B86B4A" text-anchor="middle" letter-spacing="2">{{MATCH_PERCENT}}%</text>
     </g>
 
     <!-- 分隔装饰 -->
