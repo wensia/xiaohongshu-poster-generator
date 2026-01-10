@@ -339,9 +339,16 @@
 
 ### 正文内容生成规则
 
+**字体规范**：
+| 属性 | 值 | 说明 |
+|------|-----|------|
+| 字体大小 | **32px** | 正文主字号 |
+| 字间距 | **4px** | letter-spacing |
+| 行间距 | **61px** | y 坐标递增值 |
+
 **每行文本模板**：
 ```svg
-<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">
+<text y="{{LINE_Y}}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="4">
   <tspan fill="#4A3F35">{{TEXT_BEFORE}}</tspan>
   <tspan fill="#B86B4A">{{HIGHLIGHT}}</tspan>
   <tspan fill="#4A3F35">{{TEXT_AFTER}}</tspan>

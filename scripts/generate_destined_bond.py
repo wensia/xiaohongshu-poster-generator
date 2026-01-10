@@ -55,7 +55,7 @@ def render_cover(template, data):
     return svg
 
 def render_content_lines(lines):
-    """生成正文内容SVG"""
+    """生成正文内容SVG（字间距4px）"""
     svg_lines = []
     y = 0
     for line in lines:
@@ -65,7 +65,7 @@ def render_content_lines(lines):
             if len(parts) == 2:
                 before, highlight = parts
                 svg_lines.append(
-                    f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">'
+                    f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="4">'
                     f'<tspan fill="#4A3F35">{before}</tspan>'
                     f'<tspan fill="#B86B4A">{highlight}</tspan>'
                     f'</text>'
@@ -73,7 +73,7 @@ def render_content_lines(lines):
             elif len(parts) == 3:
                 before, highlight, after = parts
                 svg_lines.append(
-                    f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="2">'
+                    f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" letter-spacing="4">'
                     f'<tspan fill="#4A3F35">{before}</tspan>'
                     f'<tspan fill="#B86B4A">{highlight}</tspan>'
                     f'<tspan fill="#4A3F35">{after}</tspan>'
@@ -81,7 +81,7 @@ def render_content_lines(lines):
                 )
         else:
             svg_lines.append(
-                f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" fill="#4A3F35" letter-spacing="2">{line}</text>'
+                f'<text y="{y}" font-family="Noto Serif SC, serif" font-size="32" fill="#4A3F35" letter-spacing="4">{line}</text>'
             )
         y += 61
     return "\n    ".join(svg_lines)
