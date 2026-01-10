@@ -288,7 +288,10 @@ async def svg_to_png(svg_path: Path, png_path: Path):
 
     async with async_playwright() as p:
         browser = await p.chromium.launch()
-        page = await browser.new_page(viewport={"width": 1080, "height": 1440})
+        page = await browser.new_page(
+            viewport={"width": 1080, "height": 1440},
+            device_scale_factor=2  # 2x 导出，实际像素 2160x2880
+        )
         await page.goto(f"file://{html_path.absolute()}")
         await page.wait_for_timeout(1500)
         await page.screenshot(path=str(png_path), type="png")
