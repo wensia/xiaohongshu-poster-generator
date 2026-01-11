@@ -243,12 +243,25 @@ def create_cover(record: dict, page_num: int = 1) -> str:
     return svg
 
 def extract_section_title(paragraph: str) -> str:
-    """从段落提取小标题"""
+    """
+    从段落提取小标题
+
+    优先提取第一个【】高亮词作为标题，
+    如果没有高亮词，则取前4个字符（去除标记后）
+    """
     lines = paragraph.split('\n')
     first_line = lines[0].strip()
-    if len(first_line) <= 6:
-        return first_line
-    return first_line[:4]
+
+    # 尝试提取第一个【】高亮词作为标题
+    match = re.search(r'【([^】]+)】', first_line)
+    if match:
+        return match.group(1)  # 返回第一个高亮词内容
+
+    # 如果没有高亮词，先去除标记再截取
+    clean_line = strip_highlight_marks(first_line)
+    if len(clean_line) <= 6:
+        return clean_line
+    return clean_line[:4]
 
 def create_page(record: dict, part_num: int, paragraph: str, page_num: int) -> str:
     """创建内容页 SVG"""
