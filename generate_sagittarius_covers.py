@@ -354,13 +354,16 @@ def create_end(record: dict, page_num: int) -> str:
 def parse_content(content: str) -> list:
     """解析正文内容为段落列表"""
     if '【封面】' in content or '【第1页】' in content:
+        # 使用split按页面标记分割，而不是正则表达式
+        # 这样可以正确处理内容中的【高亮词】
         pages = []
-        pattern = r'【(?:封面|第\d+页)】\s*([^【]*?)(?=【(?:封面|第\d+页)】|$)'
-        matches = re.findall(pattern, content, re.DOTALL)
-        for match in matches:
-            text = match.strip()
+        # 先按【第N页】分割
+        parts = re.split(r'【(?:封面|第\d+页)】', content)
+        for part in parts:
+            text = part.strip()
             if text:
                 pages.append(text)
+        # 跳过封面内容（第一个），返回内容页
         return pages[1:6] if len(pages) > 1 else pages
     else:
         paragraphs = [p.strip() for p in content.split('\n\n') if p.strip()]
