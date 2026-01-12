@@ -1,0 +1,159 @@
+{
+  "account": {
+    "name": "射手座生存指南",
+    "xiaohongshu_id": "3858760167",
+    "user_id": "63a4d7e00000000026010ffd",
+    "ip_location": "天津",
+    "bio": "「记录射手的每一面 | 自由是底色，孤独是选择 | 不装不演，真实到底 | 同频的人自会相遇」",
+    "profile_url": "https://www.xiaohongshu.com/user/profile/63a4d7e00000000026010ffd"
+  },
+  "stats": {
+    "following": "10+",
+    "followers": "10+",
+    "likes_and_collections": "1000+"
+  },
+  "notes": [
+    {
+      "id": 1,
+      "title": "射手座更适合的职业方向",
+      "likes": 523,
+      "is_pinned": true,
+      "category": "职业/实用"
+    },
+    {
+      "id": 2,
+      "title": "2026最值得期待的星座：射手",
+      "likes": 1203,
+      "is_pinned": true,
+      "category": "年度运势"
+    },
+    {
+      "id": 3,
+      "title": "2026射手座财运大揭秘",
+      "likes": 32,
+      "is_pinned": false,
+      "category": "财运预测"
+    },
+    {
+      "id": 4,
+      "title": "射手遇到处女",
+      "likes": 86,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "处女座"
+    },
+    {
+      "id": 5,
+      "title": "射手遇到天秤",
+      "likes": 79,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "天秤座"
+    },
+    {
+      "id": 6,
+      "title": "射手遇到巨蟹",
+      "likes": 76,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "巨蟹座"
+    },
+    {
+      "id": 7,
+      "title": "射手遇到金牛",
+      "likes": 84,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "金牛座"
+    },
+    {
+      "id": 8,
+      "title": "射手遇到白羊",
+      "likes": 152,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "白羊座"
+    },
+    {
+      "id": 9,
+      "title": "射手遇到双子",
+      "likes": 17,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "双子座"
+    },
+    {
+      "id": 10,
+      "title": "人间清醒——射手座",
+      "likes": 46,
+      "is_pinned": false,
+      "category": "性格分析"
+    },
+    {
+      "id": 11,
+      "title": "射手遇到天蝎",
+      "likes": 144,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "天蝎座"
+    },
+    {
+      "id": 12,
+      "title": "射手遇到狮子",
+      "likes": 190,
+      "is_pinned": false,
+      "category": "星座配对",
+      "paired_sign": "狮子座"
+    }
+  ],
+  "analysis": {
+    "total_notes": 12,
+    "total_likes": 2732,
+    "average_likes": 227.67,
+    "max_likes": 1203,
+    "min_likes": 17,
+    "median_likes": 85,
+    "categories": {
+      "星座配对": {
+        "count": 8,
+        "percentage": 66.67,
+        "average_likes": 103.5
+      },
+      "年度运势": {
+        "count": 1,
+        "percentage": 8.33,
+        "average_likes": 1203
+      },
+      "职业/实用": {
+        "count": 1,
+        "percentage": 8.33,
+        "average_likes": 523
+      },
+      "财运预测": {
+        "count": 1,
+        "percentage": 8.33,
+        "average_likes": 32
+      },
+      "性格分析": {
+        "count": 1,
+        "percentage": 8.33,
+        "average_likes": 46
+      }
+    },
+    "zodiac_pairing_ranking": [
+      {"sign": "狮子座", "likes": 190},
+      {"sign": "白羊座", "likes": 152},
+      {"sign": "天蝎座", "likes": 144},
+      {"sign": "处女座", "likes": 86},
+      {"sign": "金牛座", "likes": 84},
+      {"sign": "天秤座", "likes": 79},
+      {"sign": "巨蟹座", "likes": 76},
+      {"sign": "双子座", "likes": 17}
+    ],
+    "missing_zodiac_pairings": ["射手座", "摩羯座", "水瓶座", "双鱼座"]
+  },
+  "metadata": {
+    "crawl_date": "2026-01-12",
+    "data_source": "小红书网页端公开数据"
+  }
+}
