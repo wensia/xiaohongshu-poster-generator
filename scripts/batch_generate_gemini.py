@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-批量生成双子座性格独白风套图
+批量生成双子座性格独白风套图 - 修复版
 """
 import os
 import re
@@ -29,7 +29,20 @@ def parse_highlight(text: str) -> str:
     """将【词】转换为 SVG tspan 高亮"""
     def replace(m):
         return f'<tspan fill="#C4653A">{m.group(1)}</tspan>'
-    return re.sub(r'【([^】]+)】', replace, text)
+    # 先处理已有的 tspan 标签内部
+    result = re.sub(r'【([^】]+)】', replace, text)
+    # 确保非高亮文字有正确的颜色
+    if '<tspan' in result and not result.startswith('<tspan'):
+        # 将整行包装，但保留高亮部分
+        parts = re.split(r'(<tspan[^>]*>[^<]*</tspan>)', result)
+        wrapped = []
+        for part in parts:
+            if part.startswith('<tspan'):
+                wrapped.append(part)
+            elif part:
+                wrapped.append(f'<tspan fill="#3D3835">{part}</tspan>')
+        result = ''.join(wrapped)
+    return result
 
 
 def generate_content_lines(lines: list, y_start: int = 0, line_height: int = 61) -> str:
@@ -38,13 +51,11 @@ def generate_content_lines(lines: list, y_start: int = 0, line_height: int = 61)
     for i, line in enumerate(lines):
         y = y_start + i * line_height
         # 处理高亮
-        processed = parse_highlight(line)
-        if '【' not in line and '<tspan' not in processed:
-            # 纯文本行
-            result.append(f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="2">{line}</text>')
+        if '【' in line:
+            processed = parse_highlight(line)
+            result.append(f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="2">{processed}</text>')
         else:
-            # 包含高亮的行
-            result.append(f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" letter-spacing="2"><tspan fill="#3D3835">{processed}</tspan></text>')
+            result.append(f'    <text y="{y}" font-family="Noto Serif SC, serif" font-size="36" fill="#3D3835" letter-spacing="2">{line}</text>')
     return '\n'.join(result)
 
 
@@ -104,44 +115,55 @@ def parse_content(content: str) -> dict:
     return pages
 
 
-def generate_cover_svg(data: dict, topic: str) -> str:
-    """生成封面 SVG"""
+def generate_cover_svg(record: dict, topic: str) -> str:
+    """生成封面 SVG - 使用记录的标题和副标题"""
     with open(os.path.join(TEMPLATE_DIR, 'cover.svg'), 'r', encoding='utf-8') as f:
         template = f.read()
 
-    # 解析标题（支持换行）
-    title_parts = data.get('title', '').split('\n') if data.get('title') else ['', '']
+    # 从记录获取标题（两行）
+    title = record.get('title', '')
+    title_parts = title.split('\n')
     title_line1 = title_parts[0] if len(title_parts) > 0 else ''
     title_line2 = title_parts[1] if len(title_parts) > 1 else ''
 
-    # 处理封面内容
-    content = data.get('content', [])
-    subtitle = content[0] if len(content) > 0 else ''
-    tagline1 = content[1] if len(content) > 1 else ''
-    tagline2 = content[2] if len(content) > 2 else ''
+    # 副标题
+    subtitle = record.get('subtitle', '')
 
-    # 解析标语高亮
+    # 从正文内容中提取标语（第一页的核心表达）
+    content = record.get('content', '')
+    pages = parse_content(content)
+
+    # 获取封面的标语（从第一页内容提取）
+    tagline1 = ''
     tagline2_text = ''
     tagline2_highlight = ''
-    if '【' in tagline2:
-        match = re.match(r'(.*)【([^】]+)】(.*)', tagline2)
-        if match:
-            tagline2_text = match.group(1)
-            tagline2_highlight = match.group(2)
-    else:
-        tagline2_text = tagline2
 
-    # 处理主标题高亮
+    if len(pages) > 1 and pages[1]['type'] == 'page':
+        first_page = pages[1]
+        page_content = first_page.get('content', [])
+        if len(page_content) >= 2:
+            tagline1 = page_content[0].replace('【', '').replace('】', '')
+            tagline2 = page_content[-1] if len(page_content) > 1 else ''
+            # 解析标语高亮
+            if '【' in tagline2:
+                match = re.match(r'(.*)【([^】]+)】(.*)', tagline2)
+                if match:
+                    tagline2_text = match.group(1) + match.group(3)
+                    tagline2_highlight = match.group(2)
+            else:
+                tagline2_text = tagline2
+
+    # 处理主标题高亮（第一行）
     title_line1_processed = parse_highlight(title_line1)
 
     # 替换模板变量
     svg = template.replace('{{ZODIAC}}', '双子座')
     svg = svg.replace('{{TOPIC}}', topic)
     svg = svg.replace('{{ZODIAC_SVG}}', GEMINI_SVG)
-    svg = svg.replace('{{SUBTITLE}}', subtitle.replace('【', '').replace('】', ''))
+    svg = svg.replace('{{SUBTITLE}}', subtitle)
     svg = svg.replace('{{TITLE_LINE1}}', title_line1_processed)
     svg = svg.replace('{{TITLE_LINE2}}', title_line2)
-    svg = svg.replace('{{TAGLINE1}}', tagline1.replace('【', '').replace('】', ''))
+    svg = svg.replace('{{TAGLINE1}}', tagline1)
     svg = svg.replace('{{TAGLINE2_TEXT}}', tagline2_text)
     svg = svg.replace('{{TAGLINE2_HIGHLIGHT}}', tagline2_highlight)
     svg = svg.replace('{{PAGE_NUM}}', '0 1')
@@ -202,8 +224,13 @@ def generate_summary_svg(data: dict, topic: str, page_num: int) -> str:
     return svg
 
 
-def generate_poster_set(record_id: str, title: str, subtitle: str, content: str) -> list:
+def generate_poster_set(record: dict) -> dict:
     """为一条记录生成完整套图"""
+    record_id = record['record_id']
+    title = record['title']
+    subtitle = record['subtitle']
+    content = record['content']
+
     # 提取话题
     topic_match = re.search(r'【([^】]+)】', title)
     topic = topic_match.group(1) if topic_match else '性格独白'
@@ -223,8 +250,8 @@ def generate_poster_set(record_id: str, title: str, subtitle: str, content: str)
 
     for page_data in pages:
         if page_data['type'] == 'cover':
-            # 封面
-            svg_content = generate_cover_svg(page_data, topic)
+            # 封面 - 使用完整的 record 信息
+            svg_content = generate_cover_svg(record, topic)
             svg_path = os.path.join(output_dir, 'cover.svg')
             png_path = os.path.join(output_dir, 'cover.png')
         elif page_data['type'] == 'page':
@@ -263,7 +290,7 @@ def generate_poster_set(record_id: str, title: str, subtitle: str, content: str)
     }
 
 
-# 6条记录数据
+# 6条记录数据 - 包含完整的标题、副标题
 RECORDS = [
     {
         'record_id': 'recv86QzWGZV9u',
@@ -533,17 +560,12 @@ RECORDS = [
 
 
 if __name__ == '__main__':
-    print('🎨 开始批量生成双子座套图...\n')
+    print('🎨 开始批量生成双子座套图（修复版）...\n')
 
     results = []
     for record in RECORDS:
         print(f"📝 处理: {record['title'].replace(chr(10), ' ')}")
-        result = generate_poster_set(
-            record['record_id'],
-            record['title'],
-            record['subtitle'],
-            record['content']
-        )
+        result = generate_poster_set(record)
         results.append(result)
         print(f"   输出目录: {result['output_dir']}\n")
 
