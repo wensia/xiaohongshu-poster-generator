@@ -31,17 +31,17 @@
     </g>
   </g>
 
-  <!-- 章节标签 -->
-  <text x="100" y="220" font-family="Georgia, serif" font-size="26" fill="#C4653A" letter-spacing="8">EXTRA</text>
+  <!-- 章节标签 - 居中 -->
+  <text x="540" y="220" font-family="Georgia, serif" font-size="26" fill="#C4653A" letter-spacing="8" text-anchor="middle">EXTRA</text>
 
-  <!-- 章节标题 -->
-  <text x="100" y="310" font-family="Noto Serif SC, serif" font-size="64" font-weight="600" fill="#3D3835" letter-spacing="6">{{SECTION_TITLE}}</text>
+  <!-- 章节标题 - 居中 -->
+  <text x="540" y="310" font-family="Noto Serif SC, serif" font-size="64" font-weight="600" fill="#3D3835" letter-spacing="6" text-anchor="middle">{{SECTION_TITLE}}</text>
 
-  <!-- 分隔线 -->
-  <rect x="100" y="340" width="100" height="4" fill="#C4653A"/>
+  <!-- 分隔线 - 居中 -->
+  <rect x="490" y="340" width="100" height="4" fill="#C4653A"/>
 
-  <!-- 总结正文 -->
-  <g id="summary" transform="translate(100, 520)">
+  <!-- 总结正文 - 居中 -->
+  <g id="summary" transform="translate(540, 520)">
     {{CONTENT_LINES}}
   </g>
 
