@@ -3,7 +3,7 @@
 SVG/HTML 截图工具 - 使用 Playwright + Canvas API 实现精确 2x 截图
 
 使用方法:
-    from utils.screenshot import svg_to_png, html_to_png
+    from utils.screenshot import svg_to_png, html_to_png, render_template_to_png
 
     # SVG 转 PNG (2x 分辨率)
     svg_to_png('input.svg', 'output.png')
@@ -11,14 +11,23 @@ SVG/HTML 截图工具 - 使用 Playwright + Canvas API 实现精确 2x 截图
     # HTML 转 PNG (2x 分辨率)
     html_to_png('input.html', 'output.png')
 
-    # 批量转换
-    batch_svg_to_png(['1.svg', '2.svg'], 'output_dir/')
+    # 🌟 推荐方案：HTML模板 + 数据注入 → PNG
+    render_template_to_png(
+        template_path='cover.html',
+        output_path='output.png',
+        data={'zodiac': '射手座', 'title': '标题'}
+    )
+
+    # 批量渲染模板
+    batch_render_templates(pages_data, output_dir='./output')
 """
 
 import os
+import json
 import base64
 import asyncio
 from playwright.async_api import async_playwright
+from typing import Dict, List, Any, Optional
 
 
 # 默认画布尺寸 (小红书 3:4 比例)
@@ -280,6 +289,235 @@ def batch_svg_to_png(
     return results
 
 
+# ============================================
+# 🌟 推荐方案：HTML 模板 + 数据注入
+# ============================================
+
+def _inject_data_to_html(html_content: str, data: Dict[str, Any]) -> str:
+    """
+    在 HTML 内容中注入 window.POSTER_DATA
+
+    将数据注入到 </head> 标签之前，确保在 React 渲染之前数据就已可用
+    """
+    data_json = json.dumps(data, ensure_ascii=False)
+    injection = f"""
+    <script>
+      // 注入的海报数据 (由 screenshot.py 自动生成)
+      window.POSTER_DATA = {data_json};
+    </script>
+    """
+    return html_content.replace('</head>', injection + '</head>')
+
+
+async def _render_template_async(
+    template_path: str,
+    output_path: str,
+    data: Dict[str, Any],
+    width: int = DEFAULT_WIDTH,
+    height: int = DEFAULT_HEIGHT,
+    scale: int = DEFAULT_SCALE,
+    wait_time: int = 3000
+) -> bool:
+    """
+    异步渲染 HTML 模板并导出为 PNG
+
+    流程:
+    1. 读取 HTML 模板
+    2. 注入 window.POSTER_DATA
+    3. Playwright 加载并渲染
+    4. 使用 Canvas API 导出 PNG (避免截图偏移问题)
+    """
+    out_width = width * scale
+    out_height = height * scale
+
+    # 读取模板并注入数据
+    with open(template_path, 'r', encoding='utf-8') as f:
+        html_content = f.read()
+
+    html_with_data = _inject_data_to_html(html_content, data)
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page(viewport={'width': out_width, 'height': out_height})
+
+        # 直接设置 HTML 内容 (比 goto file:// 更可靠)
+        await page.set_content(html_with_data)
+
+        # 等待字体加载和 React 渲染
+        await page.wait_for_timeout(wait_time)
+
+        # 使用 Canvas API 导出 SVG → PNG
+        png_data_url = await page.evaluate(f'''() => {{
+            return new Promise((resolve, reject) => {{
+                const svg = document.querySelector('#poster-svg');
+                if (!svg) {{
+                    reject(new Error('No #poster-svg element found'));
+                    return;
+                }}
+
+                // Clone SVG 并设置输出尺寸
+                const svgClone = svg.cloneNode(true);
+                svgClone.setAttribute('width', '{out_width}');
+                svgClone.setAttribute('height', '{out_height}');
+
+                // 序列化为字符串
+                const svgString = new XMLSerializer().serializeToString(svgClone);
+                const blob = new Blob([svgString], {{type: 'image/svg+xml;charset=utf-8'}});
+                const url = URL.createObjectURL(blob);
+
+                // 绘制到 Canvas
+                const img = new Image();
+                img.onload = () => {{
+                    const canvas = document.createElement('canvas');
+                    canvas.width = {out_width};
+                    canvas.height = {out_height};
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, {out_width}, {out_height});
+                    URL.revokeObjectURL(url);
+                    resolve(canvas.toDataURL('image/png'));
+                }};
+                img.onerror = (e) => {{
+                    URL.revokeObjectURL(url);
+                    reject(new Error('Failed to load SVG as image'));
+                }};
+                img.src = url;
+            }});
+        }}''')
+
+        await browser.close()
+
+    # 解码并保存 PNG
+    png_b64 = png_data_url.split(',')[1]
+    png_bytes = base64.b64decode(png_b64)
+
+    os.makedirs(os.path.dirname(output_path) or '.', exist_ok=True)
+    with open(output_path, 'wb') as f:
+        f.write(png_bytes)
+
+    return True
+
+
+def render_template_to_png(
+    template_path: str,
+    output_path: str,
+    data: Dict[str, Any],
+    width: int = DEFAULT_WIDTH,
+    height: int = DEFAULT_HEIGHT,
+    scale: int = DEFAULT_SCALE,
+    wait_time: int = 3000
+) -> bool:
+    """
+    🌟 推荐方案：将 HTML 模板 + 数据渲染为 PNG
+
+    此方法解决了以下问题:
+    - 数据在页面加载前注入，确保 React 组件正确读取
+    - 使用 Canvas API 导出，避免 Playwright 元素截图的偏移问题
+    - 输出 2x 分辨率 (2160x2880)，满足小红书高清要求
+
+    参数:
+        template_path: HTML 模板文件路径 (需包含 React 组件和 #poster-svg)
+        output_path: 输出 PNG 文件路径
+        data: 要注入的数据字典 (将设置为 window.POSTER_DATA)
+        width: 画布宽度 (默认 1080)
+        height: 画布高度 (默认 1440)
+        scale: 缩放倍数 (默认 2, 即 2x 分辨率)
+        wait_time: 等待渲染时间 (毫秒, 默认 3000)
+
+    返回:
+        bool: 是否成功
+
+    示例:
+        render_template_to_png(
+            template_path='templates/cover.html',
+            output_path='output/cover.png',
+            data={
+                'zodiac': '射手座',
+                'topic': 'MBTI解读',
+                'titleLine1': '射手座最可能是',
+                'titleLine2': '什么MBTI'
+            }
+        )
+    """
+    return asyncio.run(_render_template_async(
+        template_path, output_path, data, width, height, scale, wait_time
+    ))
+
+
+def batch_render_templates(
+    pages_data: List[Dict[str, Any]],
+    output_dir: str,
+    template_dir: Optional[str] = None,
+    width: int = DEFAULT_WIDTH,
+    height: int = DEFAULT_HEIGHT,
+    scale: int = DEFAULT_SCALE,
+    wait_time: int = 3000
+) -> List[str]:
+    """
+    批量渲染多个 HTML 模板为 PNG
+
+    参数:
+        pages_data: 页面数据列表，每项包含:
+            - template: 模板文件名 (如 'cover.html')
+            - output: 输出文件名 (如 '01_cover.png')
+            - data: 要注入的数据字典
+        output_dir: 输出目录
+        template_dir: 模板目录 (可选，不指定则使用 template 字段的完整路径)
+        width: 画布宽度
+        height: 画布高度
+        scale: 缩放倍数
+        wait_time: 等待渲染时间
+
+    返回:
+        list: 成功生成的 PNG 文件路径列表
+
+    示例:
+        pages = [
+            {
+                'template': 'cover.html',
+                'output': '01_cover.png',
+                'data': {'zodiac': '射手座', 'titleLine1': '标题'}
+            },
+            {
+                'template': 'page.html',
+                'output': '02_page.png',
+                'data': {'zodiac': '射手座', 'partNum': '01'}
+            }
+        ]
+        batch_render_templates(pages, './output', './templates')
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    results = []
+    total = len(pages_data)
+
+    for i, page_info in enumerate(pages_data):
+        template_name = page_info.get('template', '')
+        output_name = page_info.get('output', f'page_{i+1}.png')
+        data = page_info.get('data', {})
+
+        # 确定模板路径
+        if template_dir:
+            template_path = os.path.join(template_dir, template_name)
+        else:
+            template_path = template_name
+
+        output_path = os.path.join(output_dir, output_name)
+
+        print(f"[{i+1}/{total}] 渲染 {output_name}...")
+
+        try:
+            render_template_to_png(
+                template_path, output_path, data,
+                width, height, scale, wait_time
+            )
+            size_kb = os.path.getsize(output_path) // 1024
+            print(f"    ✓ 完成 ({size_kb}KB)")
+            results.append(output_path)
+        except Exception as e:
+            print(f"    ✗ 失败: {e}")
+
+    return results
+
+
 # CLI 入口
 if __name__ == "__main__":
     import sys
@@ -287,17 +525,42 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         print("Usage: python screenshot.py <svg_file_or_pattern> [output_dir]")
-        print("Example: python screenshot.py '*.svg' ./output")
+        print("       python screenshot.py --template <html_file> --data '<json>' --output <png_file>")
+        print("")
+        print("Examples:")
+        print("  python screenshot.py '*.svg' ./output")
+        print("  python screenshot.py --template cover.html --data '{\"zodiac\":\"射手座\"}' --output cover.png")
         sys.exit(1)
 
-    pattern = sys.argv[1]
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else '.'
+    # 检查是否使用模板模式
+    if sys.argv[1] == '--template':
+        if len(sys.argv) < 7:
+            print("Error: --template mode requires --data and --output")
+            sys.exit(1)
 
-    svg_files = glob.glob(pattern)
-    if not svg_files:
-        print(f"No files found matching: {pattern}")
-        sys.exit(1)
+        template_path = sys.argv[2]
+        data_json = sys.argv[4]
+        output_path = sys.argv[6]
 
-    print(f"📸 开始截图 (3:4 比例, 2x 分辨率)...")
-    results = batch_svg_to_png(svg_files, output_dir)
-    print(f"✨ 完成! 共 {len(results)} 张")
+        try:
+            data = json.loads(data_json)
+        except json.JSONDecodeError as e:
+            print(f"Error: Invalid JSON data: {e}")
+            sys.exit(1)
+
+        print(f"📸 渲染模板: {template_path}")
+        render_template_to_png(template_path, output_path, data)
+        print(f"✨ 完成: {output_path}")
+    else:
+        # SVG 批量模式
+        pattern = sys.argv[1]
+        output_dir = sys.argv[2] if len(sys.argv) > 2 else '.'
+
+        svg_files = glob.glob(pattern)
+        if not svg_files:
+            print(f"No files found matching: {pattern}")
+            sys.exit(1)
+
+        print(f"📸 开始截图 (3:4 比例, 2x 分辨率)...")
+        results = batch_svg_to_png(svg_files, output_dir)
+        print(f"✨ 完成! 共 {len(results)} 张")
