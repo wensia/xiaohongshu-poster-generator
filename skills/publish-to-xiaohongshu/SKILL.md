@@ -1,192 +1,249 @@
 ---
-name: publishing-to-xiaohongshu
-description: Publishes content from Feishu Bitable records to Xiaohongshu (Little Red Book) with auto-generated copywriting. Use when the user wants to publish posters to Xiaohongshu, generate platform-specific captions (100-200 chars), batch publish records with generated images, or check Xiaohongshu login status.
+name: publish-to-xiaohongshu
+description: 使用 xiaohongshu-mcp 发布内容到小红书，发布成功后自动标记飞书记录为已发布。
+triggers: ["/publish-xhs", "/发布小红书", "/publish"]
 ---
 
-# 小红书自动发布器
+# 小红书发布器（xiaohongshu-mcp）
 
-从飞书多维表格拉取指定记录，自动生成文案并发布到小红书。
+使用 xiaohongshu-mcp 工具发布内容到小红书，发布成功后自动标记飞书多维表格的"已发布"字段。
 
 ---
 
-## 执行前检查（必须）
+## 核心工具
 
-**⚠️ 重要：在执行任何 MCP 操作前，Claude 必须先运行检查脚本。如果检查失败，立即中断并提示用户。**
+本 skill 使用 `xiaohongshu-mcp` MCP 服务，主要工具：
 
-### 步骤 1: 运行 MCP 状态检查
+| 工具名 | 功能 | 必需参数 |
+|--------|------|----------|
+| `mcp__xiaohongshu-mcp__check_login_status` | 检查登录状态 | 无 |
+| `mcp__xiaohongshu-mcp__publish_content` | 发布图文 | title, content, images |
+| `mcp__xiaohongshu-mcp__publish_with_video` | 发布视频 | title, content, video |
 
-```bash
-cd /Users/panyuhang/我的项目/编程/脚本/小红书封面生成
-# 检查小红书 MCP（自动启动服务）
-python3 skills/mcp_checker.py --check xiaohongshu --auto-start
+---
 
-# 如果需要从飞书获取数据，同时检查飞书 MCP
-python3 skills/mcp_checker.py --check all --auto-start
+## 飞书配置
+
+```
+app_token: Qt6Qbzzy6aWBgassGQhcUU5vngc
+table_id: tblyDtUqcfFMaDfO
 ```
 
-### 步骤 2: 根据返回结果决定是否继续
+### 关键字段
 
-**如果检查通过（退出码 0）：** 继续执行后续流程
+| 字段 | 说明 |
+|------|------|
+| 标题 | 海报标题 |
+| 正文内容 | 套图正文（用于生成小红书文案） |
+| 小红书文案 | 预设的发布文案（优先使用） |
+| 生成图片路径 | 本地图片目录路径 |
+| 已生成 | 图片是否已生成 |
+| **已发布** | **发布成功后必须标记为 true** |
 
-**如果检查失败（退出码 1）：**
-1. **立即中断**，不执行任何 MCP 调用
-2. 将错误信息和修复步骤展示给用户
-3. 等待用户完成修复后再重试
+---
 
-### 检查失败的常见情况及解决方案
+## 完整发布流程
 
-**情况 A: 小红书 MCP 服务未运行**
-
-```bash
-cd /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/xiaohongshu-mcp
-./xiaohongshu-mcp-darwin-arm64 -headless=true &
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    小红书发布完整流程                         │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. 检查小红书登录状态                                        │
+│     └── mcp__xiaohongshu-mcp__check_login_status            │
+│                    ↓                                        │
+│  2. 从飞书拉取记录                                           │
+│     ├── 保存 record_id（必须！用于后续标记已发布）            │
+│     ├── 获取图片路径                                         │
+│     └── 获取文案内容                                         │
+│                    ↓                                        │
+│  3. 准备发布内容                                             │
+│     ├── 标题（≤20字）                                       │
+│     ├── 正文（优先用"小红书文案"字段，否则 AI 生成）          │
+│     ├── 图片数组                                            │
+│     └── 话题标签（3-5个）                                    │
+│                    ↓                                        │
+│  4. 发布到小红书                                             │
+│     └── mcp__xiaohongshu-mcp__publish_content               │
+│                    ↓                                        │
+│  5. ⚠️ 【必须】标记飞书记录已发布                            │
+│     ├── 更新「已发布」= true                                 │
+│     └── 使用 Python requests 调用飞书 API                    │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**情况 B: 小红书未登录**
+---
 
+## 步骤详解
+
+### 步骤 1: 检查登录状态
+
+```
+调用: mcp__xiaohongshu-mcp__check_login_status
+```
+
+如果未登录，提示用户：
 ```bash
 cd /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/xiaohongshu-mcp
 ./xiaohongshu-login-darwin-arm64
 ```
 
-或使用自动登录（会启动登录窗口）：
+### 步骤 2: 从飞书获取记录
 
-```bash
-python3 skills/mcp_checker.py --check xiaohongshu --auto-login
+```python
+import requests
+
+# 获取 token
+token_url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+token_resp = requests.post(token_url, json={
+    "app_id": "cli_a9a7190fef38dbb5",
+    "app_secret": "CyANTKyK1HhZ569m9vasodAGqsjKwh1u"
+})
+token = token_resp.json()["tenant_access_token"]
+
+# 查询记录
+search_url = "https://open.feishu.cn/open-apis/bitable/v1/apps/Qt6Qbzzy6aWBgassGQhcUU5vngc/tables/tblyDtUqcfFMaDfO/records/search"
+resp = requests.post(search_url,
+    headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+    json={
+        "filter": {
+            "conjunction": "and",
+            "conditions": [{
+                "field_name": "标题",
+                "operator": "contains",
+                "value": ["<用户指定的标题>"]
+            }]
+        }
+    }
+)
+record = resp.json()["data"]["items"][0]
+record_id = record["record_id"]  # ⚠️ 必须保存！
 ```
 
-**情况 C: 飞书 MCP 未就绪**
+### 步骤 3: 准备发布内容
 
-参考 `generate-from-feishu` skill 的配置说明。
+**标题规则（≤20字）：**
+- 直接使用记录标题
+- 或提炼核心卖点
 
----
+**正文来源优先级：**
+1. 优先使用"小红书文案"字段内容
+2. 如果为空，AI 根据"正文内容"生成（100-200字）
 
-## 核心功能
+**话题标签（3-5个）：**
+```python
+# 根据内容自动生成
+tags = ["射手座", "星座", "12星座"]  # 必选
+# 根据主题添加
+if "配对" in content: tags.append("星座配对")
+if "性格" in content: tags.append("星座性格")
+```
 
-### 功能 1: 发布指定记录到小红书
-
-**用户说：** "发布标题为xxx的记录到小红书"
-
-**执行流程：**
-
-1. 从飞书表格查询指定记录
-2. 获取记录的图片路径
-3. 根据记录内容生成小红书文案
-4. 调用发布接口
+### 步骤 4: 发布到小红书
 
 ```
-调用 mcp__lark-mcp__bitable_v1_app_table_record_list
+调用: mcp__xiaohongshu-mcp__publish_content
 参数:
-- app_token: <LARK_BITABLE_APP_TOKEN>
-- table_id: <LARK_BITABLE_TABLE_ID>
-- filter: "CurrentValue.[标题] = \"<用户指定的标题>\""
+- title: "射手座的发疯文学语录"  # ≤20字
+- content: "发疯是一种解压方式..."  # 正文
+- images: ["/path/to/01.png", "/path/to/02.png", ...]  # 本地绝对路径
+- tags: ["射手座", "星座", "发疯文学"]  # 可选
 ```
 
-### 功能 2: 发布图文到小红书
+### 步骤 5: ⚠️ 【必须】标记飞书记录已发布
 
-**文案来源优先级：**
+**发布成功后，必须立即更新飞书记录！**
 
-1. **优先使用**：飞书表格中"小红书发送文案"字段的内容
-2. **备选方案**：如果该字段为空，则由 AI 根据模板生成文案
+```python
+import requests
 
-```
-# 判断逻辑
-if 记录["小红书发送文案"] 不为空:
-    content = 记录["小红书发送文案"]
+APP_TOKEN = "Qt6Qbzzy6aWBgassGQhcUU5vngc"
+TABLE_ID = "tblyDtUqcfFMaDfO"
+RECORD_ID = "<之前保存的 record_id>"
+
+# 获取 token
+token_url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+token_resp = requests.post(token_url, json={
+    "app_id": "cli_a9a7190fef38dbb5",
+    "app_secret": "CyANTKyK1HhZ569m9vasodAGqsjKwh1u"
+})
+token = token_resp.json()["tenant_access_token"]
+
+# 更新记录
+update_url = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{APP_TOKEN}/tables/{TABLE_ID}/records/{RECORD_ID}"
+resp = requests.put(
+    update_url,
+    headers={
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    },
+    json={
+        "fields": {
+            "已发布": True
+        }
+    }
+)
+
+if resp.json().get("code") == 0:
+    print("✅ 飞书记录已标记为已发布")
 else:
-    content = AI根据模板生成(星座, 标题, 副标题, 正文内容)
-```
-
-```
-调用 mcp__xiaohongshu__publish_content
-参数:
-- title: <标题，不超过20字>
-- content: <正文，不超过1000字>
-- images: [<图片路径数组，支持本地绝对路径或HTTP链接>]
-- tags: [<根据文案自动生成的话题标签数组>]
+    print(f"❌ 标记失败: {resp.json()}")
 ```
 
 ---
 
-## ⚠️ 自动生成话题标签（必须）
+## 使用示例
 
-**每次发布时，必须根据文案内容自动生成合适的话题标签（tags）。**
-
-### 标签生成规则
-
-1. **必选标签**（根据内容类型）：
-   - 星座类内容：`星座`、`{具体星座名}`（如"射手座"、"天蝎座"）
-   - 情感类内容：`情感`、`恋爱`
-   - 性格类内容：`星座性格`、`MBTI`
-
-2. **推荐标签**（提升曝光）：
-   - `12星座`
-   - `星座运势`
-   - `星座配对`
-   - `星座分析`
-
-3. **内容相关标签**（根据主题）：
-   | 主题类型 | 推荐标签 |
-   |----------|----------|
-   | 配对/恋爱 | `星座配对`、`恋爱`、`情感` |
-   | 性格/特点 | `星座性格`、`性格分析` |
-   | 黑化/反差 | `星座黑化`、`反差萌` |
-   | 放弃/分手 | `分手`、`情感` |
-   | 暧昧/追求 | `暧昧`、`恋爱技巧` |
-
-### 标签数量
-
-- **推荐 3-5 个标签**
-- 不要超过 8 个
-- 第一个标签应为最核心的（如具体星座名）
-
-### 示例
+### 发布指定记录
 
 ```
-文案主题: 射手座配对指南
-自动生成标签: ["射手座", "星座配对", "星座", "情感", "12星座"]
+用户: 发布"射手座的发疯文学语录"到小红书
 
-文案主题: 黑化后的射手有多恐怖
-自动生成标签: ["射手座", "星座黑化", "星座", "星座性格", "反差"]
+Claude 执行:
+1. 检查登录状态 → mcp__xiaohongshu-mcp__check_login_status
+2. 从飞书查询记录 → 获取 record_id, 图片路径, 文案
+3. 发布到小红书 → mcp__xiaohongshu-mcp__publish_content
+4. 标记飞书记录已发布 → Python requests 更新
+```
 
-文案主题: 放弃型射手
-自动生成标签: ["射手座", "星座", "情感", "分手", "12星座"]
+### 批量发布
+
+```
+用户: 发布所有已生成但未发布的记录
+
+Claude 执行:
+1. 查询飞书: 已生成=true AND 已发布=false
+2. 遍历每条记录:
+   - 发布到小红书
+   - 标记已发布
+3. 输出发布报告
 ```
 
 ---
 
-## 文案生成规则（重要）
+## 文案生成规则
 
-### 标题规则（不超过20字）
-
-从原标题提炼，保持吸引力：
+### 标题（≤20字）
 
 ```
-原标题: "别追了"
-小红书标题: "射手座：别追了，真的追不上"
+原标题: 射手座的发疯文学语录
+小红书标题: 射手座的发疯文学语录  # 直接使用，刚好20字内
 
-原标题: "选择困难"
-小红书标题: "天秤座的选择困难症有多严重"
+原标题: 射手座遇到处女座会怎样相处
+小红书标题: 射手遇处女：相处模式大揭秘  # 提炼核心
 ```
 
-### 正文规则（100-200字）
+### 正文（100-200字）
 
-**核心要求：**
-1. 段落清晰，2-4段为宜
-2. 语言简洁干净，不堆砌形容词
-3. 保留人味，避免AI腔调
-4. 适当使用口语化表达
-
-**防AI检测技巧：**
-- 加入个人视角："我发现..." / "说实话..."
-- 使用不完美表达："emmm" / "有点" / "好像"
+**防 AI 检测技巧：**
+- 加入个人视角："我发现..."、"说实话..."
+- 使用不完美表达："emmm"、"有点"、"好像"
 - 适当省略主语
 - 用短句，避免长复合句
-- 加入情绪词："笑死" / "真的会" / "太真实"
+- 加入情绪词："笑死"、"真的会"、"太真实"
 
-### 文案模板
-
-**星座性格类：**
+**模板示例：**
 ```
 {星座}就是这样的存在
 
@@ -199,61 +256,28 @@ else:
 所以别怪我们{行为}，这就是{星座}的日常啊
 ```
 
-**星座情感类：**
-```
-关于{星座}的{主题}
-
-emmm怎么说呢，{星座}在这方面确实有点{特点}
-
-{具体表现，2-3句}
-
-但其实{反转或补充}
-
-懂的都懂，不懂的...算了不解释了
-```
-
-**星座日常类：**
-```
-{星座}的日常真的很离谱
-
-就比如{场景描述}
-
-{具体行为1}
-{具体行为2}
-
-没错说的就是我自己，笑死
-```
-
 ---
 
-## 使用示例
+## 话题标签规则
 
-### 发布单条记录
+### 必选标签
+- 具体星座名（如"射手座"）
+- "星座"
+- "12星座"
 
-```
-发布标题为"别追了"的记录到小红书
-```
+### 主题标签
 
-### 发布指定ID
+| 主题 | 推荐标签 |
+|------|----------|
+| 配对 | 星座配对、恋爱 |
+| 性格 | 星座性格、性格分析 |
+| 黑化 | 星座黑化、反差 |
+| 情感 | 情感、恋爱 |
+| 发疯 | 发疯文学、精神状态 |
 
-```
-发布飞书ID为recXXXX的记录到小红书
-```
-
-### 批量发布
-
-```
-把飞书表格里已生成图片的记录都发布到小红书
-```
-
-### 自定义文案发布
-
-```
-用这个文案发布到小红书：
-标题：射手座真的太自由了
-内容：...
-图片：/path/to/image.png
-```
+### 标签数量
+- 推荐 3-5 个
+- 不超过 8 个
 
 ---
 
@@ -263,130 +287,10 @@ emmm怎么说呢，{星座}在这方面确实有点{特点}
 |--------|--------|
 | 标题长度 | ≤ 20 字 |
 | 正文长度 | ≤ 1000 字 |
-| 每日发帖量 | ≤ 50 篇（建议） |
+| 图片数量 | 1-18 张 |
 | 图片格式 | PNG/JPG |
-| 图片来源 | 本地绝对路径或 HTTP 链接 |
-
----
-
-## xiaohongshu-mcp 工具列表
-
-| 工具名 | 功能 | 必需参数 |
-|--------|------|----------|
-| `check_login_status` | 检查登录状态 | 无 |
-| `publish_content` | 发布图文 | title, content, images |
-| `publish_with_video` | 发布视频 | title, content, video |
-| `list_feeds` | 获取首页推荐 | 无 |
-| `search_feeds` | 搜索内容 | keyword |
-| `get_feed_detail` | 获取帖子详情 | feed_id, xsec_token |
-| `post_comment_to_feed` | 发表评论 | feed_id, xsec_token, content |
-| `user_profile` | 获取用户主页 | user_id, xsec_token |
-
----
-
-## 完整发布流程（重要）
-
-```
-用户: 发布"别追了"到小红书
-
-Claude 执行:
-1. 检查小红书登录状态 ✓
-2. 从飞书查询标题为"别追了"的记录
-3. 获取记录详情:
-   - 星座: 射手座
-   - 标题: 别追了
-   - record_id: recv6xxxxx（⚠️ 必须记录，用于后续标记已发布）
-   - 图片路径: /path/to/image.png
-   - 小红书发送文案: (可能为空)
-4. 确定发布文案:
-   - 如果"小红书发送文案"有内容 → 直接使用
-   - 如果为空 → AI 根据模板生成(100-200字)
-5. ⚠️【必须】根据文案自动生成话题标签:
-   - 分析文案主题（配对/黑化/放弃/性格等）
-   - 生成 3-5 个相关标签
-   - 示例: ["射手座", "星座", "情感", "12星座"]
-6. 调用 publish_content 发布:
-   - title: 射手座：别追了，追不上的
-   - content: <文案内容>
-   - images: [图片路径]
-   - tags: [自动生成的标签数组]
-7. ⚠️【必须】发布成功后，立即标记飞书记录为已发布:
-   - 调用 feishu_mark_published.sh 或直接更新记录
-   - "已发布" → true
-   - "小红书文案" → 实际发布的文案
-```
-
-### 流程图
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    小红书发布完整流程                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. 从飞书拉取记录                                           │
-│     ├── 记录 record_id（必须保存！）                         │
-│     ├── 获取图片路径                                         │
-│     └── 获取文案内容                                         │
-│                    ↓                                        │
-│  2. 自动生成话题标签                                         │
-│     ├── 分析文案主题                                         │
-│     ├── 匹配标签规则                                         │
-│     └── 生成 3-5 个标签                                      │
-│                    ↓                                        │
-│  3. 发布到小红书                                             │
-│     ├── title + content + images + tags                     │
-│     └── 确认发布成功                                         │
-│                    ↓                                        │
-│  4. ⚠️ 回写飞书（必须！）                                    │
-│     ├── 标记「已发布」= true                                 │
-│     └── 记录发布的文案                                       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## ⚠️ 发布后必须回写飞书（重要）
-
-**发布成功后，必须立即更新飞书记录的"已发布"字段为 true。**
-
-### 方式一：使用工具脚本（推荐）
-
-```bash
-cd "/Users/panyuhang/我的项目/编程/脚本/小红书封面生成"
-./scripts/feishu_mark_published.sh <record_id> "<发布的文案>"
-
-# 示例
-./scripts/feishu_mark_published.sh recv6ycsM6G5kD "射手宝宝们，遇到这三个星座..."
-```
-
-### 方式二：手动 API 调用
-
-```bash
-cd "/Users/panyuhang/我的项目/编程/脚本/小红书封面生成"
-source .env
-
-RECORD_ID="<记录ID>"
-CONTENT="<发布的文案>"
-
-# 获取 Token
-TOKEN=$(curl -s "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal" \
-  -H "Content-Type: application/json" \
-  -d "{\"app_id\": \"$LARK_APP_ID\", \"app_secret\": \"$LARK_APP_SECRET\"}" | jq -r '.tenant_access_token')
-
-# 更新记录
-curl -s -X PUT "https://open.feishu.cn/open-apis/bitable/v1/apps/$LARK_BITABLE_APP_TOKEN/tables/$LARK_BITABLE_TABLE_ID/records/$RECORD_ID" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "{\"fields\": {\"已发布\": true, \"小红书文案\": \"$CONTENT\"}}"
-```
-
-### 失败处理
-
-如果回写失败：
-1. 记录失败的 record_id
-2. 提示用户手动在飞书中勾选"已发布"
-3. 不影响发布成功的状态
+| 图片来源 | 本地绝对路径 |
+| 每日发帖量 | ≤ 50 篇（建议） |
 
 ---
 
@@ -394,22 +298,31 @@ curl -s -X PUT "https://open.feishu.cn/open-apis/bitable/v1/apps/$LARK_BITABLE_A
 
 ### 小红书未登录
 
-提示用户运行登录工具：
-
 ```bash
-cd xiaohongshu-mcp && ./xiaohongshu-login-darwin-arm64
+cd /Users/panyuhang/我的项目/编程/脚本/小红书封面生成/xiaohongshu-mcp
+./xiaohongshu-login-darwin-arm64
 ```
 
 ### 图片路径无效
 
-检查图片是否存在，路径是否为绝对路径。
+确保使用绝对路径，如：
+```
+/Users/panyuhang/我的项目/编程/脚本/小红书封面生成/output/发疯文学语录/01_封面.png
+```
 
 ### 发布失败
 
 检查：
-1. 标题是否超过20字
-2. 正文是否超过1000字
-3. 账号是否被限流
+1. 标题是否超过 20 字
+2. 账号是否被限流
+3. 图片是否存在
+
+### 飞书标记失败
+
+如果 API 调用失败：
+1. 记录失败的 record_id
+2. 提示用户手动勾选"已发布"
+3. 不影响发布成功的状态
 
 ---
 
@@ -417,15 +330,13 @@ cd xiaohongshu-mcp && ./xiaohongshu-login-darwin-arm64
 
 | 文件 | 说明 |
 |------|------|
-| `.mcp.json` | MCP 服务配置 |
-| `scripts/feishu_mark_published.sh` | **发布后回写脚本** |
+| `skills/publish-to-xiaohongshu/SKILL.md` | 本技能文档 |
+| `skills/_shared/feishu-config.md` | 飞书配置 |
 | `xiaohongshu-mcp/` | 小红书 MCP 服务 |
 | `xiaohongshu-mcp/cookies.json` | 登录凭证 |
-| `skills/publish-to-xiaohongshu/SKILL.md` | 本技能文档 |
-| `skills/generate-from-feishu/` | 飞书集成 |
 
 ---
 
-## 参考来源
+## 参考
 
-基于 [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) 项目。
+- [xpzouying/xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp)
