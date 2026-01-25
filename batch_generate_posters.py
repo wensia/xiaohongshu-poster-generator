@@ -385,14 +385,14 @@ def generate_page_html(page_data, zodiac, topic, page_num):
       position: absolute;
       top: 280px;
       left: 100px;
-      font-size: 64px;
+      font-size: 56px;
       font-weight: 600;
       color: {COLORS['textPrimary']};
       letter-spacing: 6px;
     }}
     .section-divider {{
       position: absolute;
-      top: 340px;
+      top: 370px;
       left: 100px;
       width: 100px;
       height: 4px;
@@ -400,7 +400,7 @@ def generate_page_html(page_data, zodiac, topic, page_num):
     }}
     .content {{
       position: absolute;
-      top: 500px;
+      top: 460px;
       left: 100px;
       right: 100px;
     }}
